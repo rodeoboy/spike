@@ -19,7 +19,7 @@ export default class AlignerCalculator extends React.Component<Props, any> {
                 <input
                     value = { this.state.visitInterval }
                     type="number"
-                    onChange = { this.onBlurCalc } />
+                    onChange = { e => this.onBlurCalc(e) } />
             </div>
         );
     }

@@ -245,3 +245,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Mocha temp folder for generated files
+./tmp/mocha-webpack
