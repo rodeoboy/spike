@@ -17,6 +17,9 @@
       "react": ["./node_modules/@types/react/index"]
     }
   },
+  "include": [
+    "ClientApp"
+  ],
   "exclude": [
       "bin",
       "node_modules"

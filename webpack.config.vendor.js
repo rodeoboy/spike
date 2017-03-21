@@ -29,7 +29,9 @@ module.exports = (env) => {
                 'redux-thunk',
                 'react-router-redux',
                 'style-loader',
-                'jquery'
+                'jquery',
+                'mocha',
+                'chai'
             ],
         },
         output: {
