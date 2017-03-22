@@ -7,9 +7,30 @@ export const visitAlignerReducer: Reducer<VisitAligner> = (state: VisitAligner, 
 
     switch (action.type) {
         case 'UPDATE_ALIGNERS':
-            var alingerCount = action.visitAligner.visitInterval / action.visitAligner.wearInterval;
-            updatedState.lastUpperAligner = action.visitAligner.firstUpperAligner + alingerCount -1;
-            updatedState.lastLowerAligner = action.visitAligner.firstLowerAligner + alingerCount -1;
+            var alingerCount = action.visitAligner.visitInterval / action.visitAligner.wearInterval - 1;
+
+            updatedState.lastUpperAligner = action.visitAligner.firstUpperAligner
+            updatedState.lastLowerAligner = action.visitAligner.firstLowerAligner
+
+            if (action.visitAligner.firstUpperAligner !== 0)
+                updatedState.lastUpperAligner += alingerCount;
+
+            if (action.visitAligner.firstLowerAligner !== 0)
+                updatedState.lastLowerAligner += alingerCount;
+
+            //Set the last number on upper the same as lower for staggared starts
+            if (state.firstUpperAligner > state.firstLowerAligner &&
+                updatedState.lastLowerAligner >= state.firstUpperAligner ) {
+                    updatedState.lastUpperAligner = updatedState.lastLowerAligner;
+            }
+
+            //Set the last number on upper the same as lower for staggared starts
+            if (state.firstLowerAligner > state.firstUpperAligner &&
+                updatedState.lastUpperAligner >= state.firstLowerAligner ) {
+                    updatedState.lastLowerAligner = updatedState.lastUpperAligner;
+            }
+
+
             return updatedState;
         case 'UPDATE_VISIT_INTERVAL':
             var count = getMaxAlignerCount(action.visitAligner);
