@@ -2,7 +2,7 @@
   "name": "Aligner4d",
   "version": "0.0.0",
   "scripts": {
-    "test": "mocha --require ./tools/testSetup.js --reporter progress --compilers ts:ts-node/register,tsx:ts-node/register ClientApp/**/*.spec.ts*"
+    "test": "mocha --require ./tools/testSetup.js --reporter spec --compilers ts:ts-node/register,tsx:ts-node/register ClientApp/**/*.spec.ts*"
   },
   "dependencies": {
     "@types/history": "^2.0.0",

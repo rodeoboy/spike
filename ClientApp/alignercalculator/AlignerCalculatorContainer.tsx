@@ -12,12 +12,12 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
     constructor(props : Props) {
         super(props);
         this.state = {
-            visitInterval : 10,
-            wearInterval : 2,
-            firstUpperAligner: 1,
-            lastUpperAligner: 5,
-            firstLowerAligner: 1,
-            lastLowerAligner: 5,            
+            visitInterval : 0,
+            wearInterval : 0,
+            firstUpperAligner: 0,
+            lastUpperAligner: 0,
+            firstLowerAligner: 0,
+            lastLowerAligner: 0,            
         };
 
         this.handleVisitIntervalInput = this.handleVisitIntervalInput.bind(this);
@@ -28,6 +28,17 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
         this.handleLastLowerInput = this.handleLastLowerInput.bind(this);
     }
     
+    componentDidMount() {
+        this.setState({
+            visitInterval : 8,
+            wearInterval : 2,
+            firstUpperAligner: 1,
+            lastUpperAligner: 0,
+            firstLowerAligner: 1,
+            lastLowerAligner: 0,            
+        });
+    }
+
     handleVisitIntervalInput(interval) {
         this.setState({
             visitInterval: interval
