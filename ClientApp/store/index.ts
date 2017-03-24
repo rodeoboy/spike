@@ -1,8 +1,11 @@
+import * as AlignerCalculator from '../alignercalculator/AlignerCalculatorReducer';
+import * as VisitAlignerState from '../alignercalculator/alignerVisitModel'
 import * as WeatherForecasts from './WeatherForecasts';
 import * as Counter from './Counter';
 
 // The top-level state object
 export interface ApplicationState {
+    visitAligner: VisitAlignerState.VisitAligner,
     counter: Counter.CounterState,
     weatherForecasts: WeatherForecasts.WeatherForecastsState
 }
@@ -11,6 +14,7 @@ export interface ApplicationState {
 // the reducer with the matching name. It's important that the names match exactly, and that the reducer
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
+    visitAligner: AlignerCalculator.reducer,
     counter: Counter.reducer,
     weatherForecasts: WeatherForecasts.reducer
 };

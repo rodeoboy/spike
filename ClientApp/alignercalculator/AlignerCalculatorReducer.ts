@@ -2,46 +2,56 @@ import { Reducer } from 'redux';
 import { KnownAction } from './AlignerCalculatorAction'
 import { VisitAligner } from './alignerVisitModel'
 
-export const visitAlignerReducer: Reducer<VisitAligner> = (state: VisitAligner, action: KnownAction) => {
-    var updatedState = Object.assign({}, state);
+export const reducer: Reducer<VisitAligner> = (state: VisitAligner, action: KnownAction) => {
 
+    const unloadedState : VisitAligner  = {
+        visitInterval : 0,
+        wearInterval : 0,
+        firstUpperAligner : 0,
+        lastUpperAligner : 0,
+        firstLowerAligner : 0,
+        lastLowerAligner : 0,     
+        planLowerStart : 0,
+        planUpperStart : 0,
+        treatmentVisitInteval : 0,
+        treatmentWearInterval : 0,   
+        isMidTreatment : false,    
+    };
     switch (action.type) {
         case 'UPDATE_ALIGNERS':
             var alingerCount = action.visitAligner.visitInterval / action.visitAligner.wearInterval - 1;
 
-            updatedState.lastUpperAligner = action.visitAligner.firstUpperAligner
-            updatedState.lastLowerAligner = action.visitAligner.firstLowerAligner
-
             if (action.visitAligner.firstUpperAligner !== 0)
-                updatedState.lastUpperAligner += alingerCount;
+                action.visitAligner.lastUpperAligner = action.visitAligner.firstUpperAligner + alingerCount;
 
             if (action.visitAligner.firstLowerAligner !== 0)
-                updatedState.lastLowerAligner += alingerCount;
-
+                action.visitAligner.lastLowerAligner = action.visitAligner.firstLowerAligner + alingerCount;
+            debugger;
             //Set the last number on upper the same as lower for staggared starts
-            if (state.firstUpperAligner > state.firstLowerAligner &&
-                updatedState.lastLowerAligner >= state.firstUpperAligner ) {
-                    updatedState.lastUpperAligner = updatedState.lastLowerAligner;
+            if (action.visitAligner.firstUpperAligner > action.visitAligner.firstLowerAligner &&
+                action.visitAligner.lastLowerAligner >= action.visitAligner.firstUpperAligner ) {
+                    action.visitAligner.lastUpperAligner = action.visitAligner.lastLowerAligner;
             }
 
             //Set the last number on upper the same as lower for staggared starts
-            if (state.firstLowerAligner > state.firstUpperAligner &&
-                updatedState.lastUpperAligner >= state.firstLowerAligner ) {
-                    updatedState.lastLowerAligner = updatedState.lastUpperAligner;
+            if (action.visitAligner.firstLowerAligner > action.visitAligner.firstUpperAligner &&
+                action.visitAligner.lastUpperAligner >= action.visitAligner.firstLowerAligner ) {
+                    action.visitAligner.lastLowerAligner = action.visitAligner.lastUpperAligner;
             }
 
-
-            return updatedState;
+            return Object.assign({}, state, action.visitAligner);
         case 'UPDATE_VISIT_INTERVAL':
             var count = getMaxAlignerCount(action.visitAligner);
 
-            updatedState.visitInterval = Math.floor(count * action.visitAligner.wearInterval);
-            return updatedState;
+            action.visitAligner.visitInterval = Math.floor(count * action.visitAligner.wearInterval);
+
+            return Object.assign({}, state, action.visitAligner);
         case 'UPDATE_WEAR_INTERVAL':
             var count = getMaxAlignerCount(action.visitAligner);
 
-            updatedState.wearInterval = Math.floor(action.visitAligner.visitInterval / count);
-            return updatedState;
+            action.visitAligner.wearInterval = Math.floor(action.visitAligner.visitInterval / count);
+
+            return Object.assign({}, state, action.visitAligner);
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;
@@ -55,5 +65,5 @@ export const visitAlignerReducer: Reducer<VisitAligner> = (state: VisitAligner, 
     }
     // For unrecognized actions (or in cases where actions have no effect), must return the existing state
     //  (or default initial state if none was supplied)
-    return state ;
+    return state || unloadedState;
 };

@@ -23,6 +23,7 @@ describe("<AlignerVisitInterval/>", () => {
 describe("<AlignerCalculator/>", () => {
 
         it('should have visit iterval', () => {
+                debugger;
                 const wrapper = shallow(<AlignerCalculator />);
                 expect(wrapper.find(AlignerVisitInterval)).to.have.length(1);                
         });

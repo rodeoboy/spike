@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router';
+import FontAwesome = require("react-fontawesome");
 
 export class NavMenu extends React.Component<void, void> {
     public render() {
@@ -34,7 +35,7 @@ export class NavMenu extends React.Component<void, void> {
                         </li>
                         <li>
                             <Link to={ '/alignercalculator' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-th-list'></span> Calculate
+                                <FontAwesome name='calculator' /> Aligner Calculator
                             </Link>
                         </li>
                     </ul>

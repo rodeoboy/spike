@@ -1,25 +1,53 @@
 import * as React from 'react';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import ReactTimeout from 'react-timeout';
 import AlignerVisitInterval from './AlignerVisitInterval';
 import AlignerWearInterval from './AlignerWearInterval';
 import AlignerNumbers from './AlignerNumbers';
+import * as actions from './AlignerCalculatorAction';
+import { VisitAligner } from './alignerVisitModel';
+import { KnownAction } from './AlignerCalculatorAction';
+import { ApplicationState }  from '../store';
+import FontAwesome = require("react-fontawesome");
 
-interface Props {
-    // ...
-    childern: any;
+
+interface IVisitAlignerProps {
+    actions: KnownAction;
+    visitInterval : number;
+    wearInterval : number;
+    firstUpperAligner: number;
+    lastUpperAligner: number;
+    firstLowerAligner: number;
+    lastLowerAligner: number;
+    planLowerStart : number;
+    planUpperStart : number;
+    treatmentVisitInteval : number;
+    treatmentWearInterval : number;   
+    isMidTreatment : boolean;  
+}
+
+interface IVisitAlignerState {
+    visitAligner: VisitAligner
 }
 
 class AlignerCalculatorContainer extends React.Component<any, any> {
-    constructor(props : Props) {
-        super(props);
+    constructor(props, state) {
+        super(props, state);
+        debugger;
         this.state = {
             visitInterval : 0,
             wearInterval : 0,
-            firstUpperAligner: 0,
-            lastUpperAligner: 0,
-            firstLowerAligner: 0,
-            lastLowerAligner: 0,            
+            firstUpperAligner : 0,
+            lastUpperAligner : 0,
+            firstLowerAligner : 0,
+            lastLowerAligner : 0,     
+            planLowerStart : 0,
+            planUpperStart : 0,
+            treatmentVisitInteval : 0,
+            treatmentWearInterval : 0,   
+            isMidTreatment : false,    
         };
-
         this.handleVisitIntervalInput = this.handleVisitIntervalInput.bind(this);
         this.handleWearIntervalInput = this.handleWearIntervalInput.bind(this);
         this.handleFirstUpperInput = this.handleFirstUpperInput.bind(this);
@@ -27,70 +55,61 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
         this.handleFirstLowerInput = this.handleFirstLowerInput.bind(this);
         this.handleLastLowerInput = this.handleLastLowerInput.bind(this);
     }
-    
-    componentDidMount() {
-        this.setState({
-            visitInterval : 8,
-            wearInterval : 2,
-            firstUpperAligner: 1,
-            lastUpperAligner: 0,
-            firstLowerAligner: 1,
-            lastLowerAligner: 0,            
-        });
-    }
 
     handleVisitIntervalInput(interval) {
-        this.setState({
-            visitInterval: interval
-        });
+        this.setState({visitInterval: interval});
+        this.props.actions.updateAligners(this.state.visitAligner);
     }
 
     handleWearIntervalInput(interval) {
-        this.setState({
-            wearInterval: interval
-        });
     }
 
     handleFirstUpperInput(aligner) {
-        this.setState({
-            firstUpperAligner: aligner
-        });
     }
 
     handleLastUpperInput(aligner) {
-        this.setState({
-            lastUpperAligner: aligner
-        });
     }
 
     handleFirstLowerInput(aligner) {
-        this.setState({
-            firstLowerAligner: aligner
-        });
     }
 
     handleLastLowerInput(aligner) {
-        this.setState({
-            lastLowerAligner: aligner
-        });
     }
 
     public render() {
+        let boundActionCreators = this.props.actions;
         return ( 
             <div className="container-fluid">
                 <div>{this.state.visitInterval} / {this.state.wearInterval}</div>
-                <AlignerVisitInterval visitInterval={this.state.visitInterval} onVisitIntervalInputChange={this.handleVisitIntervalInput} />
-                <AlignerNumbers 
+                <AlignerNumbers wearInterval={this.state.wearInterval} visitInterval={this.state.visitInterval}
                     firstUpperAligner={this.state.firstUpperAligner} lastUpperAligner={this.state.lastUpperAligner} 
                     firstLowerAligner={this.state.firstLowerAligner} lastLowerAligner={this.state.lastLowerAligner}
                     onFirstUpperAlignerInputChange={this.handleFirstUpperInput}
                     onLastUpperAlignerInputChange={this.handleLastUpperInput}
                     onFirstLowerAlignerInputChange={this.handleFirstLowerInput}
-                    onLastLowerAlignerInputChange={this.handleLastLowerInput} />
-                <AlignerWearInterval wearInterval={this.state.wearInterval} onWearIntervalInputChange={this.handleWearIntervalInput} />
-            </div>
+                    onLastLowerAlignerInputChange={this.handleLastLowerInput} 
+                    onWearIntervalInputChange={this.handleWearIntervalInput}
+                    onVisitIntervalInputChange={this.handleVisitIntervalInput} />
+                </div>
         );
     }
 }
 
-export default AlignerCalculatorContainer;
+function mapStateToProps(state, ownProps) {
+
+    return {
+        visitAligner: state.visitAligner
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+
+    return {
+        actions: bindActionCreators(actions.actionCreators, dispatch)
+    };
+}
+
+ export default connect(
+     (state: ApplicationState) => state.visitAligner, 
+     actions.actionCreators)
+     (AlignerCalculatorContainer);

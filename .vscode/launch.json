@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
@@ -37,6 +38,14 @@
             "type": "coreclr",
             "request": "attach",
             "processId": "${command.pickProcess}"
-        }
+        },
+		{
+			"name": "Debug Mocha Test",
+			"type": "node",
+            "request": "attach",
+			"address": "localhost",
+			"port": 5858,
+			"sourceMaps": false
+		}
     ]
 }

@@ -8,7 +8,7 @@ interface UpdateWearIntervalAction { type: 'UPDATE_WEAR_INTERVAL', visitAligner:
 export type KnownAction = UpdateAlignersAction | UpdateVisitIntervalAction | UpdateWearIntervalAction;
 
 export const actionCreators = {
-    updateAligners: (visitAligner) => <UpdateAlignersAction>{ type: 'UPDATE_ALIGNERS', visitAligner },
-    updateVisitInterval: (visitAligner) => <UpdateVisitIntervalAction>{ type: 'UPDATE_VISIT_INTERVAL', visitAligner },
-    updateWearInterval: (visitAligner) => <UpdateWearIntervalAction>{ type: 'UPDATE_WEAR_INTERVAL', visitAligner }
+    updateAligners: (visitAligner: VisitAligner ) => <UpdateAlignersAction>{ type: 'UPDATE_ALIGNERS', visitAligner },
+    updateVisitInterval: (visitAligner: VisitAligner ) => <UpdateVisitIntervalAction>{ type: 'UPDATE_VISIT_INTERVAL', visitAligner },
+    updateWearInterval: (visitAligner: VisitAligner ) => <UpdateWearIntervalAction>{ type: 'UPDATE_WEAR_INTERVAL', visitAligner }
 };
