@@ -1,3 +1,5 @@
+/*@import "./o4d-bootstrap-theme.css";*/
+
 .main-nav li .glyphicon {
     margin-right: 10px;
 }
@@ -14,6 +16,25 @@
     outline: none;
     background: none;
 }
+
+.hidden {
+    display: none;
+}
+
+.topLinkLine {
+    height: 10px;
+    width: 20px;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.bottomLinkLine {
+    height: 10px;
+    width: 20px;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+}
+
 /* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
     position: fixed;

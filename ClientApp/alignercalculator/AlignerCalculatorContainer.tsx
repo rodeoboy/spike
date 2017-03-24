@@ -82,6 +82,7 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
             <div className="container-fluid">
                 <div>{this.state.visitInterval} / {this.state.wearInterval}</div>
                 <AlignerNumbers wearInterval={this.state.wearInterval} visitInterval={this.state.visitInterval}
+                    isUpperLowerLinked={true} isVisitIntervalAlignersLinked={true} isWearIntervalLocked={true}
                     firstUpperAligner={this.state.firstUpperAligner} lastUpperAligner={this.state.lastUpperAligner} 
                     firstLowerAligner={this.state.firstLowerAligner} lastLowerAligner={this.state.lastLowerAligner}
                     onFirstUpperAlignerInputChange={this.handleFirstUpperInput}
