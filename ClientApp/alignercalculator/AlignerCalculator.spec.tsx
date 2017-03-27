@@ -1,12 +1,19 @@
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import {expect, assert} from 'chai';
 import "mocha";
 import * as React from 'react';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
+import { storeFake } from './storeFake';
 import AlignerVisitInterval from './AlignerVisitInterval';
 import AlignerCalculator from './AlignerCalculatorContainer'
 import AlignerWearInterval from './AlignerWearInterval';
 import AlignerNumbers from './AlignerNumbers';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore({});
 
 describe("<AlignerVisitInterval/>", () => {
         let props = { 
@@ -22,10 +29,25 @@ describe("<AlignerVisitInterval/>", () => {
 
 describe("<AlignerCalculator/>", () => {
 
+	let Component;
+
+	beforeEach(() => {
+		const store = mockStore({});
+debugger;
+		const wrapper = mount(
+			<Provider  store={store} >
+				<AlignerCalculator />
+			</Provider>
+		);
+
+		Component = wrapper.find(AlignerCalculator);
+		//AlignerCalculator = Component.find(Choice);
+	});
+
         it('should have visit iterval', () => {
                 debugger;
-                const wrapper = shallow(<AlignerCalculator />);
-                expect(wrapper.find(AlignerVisitInterval)).to.have.length(1);                
+                //const wrapper = shallow(<AlignerCalculator store={store}/>);
+                expect(Component.find(AlignerVisitInterval)).to.have.length(1);                
         });
 
         it(' visit iterval should have props', () => {

@@ -35,7 +35,8 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
     constructor(props, state) {
         super(props, state);
         debugger;
-        this.state = {
+        this.state = {};
+        this.state.visitAligner = {
             visitInterval : 0,
             wearInterval : 0,
             firstUpperAligner : 0,
