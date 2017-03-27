@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { storeFake } from './storeFake';
 import AlignerVisitInterval from './AlignerVisitInterval';
 import AlignerCalculator from './AlignerCalculatorContainer'
 import AlignerWearInterval from './AlignerWearInterval';
@@ -30,11 +29,12 @@ describe("<AlignerVisitInterval/>", () => {
 describe("<AlignerCalculator/>", () => {
 
 	let Component;
+        let wrapper;
 
 	beforeEach(() => {
 		const store = mockStore({});
-debugger;
-		const wrapper = mount(
+
+		wrapper = mount(
 			<Provider  store={store} >
 				<AlignerCalculator />
 			</Provider>
@@ -45,46 +45,32 @@ debugger;
 	});
 
         it('should have visit iterval', () => {
-                debugger;
-                //const wrapper = shallow(<AlignerCalculator store={store}/>);
-                expect(Component.find(AlignerVisitInterval)).to.have.length(1);                
+                expect(Component.find(AlignerNumbers)).to.have.length(1);                
         });
 
         it(' visit iterval should have props', () => {
-                const wrapper = shallow(<AlignerCalculator />);
-                const visitInterval = wrapper.find(AlignerVisitInterval);
-                expect(Object.keys(visitInterval.props())).to.have.length(2);                
+                const aligners = Component.find(AlignerNumbers);
+                expect(Object.keys(aligners.props())).to.have.length(17);                
         });
 
         it(' visit iterval should have method', () => {
-                const wrapper = shallow(<AlignerCalculator />);
-                const visitInterval = wrapper.find(AlignerVisitInterval);
-                //expect(visitInterval.props().onVisitIntervalInputChange).to.be(wrapper);                
+                const aligners = Component.find(AlignerNumbers);
+                expect(aligners.props().onVisitIntervalInputChange).to.be(wrapper);                
         });
 
         it('should update visit iterval', () => {
-                const wrapper = shallow(<AlignerCalculator />);
                 const state = { visitInterval: 12 };
                 wrapper.setState(state);
-                const visitIntervalComponent = wrapper.find(AlignerVisitInterval);
-                expect(visitIntervalComponent.props().visitInterval).to.be.equal(12);                
-        });
-
-        it('should have wear iterval', () => {
-                const wrapper = shallow(<AlignerCalculator />);
-                expect(wrapper.find(AlignerWearInterval)).to.have.length(1);                
+                const aligners = Component.find(AlignerNumbers);
+                debugger;
+                expect(aligners.state.visitInterval).to.be.equal(12);                
         });
 
         it('should update wear iterval', () => {
-                const wrapper = shallow(<AlignerCalculator />);
                 const state = { wearInterval: 3 };
                 wrapper.setState(state);
-                const wearIntervalComponent = wrapper.find(AlignerWearInterval);
-                expect(wearIntervalComponent.props().wearInterval).to.be.equal(3);                
-        });
-
-        it('should have aligner numbers', () => {
-                const wrapper = shallow(<AlignerCalculator />);
-                expect(wrapper.find(AlignerNumbers)).to.have.length(1);                
+                const aligners = Component.find(AlignerNumbers);
+                debugger;
+                expect(aligners.state.wearInterval).to.be.equal(3);                
         });
 });

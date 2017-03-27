@@ -14,13 +14,14 @@ interface Props {
     isWearIntervalLocked: boolean;
     //upperLowerLinkedStyle: string;
     //vistiIntervalAlignerLinkedStyle: string;
-    //wearIntervalLockedStyle: string;
+    wearIntervalLockedStyle: string;
     onWearIntervalInputChange: any;
     onFirstUpperAlignerInputChange;
     onLastUpperAlignerInputChange;
     onFirstLowerAlignerInputChange;
     onLastLowerAlignerInputChange;
     onVisitIntervalInputChange;
+    onLinkClick;
 }
 
 export default class AlignerNumbers extends React.Component<Props, any> {
@@ -30,9 +31,9 @@ export default class AlignerNumbers extends React.Component<Props, any> {
         this.handleLastUpperAlignerInputChange = this.handleLastUpperAlignerInputChange.bind(this);
         this.handleFirstLowerAlignerInputChange = this.handleFirstLowerAlignerInputChange.bind(this);
         this.handleLastLowerAlignerInputChange = this.handleLastLowerAlignerInputChange.bind(this);
+        this.handleVisitIntervalInputChange = this.handleVisitIntervalInputChange.bind(this);
         this.handleWearIntervalInputChange = this.handleWearIntervalInputChange.bind(this);
-        this.handleWearIntervalInputChange = this.handleWearIntervalInputChange.bind(this);
-        this.onLinkClick = this.onLinkClick.bind(this);
+        this.handleLinkClick = this.handleLinkClick.bind(this);
     }
 
     public render() {
@@ -46,7 +47,7 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                             <InputGroup.Addon><FontAwesome name='calendar' /></InputGroup.Addon>
                             <FormControl type="number" style={{width: 50}}
                                 value = { this.props.visitInterval }
-                                onChange = { e => this.handleWearIntervalInputChange(e) } />
+                                onChange = { e => this.handleVisitIntervalInputChange(e) } />
                         </InputGroup>
                     </Col>
                     <Col sm={1}><FormGroup><Radio>Days</Radio><Radio>Weeks</Radio></FormGroup></Col>
@@ -76,18 +77,15 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                     </Col>
                     <Col sm={1} style={{marginTop: 32}}>
                         <div className="topLinkLine" />
-                        <button onClick={ e => this.onLinkClick(e) } style={{ border:0 }} className='linkingButton hidden'>
-                            <FontAwesome name="link" size="2x" />
-                        </button>
-                        <button onClick={ e => this.onLinkClick(e) } style={{ border:0 }} className='linkingButton'>
-                            <FontAwesome name="chain-broken" size="2x" />
+                        <button onClick={ e => this.handleLinkClick(e) } style={{ border:0 }} className='linkingButton'>
+                            <span className={this.props.wearIntervalLockedStyle} />
                         </button>
                         <div className="bottomLinkLine" />
                     </Col>
                 </FormGroup>
                 <FormGroup>
                     <Col componentClass={ControlLabel} sm={2}>Wear interval: 
-                        <button onClick={ e => this.onLinkClick(e) } style={{ border:0 }} className='linkingButton'>
+                        <button onClick={ e => this.handleLinkClick(e) } style={{ border:0 }} className='linkingButton'>
                             <FontAwesome name='lock' size="2x" />
                         </button>
                     </Col>
@@ -103,11 +101,12 @@ export default class AlignerNumbers extends React.Component<Props, any> {
         );
     }
 
-    public onLinkClick(event: any) : void {
+    public handleLinkClick(event: any) : void {
         event.preventDefault();
+        this.props.onLinkClick();
     }
 
-    public onVisitIntervalInputChange(event: any) : void {
+    public handleVisitIntervalInputChange(event: any) : void {
         this.props.onVisitIntervalInputChange(event.target.value);
     }
 

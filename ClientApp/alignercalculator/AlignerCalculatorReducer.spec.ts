@@ -64,7 +64,6 @@ describe ('Aligner Calculator Reducer', () => {
     it('should update last aligners', () => {
         const changedState = new VisitAlignerBuilder().Build();
         const action = actions.actionCreators.updateAligners(changedState);
-        debugger;
 
         const newState = reducer.reducer(initialState, action);
 
@@ -107,7 +106,7 @@ describe ('Aligner Calculator Reducer', () => {
                                 .WithUpperAligners(4, 4).Build();
                                 
         const action = actions.actionCreators.updateAligners(changedState);
-        debugger;
+
         const newState = reducer.reducer(initialState, action);
 
         expect(newState.lastLowerAligner).to.be.equal(6);
@@ -119,7 +118,6 @@ describe ('Aligner Calculator Reducer', () => {
                                 .WithLowerAligners(0, 0).Build();
 
         const action = actions.actionCreators.updateAligners(changedState);
-        debugger;
 
         const newState = reducer.reducer(initialState, action);
 
