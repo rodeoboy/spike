@@ -6,9 +6,9 @@ const visitAligner : VisitAligner  = {
             visitInterval : 8,
             wearInterval : 2,
             firstUpperAligner : 1,
-            lastUpperAligner : 1,
+            lastUpperAligner : 4,
             firstLowerAligner : 1,
-            lastLowerAligner : 1,     
+            lastLowerAligner : 4,     
             planLowerStart : 1,
             planUpperStart : 1,
             treatmentVisitInteval : 8,
@@ -35,8 +35,8 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
     };
     switch (action.type) {
         case 'UPDATE_ALIGNERS': 
-            var aligners = Object.assign({}, action.visitAligner )
-            var alingerCount = aligners.visitInterval / aligners.wearInterval - 1;
+            var aligners = Object.assign({}, action.visitAligner );
+            var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
 
             if (aligners.firstUpperAligner !== 0)
                 aligners.lastUpperAligner = aligners.firstUpperAligner + alingerCount;
@@ -57,18 +57,36 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
             }
 
             return Object.assign({}, state, aligners);
+        case 'UPDATE_UPPER_ALIGNERS':
+            var aligners = Object.assign({}, action.visitAligner );
+            var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
+
+            if (aligners.firstUpperAligner !== 0)
+                aligners.lastUpperAligner = aligners.firstUpperAligner + alingerCount;
+
+            return Object.assign({}, state, aligners);
+        case 'UPDATE_LOWER_ALIGNERS':
+            var aligners = Object.assign({}, action.visitAligner );
+            var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
+
+            if (aligners.firstLowerAligner !== 0)
+                aligners.lastLowerAligner = aligners.firstLowerAligner + alingerCount;
+
+            return Object.assign({}, state, aligners);
         case 'UPDATE_VISIT_INTERVAL':
+            var aligners = Object.assign({}, action.visitAligner );
             var count = getMaxAlignerCount(action.visitAligner);
 
-            action.visitAligner.visitInterval = Math.floor(count * action.visitAligner.wearInterval);
+            aligners.visitInterval = Math.floor(aligners.wearInterval * count);
 
-            return Object.assign({}, state, action.visitAligner);
+            return Object.assign({}, state, aligners);
         case 'UPDATE_WEAR_INTERVAL':
+            var aligners = Object.assign({}, action.visitAligner );
             var count = getMaxAlignerCount(action.visitAligner);
 
-            action.visitAligner.wearInterval = Math.floor(action.visitAligner.visitInterval / count);
+            aligners.wearInterval = Math.floor(aligners.visitInterval / count);
 
-            return Object.assign({}, state, action.visitAligner);
+            return Object.assign({}, state, aligners);
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;

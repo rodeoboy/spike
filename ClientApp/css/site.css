@@ -24,15 +24,15 @@
 .topLinkLine {
     height: 10px;
     width: 20px;
-    border-top: 2px solid black;
-    border-right: 2px solid black;
+    border-top: 2px solid grey;
+    border-right: 2px solid grey;
 }
 
 .bottomLinkLine {
     height: 10px;
     width: 20px;
-    border-bottom: 2px solid black;
-    border-right: 2px solid black;
+    border-bottom: 2px solid grey;
+    border-right: 2px solid grey;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */

@@ -31,26 +31,17 @@ interface IVisitAlignerState {
     visitAligner: VisitAligner
 }
 
-let isWearIntervalLocked = true;
-let isUpperLowerAlignersLinked = true;
-
 class AlignerCalculatorContainer extends React.Component<any, any> {
-    constructor(props, state) {
-        super(props, state);
-
+    constructor(props, context) {
+        super(props, context);
+        
         this.state = {
-            visitInterval : 8,
-            wearInterval : 2,
-            firstUpperAligner : 1,
-            lastUpperAligner : 4,
-            firstLowerAligner : 1,
-            lastLowerAligner : 4,     
-            planLowerStart : 1,
-            planUpperStart : 1,
-            treatmentVisitInteval : 1,
-            treatmentWearInterval : 1,   
-            isMidTreatment : false,  
-            wearIntervalLockedStyle: "fa fa-link"  
+            wearIntervalLockedStyle: "fa fa-lock",
+            visitIntervalLinkedStyle: "fa fa-link", 
+            alignerLinkedStyle: "fa fa-link",
+            isWearIntervalLocked: true,
+            isUpperLowerAlignersLinked: true,
+            isVisitIntervalAlignersLinked: true
         };
         this.handleVisitIntervalInput = this.handleVisitIntervalInput.bind(this);
         this.handleWearIntervalInput = this.handleWearIntervalInput.bind(this);
@@ -58,52 +49,96 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
         this.handleLastUpperInput = this.handleLastUpperInput.bind(this);
         this.handleFirstLowerInput = this.handleFirstLowerInput.bind(this);
         this.handleLastLowerInput = this.handleLastLowerInput.bind(this);
-        this.onUpperLowerAlignersLinkLinkClick = this.onUpperLowerAlignersLinkLinkClick.bind(this);
+        this.onUpperLowerAlignersLinkClick = this.onUpperLowerAlignersLinkClick.bind(this);
+        this.onVisitIntervalLinkClick = this.onVisitIntervalLinkClick.bind(this);
+        this.onWearIntervalLockClick = this.onWearIntervalLockClick.bind(this);
     }
 
-    public onUpperLowerAlignersLinkLinkClick() : void {
-        isUpperLowerAlignersLinked = !isUpperLowerAlignersLinked;
+    public onVisitIntervalLinkClick() : void {
+        this.state.isVisitIntervalAlignersLinked = !this.state.isVisitIntervalAlignersLinked;
 
-        if(isUpperLowerAlignersLinked) {
-            this.setState({ wearIntervalLockedStyle: "fa fa-link" });
+        if(this.state.isVisitIntervalAlignersLinked) {
+            this.setState({ visitIntervalLinkedStyle: "fa fa-link" });
         }
         else {
-            this.setState({ wearIntervalLockedStyle: "fa fa-chain-broken" });
+            this.setState({ visitIntervalLinkedStyle: "fa fa-chain-broken" });
+        }
+    }
+
+    public onUpperLowerAlignersLinkClick() : void {
+        this.state.isUpperLowerAlignersLinked = !this.state.isUpperLowerAlignersLinked;
+
+        if(this.state.isUpperLowerAlignersLinked) {
+            this.setState({ alignerLinkedStyle: "fa fa-link" });
+        }
+        else {
+            this.setState({ alignerLinkedStyle: "fa fa-chain-broken" });
+        }
+    }
+
+    public onWearIntervalLockClick() : void {
+        this.state.isWearIntervalLocked = !this.state.isWearIntervalLocked;
+
+        if(this.state.isWearIntervalLocked) {
+            this.setState({ wearIntervalLockedStyle: "fa fa-lock" });
+        }
+        else {
+            this.setState({ wearIntervalLockedStyle: "fa fa-unlock" });
         }
     }
 
     handleVisitIntervalInput(interval) {
-        var aligner = Object.assign({}, this.state, {visitInterval: interval})
+        debugger;
+        var aligner = Object.assign({}, this.props.visitAligner, {visitInterval: interval});
         this.setState(aligner);
-        this.props.updateAligners(aligner);
+        if(this.state.isVisitIntervalAlignersLinked)
+            this.props.updateAligners(aligner);
+        else if(!this.state.isWearIntervalLocked)
+            this.props.updateWearInterval(aligner);
     }
 
     handleWearIntervalInput(interval) {
+        var aligner = Object.assign({}, this.props.visitAligner, {wearInterval: interval});
+        this.setState(aligner);
+        if(this.state.isVisitIntervalAlignersLinked)
+            this.props.updateAligners(aligner);
+        else
+            this.props.updateVisitInterval(aligner);
     }
 
     handleFirstUpperInput(aligner) {
+        var aligner = Object.assign({}, this.props.visitAligner, {firstUpperAligner: aligner});
     }
 
     handleLastUpperInput(aligner) {
+        var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: aligner});
     }
 
     handleFirstLowerInput(aligner) {
+        var aligner = Object.assign({}, this.props.visitAligner, {firstLowerAligner: aligner});
     }
 
     handleLastLowerInput(aligner) {
+        var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: aligner});
     }
 
     public render() {
         let boundActionCreators = this.props.actions;
+
         return ( 
             <div className="container-fluid">
                 <div>{this.state.visitInterval} / {this.state.wearInterval}</div>
-                <AlignerNumbers wearInterval={this.state.wearInterval} visitInterval={this.state.visitInterval}
-                    isUpperLowerLinked={true} isVisitIntervalAlignersLinked={true} isWearIntervalLocked={true}
-                    firstUpperAligner={this.state.firstUpperAligner} lastUpperAligner={this.state.lastUpperAligner} 
-                    firstLowerAligner={this.state.firstLowerAligner} lastLowerAligner={this.state.lastLowerAligner}
-                    onLinkClick={this.onUpperLowerAlignersLinkLinkClick}
+                <AlignerNumbers wearInterval={this.props.visitAligner.wearInterval} visitInterval={this.props.visitAligner.visitInterval}
+                    isUpperLowerLinked={this.state.isUpperLowerAlignersLinked} isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
+                    isWearIntervalLocked={this.state.isWearIntervalLocked}
+                    firstUpperAligner={this.props.visitAligner.firstUpperAligner} lastUpperAligner={this.props.visitAligner.lastUpperAligner} 
+                    firstLowerAligner={this.props.visitAligner.firstLowerAligner} lastLowerAligner={this.props.visitAligner.lastLowerAligner}
+                    onAlignerLinkClick={this.onUpperLowerAlignersLinkClick}
+                    onVisitIntervalLinkClick={this.onVisitIntervalLinkClick}
+                    onWearIntervalLockClick={this.onWearIntervalLockClick}
                     wearIntervalLockedStyle={this.state.wearIntervalLockedStyle}
+                    visitIntervalLinkedStyle={this.state.visitIntervalLinkedStyle}
+                    alignerLinkedStyle={this.state.alignerLinkedStyle}
                     onFirstUpperAlignerInputChange={this.handleFirstUpperInput}
                     onLastUpperAlignerInputChange={this.handleLastUpperInput}
                     onFirstLowerAlignerInputChange={this.handleFirstLowerInput}
@@ -129,6 +164,6 @@ function mapDispatchToProps(dispatch) {
 }
 
  export default connect(
-     (state: ApplicationState) => state, 
+     mapStateToProps, 
      actions.actionCreators)
      (AlignerCalculatorContainer);

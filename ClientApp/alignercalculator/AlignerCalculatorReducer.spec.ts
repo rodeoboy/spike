@@ -43,12 +43,12 @@ export default class VisitAlignerBuilder {
         return this;
     }
 
-    WithUpperAlignerPlanStart (first : number) {
+    WithFirstUpperAligner (first : number) {
         this.visitAligner.firstUpperAligner = first;
         return this;
     }
 
-    WithLowerAlignerPlanStart (first : number) {
+    WithFirstLowerAligner (first : number) {
         this.visitAligner.firstLowerAligner = first;
         return this;
     }
@@ -69,15 +69,6 @@ describe ('Aligner Calculator Reducer', () => {
 
         expect(newState.lastLowerAligner).to.be.equal(6);
         expect(newState.lastUpperAligner).to.be.equal(6);
-    });
-
-    it('should update visit interval', () => {
-        const changedState = new VisitAlignerBuilder().Build();
-        const action = actions.actionCreators.updateVisitInterval(changedState);
-
-        const newState = reducer.reducer(initialState, action);
-
-        expect(newState.visitInterval).to.be.equal(8);
     });
 
     it('should update wear interval', () => {
@@ -137,13 +128,50 @@ describe ('Aligner Calculator Reducer', () => {
         expect(newState.lastUpperAligner).to.be.equal(0);
     });
 
-    it('should be mid-treatment patient', () => {        
+    it('should round down updated aligners', () => {
         const changedState = new VisitAlignerBuilder()
-                                .WithUpperAligners(4, 4).Build();
+                                    .WithVisitInterval(9)
+                                    .WithWearInterval(2).Build();
+
         const action = actions.actionCreators.updateAligners(changedState);
 
         const newState = reducer.reducer(initialState, action);
 
-        expect(newState.isMidTreatment).to.be.true;
+        expect(newState.lastLowerAligner).to.be.equal(4);
+        expect(newState.lastUpperAligner).to.be.equal(4);
+    });
+
+    it('should update last lower aligner', () => {
+        const changedState = new VisitAlignerBuilder()
+                                    .WithFirstLowerAligner(4).Build();
+
+        const action = actions.actionCreators.updateLowerAlignersAction(changedState);
+
+        const newState = reducer.reducer(initialState, action);
+
+        expect(newState.lastLowerAligner).to.be.equal(9);
+    });
+
+    it('should update last upper aligner', () => {
+        const changedState = new VisitAlignerBuilder()
+                                    .WithFirstUpperAligner(4).Build();
+
+        const action = actions.actionCreators.updateUpperAlignersAction(changedState);
+
+        const newState = reducer.reducer(initialState, action);
+
+        expect(newState.lastUpperAligner).to.be.equal(9);
+    });
+
+    it('should update wear interval', () => {
+        const changedState = new VisitAlignerBuilder()
+                                    .WithUpperAligners(1,4)
+                                    .WithLowerAligners(1,4).Build();
+
+        const action = actions.actionCreators.updateWearInterval(changedState);
+
+        const newState = reducer.reducer(initialState, action);
+
+        expect(newState.wearInterval).to.be.equal(3);
     });
 });
