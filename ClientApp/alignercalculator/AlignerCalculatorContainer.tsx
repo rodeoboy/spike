@@ -128,11 +128,10 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         return ( 
             <div className="container-fluid">
                 <div>{this.state.visitInterval} / {this.state.wearInterval}</div>
-                <AlignerNumbers wearInterval={this.props.visitAligner.wearInterval} visitInterval={this.props.visitAligner.visitInterval}
-                    isUpperLowerLinked={this.state.isUpperLowerAlignersLinked} isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
+                <AlignerNumbers visitAligner={this.props.visitAligner}
+                    isUpperLowerLinked={this.state.isUpperLowerAlignersLinked} 
+                    isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
                     isWearIntervalLocked={this.state.isWearIntervalLocked}
-                    firstUpperAligner={this.props.visitAligner.firstUpperAligner} lastUpperAligner={this.props.visitAligner.lastUpperAligner} 
-                    firstLowerAligner={this.props.visitAligner.firstLowerAligner} lastLowerAligner={this.props.visitAligner.lastLowerAligner}
                     onAlignerLinkClick={this.onUpperLowerAlignersLinkClick}
                     onVisitIntervalLinkClick={this.onVisitIntervalLinkClick}
                     onWearIntervalLockClick={this.onWearIntervalLockClick}

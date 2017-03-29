@@ -1,14 +1,10 @@
 import * as React from 'react';
 import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Row, Radio, InputGroup} from "react-bootstrap";
 import FontAwesome = require("react-fontawesome");
+import { VisitAligner } from './alignerVisitModel';
 
 interface Props {
-    visitInterval: number;
-    firstUpperAligner: number;
-    lastUpperAligner: number;
-    firstLowerAligner: number;
-    lastLowerAligner: number;
-    wearInterval: number;
+    visitAligner: VisitAligner;
     isUpperLowerLinked: boolean;
     isVisitIntervalAlignersLinked: boolean;
     isWearIntervalLocked: boolean;
@@ -50,8 +46,9 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                         <InputGroup>
                             <InputGroup.Addon><FontAwesome name='calendar' /></InputGroup.Addon>
                             <FormControl id="visitInterval" type="number" style={{width: 60}}
-                                value = { this.props.visitInterval }
-                                onChange = { e => this.handleVisitIntervalInputChange(e) } />
+                                value = { this.props.visitAligner.visitInterval }
+                                onChange = { e => this.handleVisitIntervalInputChange(e) } 
+                                min='1' max='100'/>
                         </InputGroup>
                     </Col>
                     <Col sm={2}  md={4}>
@@ -69,21 +66,21 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                     <Col sm={2}  md={4}>
                         <ControlLabel>First:</ControlLabel>
                         <FormControl id="firstUpperAligner" type="number" style={{width: 60}}
-                            value = { this.props.firstUpperAligner }
+                            value = { this.props.visitAligner.firstUpperAligner }
                             onChange = { e => this.handleFirstUpperAlignerInputChange(e) } />
                         <FormControl id="firstLowerAligner" type="number" style={{width: 60}}
-                            value = { this.props.firstLowerAligner }
+                            value = { this.props.visitAligner.firstLowerAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleFirstLowerAlignerInputChange(e) } />
                     </Col>
                     <Col sm={2}  md={4}>
                         <ControlLabel>Last:</ControlLabel>
                         <FormControl id="lastUpperAligner" type="number" style={{width: 60}}
-                            value = { this.props.lastUpperAligner }
+                            value = { this.props.visitAligner.lastUpperAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleLastUpperAlignerInputChange(e) } />
                         <FormControl id="lastLowerAligner" type="number" style={{width: 60}}
-                            value = { this.props.lastLowerAligner }
+                            value = { this.props.visitAligner.lastLowerAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleLastLowerAlignerInputChange(e) } />
                     </Col>
@@ -103,11 +100,11 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                     </Col>
                     <Col sm={2}  md={4}>
                         <FormControl id="wearInterval" type="number" style={{width: 60}}
-                            value = { this.props.wearInterval }
+                            value = { this.props.visitAligner.wearInterval }
                             disabled = { this.props.isWearIntervalLocked}
                             onChange = { e => this.handleWearIntervalInputChange(e) } />
                     </Col>
-                    <Col sm={2}  md={4}><FormGroup><Radio>Days</Radio><Radio>Weeks</Radio></FormGroup></Col>
+                    <Col sm={2}  md={4}><FormGroup><Radio name="WearIntervalUnit">Days</Radio><Radio name="WearIntervalUnit">Weeks</Radio></FormGroup></Col>
                 </FormGroup>
                 </Form>
             </div>
@@ -149,7 +146,7 @@ export default class AlignerNumbers extends React.Component<Props, any> {
     public handleLastLowerAlignerInputChange(event: any) : void {
         this.props.onLastLowerAlignerInputChange(event.target.valueAsNumber);
     }
-    
+
     public handleWearIntervalInputChange(event: any) : void {
         this.props.onWearIntervalInputChange(event.target.valueAsNumber);
     }
