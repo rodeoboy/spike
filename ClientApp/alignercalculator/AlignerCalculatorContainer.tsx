@@ -42,6 +42,9 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         }
         else {
             this.setState({ visitIntervalLinkedStyle: "fa fa-chain-broken" });
+            // If visit interval and aligners are unlinked then wear interval should be unlocked 
+            // so changes calculate new wear interval value
+            if(this.state.isWearIntervalLocked) this.onWearIntervalLockClick();
         }
     }
 
@@ -114,7 +117,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     handleLastLowerInput(alignerNumber) {
-        var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: alignerNumber});
+        var aligner = Object.assign({}, this.props.visitAligner, {lastLowerAligner: alignerNumber});
         this.setState(aligner);
         
         if(this.state.isVisitIntervalAlignersLinked)
