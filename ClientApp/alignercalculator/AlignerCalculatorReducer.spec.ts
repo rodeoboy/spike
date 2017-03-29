@@ -67,8 +67,8 @@ describe ('Aligner Calculator Reducer', () => {
 
     it('Should round down updated aligners', () => {
         const changedState = new VisitAlignerBuilder()
-                                    .WithVisitInterval(9)
-                                    .WithWearInterval(2).Build();
+                                    .WithVisitInterval(63)
+                                    .WithWearInterval(14).Build();
 
         const action = actions.actionCreators.updateAligners(changedState);
 
@@ -109,7 +109,7 @@ describe ('Aligner Calculator Reducer', () => {
 
         const newState = reducer.reducer(initialState, action);
 
-        expect(newState.wearInterval).to.be.equal(3);
+        expect(newState.wearInterval).to.be.equal(21);
     });
 
     it('Should update visit interval', () => {
@@ -118,6 +118,6 @@ describe ('Aligner Calculator Reducer', () => {
 
         const newState = reducer.reducer(initialState, action);
 
-        expect(newState.visitInterval).to.be.equal(8);
+        expect(newState.visitInterval).to.be.equal(56);
     });
 });
