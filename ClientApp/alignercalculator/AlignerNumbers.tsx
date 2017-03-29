@@ -45,8 +45,8 @@ export default class AlignerNumbers extends React.Component<Props, any> {
             <div>
                 <Form horizontal>
                 <FormGroup  style={{marginBottom: 0, marginTop: 10}}>
-                    <Col componentClass={ControlLabel} sm={2} md={2}>Next visit interval:</Col>
-                    <Col sm={2} md={2}>
+                    <Col componentClass={ControlLabel} sm={4} md={8}>Next visit interval:</Col>
+                    <Col sm={4} md={8}>
                         <InputGroup>
                             <InputGroup.Addon><FontAwesome name='calendar' /></InputGroup.Addon>
                             <FormControl id="visitInterval" type="number" style={{width: 60}}
@@ -54,60 +54,60 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                                 onChange = { e => this.handleVisitIntervalInputChange(e) } />
                         </InputGroup>
                     </Col>
-                    <Col sm={1}  md={1}>
+                    <Col sm={2}  md={4}>
                         <div className="topLinkLine" />
-                        <button onClick={ e => this.handleVisitIntervalLinkClick(e) } style={{ border:0 }} className='linkingButton'>
+                        <button id='visitIntervalLink' onClick={ e => this.handleVisitIntervalLinkClick(e) } style={{ border:0 }} className='linkingButton'>
                             <span className={this.props.visitIntervalLinkedStyle} />
                         </button>
                         <div className="bottomLinkLine" />
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <Col sm={2} md={2} style={{marginTop: 35}}>
+                    <Col sm={4} md={8} style={{marginTop: 35}}>
                         <ControlLabel>Aligners:</ControlLabel>
                     </Col>
-                    <Col sm={1} md={1}>
+                    <Col sm={2}  md={4}>
                         <ControlLabel>First:</ControlLabel>
-                        <FormControl type="number" style={{width: 60}}
+                        <FormControl id="firstUpperAligner" type="number" style={{width: 60}}
                             value = { this.props.firstUpperAligner }
                             onChange = { e => this.handleFirstUpperAlignerInputChange(e) } />
-                        <FormControl type="number" style={{width: 60}}
+                        <FormControl id="firstLowerAligner" type="number" style={{width: 60}}
                             value = { this.props.firstLowerAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleFirstLowerAlignerInputChange(e) } />
                     </Col>
-                    <Col sm={1} md={1} >
+                    <Col sm={2}  md={4}>
                         <ControlLabel>Last:</ControlLabel>
-                        <FormControl type="number" style={{width: 60}}
+                        <FormControl id="lastUpperAligner" type="number" style={{width: 60}}
                             value = { this.props.lastUpperAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleLastUpperAlignerInputChange(e) } />
-                        <FormControl type="number" style={{width: 60}}
+                        <FormControl id="lastLowerAligner" type="number" style={{width: 60}}
                             value = { this.props.lastLowerAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleLastLowerAlignerInputChange(e) } />
                     </Col>
-                    <Col sm={1} md={1} style={{marginTop: 35}}>
+                    <Col sm={2}  md={4} style={{marginTop: 35}}>
                         <div className="topLinkLine" />
-                        <button onClick={ e => this.handleAlignerLinkClick(e) } style={{ border:0 }} className='linkingButton'>
+                        <button id='alignerLink' onClick={ e => this.handleAlignerLinkClick(e) } style={{ border:0 }} className='linkingButton'>
                             <span className={this.props.alignerLinkedStyle} />
                         </button>
                         <div className="bottomLinkLine" />
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <Col componentClass={ControlLabel} sm={2} md={2}>Wear interval: 
-                        <button onClick={ e => this.handleWearIntervalLockClick(e) } style={{ border:0 }} className='linkingButton'>
+                    <Col componentClass={ControlLabel} sm={4} md={8}>Wear interval: 
+                        <button id="wearIntervalLock" onClick={ e => this.handleWearIntervalLockClick(e) } style={{ border:0 }} className='linkingButton'>
                             <span className={this.props.wearIntervalLockedStyle} />
                         </button>
                     </Col>
-                    <Col sm={1} md={1}>
-                        <FormControl type="number" style={{width: 60}}
+                    <Col sm={2}  md={4}>
+                        <FormControl id="wearInterval" type="number" style={{width: 60}}
                             value = { this.props.wearInterval }
                             disabled = { this.props.isWearIntervalLocked}
                             onChange = { e => this.handleWearIntervalInputChange(e) } />
                     </Col>
-                    <Col sm={1} md={1}><FormGroup><Radio>Days</Radio><Radio>Weeks</Radio></FormGroup></Col>
+                    <Col sm={2}  md={4}><FormGroup><Radio>Days</Radio><Radio>Weeks</Radio></FormGroup></Col>
                 </FormGroup>
                 </Form>
             </div>
@@ -131,25 +131,26 @@ export default class AlignerNumbers extends React.Component<Props, any> {
 
     public handleVisitIntervalInputChange(event: any) : void {
         debugger;
-        this.props.onVisitIntervalInputChange(event.target.value);
+        this.props.onVisitIntervalInputChange(event.target.valueAsNumber);
     }
 
     public handleFirstUpperAlignerInputChange(event: any) : void {
-        this.props.onFirstUpperAlignerInputChange(event.target.value);
+        this.props.onFirstUpperAlignerInputChange(event.target.valueAsNumber);
     }
 
     public handleLastUpperAlignerInputChange(event: any) : void {
-        this.props.onLastUpperAlignerInputChange(event.target.value);
+        this.props.onLastUpperAlignerInputChange(event.target.valueAsNumber);
     }
 
     public handleFirstLowerAlignerInputChange(event: any) : void {
-        this.props.onFirstLowerAlignerInputChange(event.target.value);
+        this.props.onFirstLowerAlignerInputChange(event.target.valueAsNumber);
     }
 
     public handleLastLowerAlignerInputChange(event: any) : void {
-        this.props.onLastLowerAlignerInputChange(event.target.value);
+        this.props.onLastLowerAlignerInputChange(event.target.valueAsNumber);
     }
+    
     public handleWearIntervalInputChange(event: any) : void {
-        this.props.onWearIntervalInputChange(event.target.value);
+        this.props.onWearIntervalInputChange(event.target.valueAsNumber);
     }
 }

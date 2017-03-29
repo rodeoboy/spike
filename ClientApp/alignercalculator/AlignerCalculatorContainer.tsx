@@ -6,32 +6,12 @@ import AlignerVisitInterval from './AlignerVisitInterval';
 import AlignerWearInterval from './AlignerWearInterval';
 import AlignerNumbers from './AlignerNumbers';
 import * as actions from './AlignerCalculatorAction';
-import { VisitAligner } from './alignerVisitModel';
+import { VisitAligner, AlignerProps } from './alignerVisitModel';
 import { KnownAction } from './AlignerCalculatorAction';
 import { ApplicationState }  from '../store';
 import FontAwesome = require("react-fontawesome");
 
-
-interface IVisitAlignerProps {
-    actions: KnownAction;
-    visitInterval : number;
-    wearInterval : number;
-    firstUpperAligner: number;
-    lastUpperAligner: number;
-    firstLowerAligner: number;
-    lastLowerAligner: number;
-    planLowerStart : number;
-    planUpperStart : number;
-    treatmentVisitInteval : number;
-    treatmentWearInterval : number;   
-    isMidTreatment : boolean;  
-}
-
-interface IVisitAlignerState {
-    visitAligner: VisitAligner
-}
-
-class AlignerCalculatorContainer extends React.Component<any, any> {
+class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     constructor(props, context) {
         super(props, context);
         
@@ -87,7 +67,7 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
         }
     }
 
-    handleVisitIntervalInput(interval) {
+    public handleVisitIntervalInput(interval) {
         debugger;
         var aligner = Object.assign({}, this.props.visitAligner, {visitInterval: interval});
         this.setState(aligner);
@@ -100,30 +80,50 @@ class AlignerCalculatorContainer extends React.Component<any, any> {
     handleWearIntervalInput(interval) {
         var aligner = Object.assign({}, this.props.visitAligner, {wearInterval: interval});
         this.setState(aligner);
-        if(this.state.isVisitIntervalAlignersLinked)
+        this.props.updateAligners(aligner);
+    }
+
+    handleFirstUpperInput(alignerNumber) {
+        var aligner = Object.assign({}, this.props.visitAligner, {firstUpperAligner: alignerNumber});
+        this.setState(aligner);
+
+        if(this.state.isUpperLowerAlignersLinked) 
             this.props.updateAligners(aligner);
         else
+            this.props.updateUpperAligners(aligner);
+    }
+
+    handleLastUpperInput(alignerNumber) {
+        var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: alignerNumber});
+        this.setState(aligner);
+        
+        if(this.state.isVisitIntervalAlignersLinked)
             this.props.updateVisitInterval(aligner);
+        else if(!this.state.isWearIntervalLocked)
+            this.props.updateWearInterval(aligner);
     }
 
-    handleFirstUpperInput(aligner) {
-        var aligner = Object.assign({}, this.props.visitAligner, {firstUpperAligner: aligner});
+    handleFirstLowerInput(alignerNumber) {
+        var aligner = Object.assign({}, this.props.visitAligner, {firstLowerAligner: alignerNumber});
+        this.setState(aligner);
+        
+        if(this.state.isUpperLowerAlignersLinked) 
+            this.props.updateAligners(aligner);
+        else
+            this.props.updateLowerAligners(aligner);
     }
 
-    handleLastUpperInput(aligner) {
-        var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: aligner});
-    }
-
-    handleFirstLowerInput(aligner) {
-        var aligner = Object.assign({}, this.props.visitAligner, {firstLowerAligner: aligner});
-    }
-
-    handleLastLowerInput(aligner) {
-        var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: aligner});
+    handleLastLowerInput(alignerNumber) {
+        var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: alignerNumber});
+        this.setState(aligner);
+        
+        if(this.state.isVisitIntervalAlignersLinked)
+            this.props.updateVisitInterval(aligner);
+        else if(!this.state.isWearIntervalLocked)
+            this.props.updateWearInterval(aligner);
     }
 
     public render() {
-        let boundActionCreators = this.props.actions;
 
         return ( 
             <div className="container-fluid">

@@ -1,4 +1,13 @@
 
+export interface AlignerProps {
+    visitAligner : VisitAligner;
+    updateAligners : (aligner : VisitAligner) => void;
+    updateUpperAligners : (aligner : VisitAligner) => void;
+    updateVisitInterval : (aligner : VisitAligner) => void;
+    updateWearInterval : (aligner : VisitAligner) => void;
+    updateLowerAligners : (aligner : VisitAligner) => void;
+}
+
 export interface VisitAligner {
     visitInterval : number;
     wearInterval : number;
@@ -8,6 +17,8 @@ export interface VisitAligner {
     lastLowerAligner : number; 
     planLowerStart : number;
     planUpperStart : number;
+    planLowerEnd : number;
+    planUpperEnd : number;
     treatmentVisitInteval : number;
     treatmentWearInterval : number;
     isMidTreatment : boolean;

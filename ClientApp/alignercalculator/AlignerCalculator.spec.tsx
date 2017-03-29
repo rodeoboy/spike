@@ -15,43 +15,8 @@ import * as actions from './AlignerCalculatorAction';
 
 const middlewares = [thunk];
 
-describe("<AlignerNumbers/>", () => {
-        let props = {
-                visitAligner: {
-                        visitInterval: 8,
-                        firstUpperAligner: 1,
-                        lastUpperAligner: 4,
-                        firstLowerAligner: 1,
-                        lastLowerAligner: 4,
-                        wearInterval: 2,
-                        isUpperLowerLinked: true,
-                        isVisitIntervalAlignersLinked: true,
-                        isWearIntervalLocked: true,
-                        wearIntervalLockedStyle: "",
-                        visitIntervalLinkedStyle: "",
-                        alignerLinkedStyle: "",
-                },
-                onWearIntervalInputChange: () => { },
-                onFirstUpperAlignerInputChange: () => { },
-                onLastUpperAlignerInputChange: () => { },
-                onFirstLowerAlignerInputChange: () => { },
-                onLastLowerAlignerInputChange: () => { },
-                onVisitIntervalInputChange: () => { },
-                onAlignerLinkClick: () => { },
-                onVisitIntervalLinkClick: () => { },
-                onWearIntervalLockClick: () => { }
-        };
-
-        it('should always render input', () => {
-                //const wrapper = shallow(<AlignerNumbers  {...props}/>);
-                //expect(wrapper.find('input')).to.have.length(6);
-        });
-});
-
 describe("<AlignerCalculator/>", () => {
-        let Component;
-        let wrapper;
-        let aligners;
+        let Component, wrapper, props, spies;
         let visitAligner = {
                 visitInterval: 8,
                 firstUpperAligner: 1,
@@ -70,6 +35,7 @@ describe("<AlignerCalculator/>", () => {
         beforeEach(() => {
                 const store = configureMockStore()({ visitAligner: visitAligner });
 
+                spies = {};
                 wrapper = mount(
                         <Provider store={store} >
                                 <AlignerCalculator />
@@ -77,24 +43,70 @@ describe("<AlignerCalculator/>", () => {
                 );
 
                 Component = wrapper.find(AlignerCalculator);
-                aligners = Component.find(AlignerNumbers);
         });
 
-        it('should have aligner numbers', () => {
+        it('should have <AlignerNumbers/>', () => {
                 expect(Component.find(AlignerNumbers)).to.have.length(1);
         });
 
-        it(' visit interval should have props', () => {
-                expect(Object.keys(aligners.props())).to.have.length(21);
-        });
-
-        it(' visit interval should update onchange', () => {
+        /* it('aligner numbers should update onchange', () => {
                 aligners = Component.find(AlignerNumbers);
-                var callback = spy(actions.actionCreators.updateAligners);
-        debugger;
+                var callback = spy(Component.node.dispatchProps, 'updateAligners');
 
-                aligners.find('input#visitInterval').simulate('change', 10);
+                aligners.find('input#visitInterval').simulate('change', { value: 10} );
+                debugger;
                 
-                //expect(callback.called).to.be.true;
+                expect(callback.called).to.be.true;
+        }); */
+
+    describe('Wear interval lock button ', () => {
+        let button;
+
+        beforeEach(() => {
+            button = wrapper.find('button#wearIntervalLock');
         });
+
+        it('Should show lock icon on wear interval lock button by default', () => {
+            expect(button.find('span').hasClass('fa-lock')).to.be.true;
+        });
+
+        it('Should change to unlock icon on wear interval lock click', () => {            
+            button.simulate('click');
+            expect(button.find('span').hasClass('fa-unlock')).to.be.true;
+        });
+    });
+    
+    describe('Visit interval link button ', () => {
+        let button;
+
+        beforeEach(() => {
+            button = wrapper.find('button#visitIntervalLink');
+        });
+
+        it('Should show lock icon on visit interval link button by default', () => {
+            expect(button.find('span').hasClass('fa-link')).to.be.true;
+        });
+
+        it('Should change to unlock icon on visit interval to unlink', () => {            
+            button.simulate('click');
+            expect(button.find('span').hasClass('fa-chain-broken')).to.be.true;
+        });
+    });
+    
+    describe('Aligner link button ', () => {
+        let button;
+
+        beforeEach(() => {
+            button = wrapper.find('button#alignerLink');
+        });
+
+        it('Should show lock icon on aligner link button by default', () => {
+            expect(button.find('span').hasClass('fa-link')).to.be.true;
+        });
+
+        it('Should change to unlock icon on aligner link click', () => {            
+            button.simulate('click');
+            expect(button.find('span').hasClass('fa-chain-broken')).to.be.true;
+        });
+    });
 });
