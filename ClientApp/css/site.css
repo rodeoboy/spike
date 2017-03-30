@@ -44,6 +44,13 @@
     z-index: 1;
 }
 
+.floatingButton {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-top: 20px;    
+}
+
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {

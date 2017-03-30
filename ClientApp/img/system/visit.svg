@@ -1,0 +1,888 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   id="svg3009"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Visit.svg">
+  <defs
+     id="defs3011">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6236">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path6238" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-8"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-9"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6397" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6400" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6403" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6236-7">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path6238-9" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-8-2"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-9-7"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-7"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-4"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL-3"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6397-8" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM-1"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6400-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS-3"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6403-4" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6236-0">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path6238-90" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-8-6"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-9-5"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-2"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-48"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL-6"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6397-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM-2"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6400-8" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS-5"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6403-0" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6236-3">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path6238-5" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-8-9"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-9-1"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-88"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-2"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL-63"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6397-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM-4"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6400-9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS-1"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6403-8" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutS"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutS-1-1"
+       style="overflow:visible">
+      <path
+         id="path6403-9"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.2)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutM-6"
+       style="overflow:visible">
+      <path
+         id="path6400-9-0"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutL-6-0"
+       style="overflow:visible">
+      <path
+         id="path6397-9"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8)" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-9">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-8-5">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-9-0"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       id="clipPath6236-4"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path6238-0"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6236-41">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path6238-2" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-8-65"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-9-75"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-0"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-1"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL-2"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6397-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM-3"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6400-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS-9"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6403-7" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutS"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutS-0"
+       style="overflow:visible">
+      <path
+         id="path6403-94"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.2)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutM-8"
+       style="overflow:visible">
+      <path
+         id="path6400-8-1"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutL-2-4"
+       style="overflow:visible">
+      <path
+         id="path6397-4"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8)" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-5">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-5"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-8-1">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-9-7-8"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       id="clipPath6236-1"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path6238-1"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <marker
+       inkscape:stockid="TriangleOutS"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutS-1-18"
+       style="overflow:visible">
+      <path
+         id="path6403-9-9"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.2)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutM-6-0"
+       style="overflow:visible">
+      <path
+         id="path6400-9-6"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutL-6-6"
+       style="overflow:visible">
+      <path
+         id="path6397-9-4"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8)" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-9-0">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0-1"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-8-5-1">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-9-0-2"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       id="clipPath6236-4-3"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path6238-0-5"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6236-47">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path6238-8" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-8-50"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-9-9"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-80"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-12"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL-60"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6397-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM-82"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6400-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS-99"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path6403-81" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-4-2">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-5-7"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-4">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-5"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-1">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-7"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-9">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-9"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-2-5">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-3-5"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-2">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-3"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-3">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-484"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-4">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0-8"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-4-9">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0-4"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-4-9-1">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0-4-7"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-9-2">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-9-2"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-2-5-9">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-3-5-7"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-2-9">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-3-8"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3051-8">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3053-1" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-880">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-6"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-4-3">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0-80"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-4-9-7">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0-4-4"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3243-4-9-1-3">
+      <path
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z"
+         id="path3245-0-4-7-3"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-7-1"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-4-8"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-7-6"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-4-9"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-80-6"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-12-0"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-7-1-5"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-4-8-5"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-7-1-4"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-4-8-6"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-7-1-45"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-4-8-63"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3243-7-6-1"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3245-4-9-0"
+         d="m 0,1792 1584,0 L 1584,0 0,0 0,1792 z" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="22.395604"
+     inkscape:cx="25.205993"
+     inkscape:cy="15.886068"
+     inkscape:current-layer="g5168"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1698"
+     inkscape:window-height="1080"
+     inkscape:window-x="129"
+     inkscape:window-y="47"
+     inkscape:window-maximized="0"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-bbox="true"
+     inkscape:snap-global="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3017" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3014">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <g
+       id="g5168"
+       transform="translate(0,1)">
+      <g
+         id="g4128"
+         transform="matrix(1.1929766,0,0,1.2022922,-4.6832878,-6.7672825)">
+        <path
+           sodipodi:nodetypes="czzc"
+           inkscape:connector-curvature="0"
+           id="path4094"
+           d="m 6.6796308,21.723975 c 0,0 3.6935882,-2.276085 6.2707032,-2.695555 2.577115,-0.41947 4.921937,1.155111 6.310704,0.417074 1.388767,-0.738037 2.296203,-1.315592 2.647444,-3.112629"
+           style="fill:none;stroke:#000000;stroke-width:2.1500001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        <path
+           transform="translate(0,-1)"
+           inkscape:connector-curvature="0"
+           id="path4100"
+           d="m 8.4712604,26.318048 c 0,0 1.6519206,-1.796281 4.5287396,-2.318048 2.876819,-0.521767 6.005949,1.697682 9,0 2.994051,-1.697682 6,-10 6,-10"
+           style="fill:none;stroke:#000000;stroke-width:2.1500001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           sodipodi:nodetypes="czzc" />
+        <rect
+           y="24"
+           x="15.615059"
+           height="3.2577655"
+           width="4.3849416"
+           id="rect4102"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.6587261;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        <path
+           sodipodi:end="12.012836"
+           sodipodi:start="5.7393219"
+           transform="matrix(0.39183601,0,0,0.34270955,18.410022,10.231962)"
+           d="m 13.495006,6.9302167 c 1.000221,1.8903955 0.47015,4.3495373 -1.183946,5.4926473 -1.654096,1.14311 -3.8058449,0.537315 -4.8060659,-1.353081 C 6.5047731,9.1793878 7.0348435,6.7202459 8.6889396,5.5771361 10.331735,4.4418358 12.468122,5.0307973 13.477351,6.8972108"
+           sodipodi:ry="4"
+           sodipodi:rx="3.5"
+           sodipodi:cy="9"
+           sodipodi:cx="10.5"
+           id="path4106"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           sodipodi:type="arc"
+           sodipodi:open="true" />
+        <path
+           sodipodi:open="true"
+           sodipodi:end="12.012836"
+           sodipodi:start="5.7393219"
+           transform="matrix(0.39183601,0,0,0.34270955,10.011868,6.5818967)"
+           d="m 13.495006,6.9302167 c 1.000221,1.8903955 0.47015,4.3495373 -1.183946,5.4926473 -1.654096,1.14311 -3.8058449,0.537315 -4.8060659,-1.353081 C 6.5047731,9.1793878 7.0348435,6.7202459 8.6889396,5.5771361 10.331735,4.4418358 12.468122,5.0307973 13.477351,6.8972108"
+           sodipodi:ry="4"
+           sodipodi:rx="3.5"
+           sodipodi:cy="9"
+           sodipodi:cx="10.5"
+           id="path4106-1"
+           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           sodipodi:type="arc" />
+      </g>
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.79462254;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 9.1469396,12.308714 c 0,0 0.2976558,-2.5017966 0.8837384,-3.1535946 0.58608,-0.651798 1.108777,-0.7883983 1.767476,-0.7883983 0.658699,0 1.317802,0.035205 1.767476,0.7883983 0.449675,0.7531951 0,3.1535946 0,3.1535946 z"
+         id="path6748"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="czzzcc" />
+    </g>
+  </g>
+</svg>

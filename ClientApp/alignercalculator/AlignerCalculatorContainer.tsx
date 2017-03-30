@@ -71,7 +71,6 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     public handleVisitIntervalInput(interval) {
-        debugger;
         var aligner = Object.assign({}, this.props.visitAligner, {visitInterval: interval});
         this.setState(aligner);
         if(this.state.isVisitIntervalAlignersLinked)
@@ -87,13 +86,21 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     handleFirstUpperInput(alignerNumber) {
-        var aligner = Object.assign({}, this.props.visitAligner, {firstUpperAligner: alignerNumber});
-        this.setState(aligner);
+        // Should do this on blur/enter to make sure user is complete with the update
+        if(alignerNumber > this.props.visitAligner.previousLower) {
+            this.state.openMidTreatment = true;
+        }
 
-        if(this.state.isUpperLowerAlignersLinked) 
-            this.props.updateAligners(aligner);
-        else
+        if(this.state.isUpperLowerAlignersLinked) {
+            var alignerLower = Object.assign({}, this.props.visitAligner, {firstUpperAligner: alignerNumber, firstLowerAligner: alignerNumber});
+            this.setState(alignerLower);
+            this.props.updateAligners(alignerLower);
+            }
+        else {
+            var aligner = Object.assign({}, this.props.visitAligner, {firstUpperAligner: alignerNumber});
+            this.setState(aligner);
             this.props.updateUpperAligners(aligner);
+        }
     }
 
     handleLastUpperInput(alignerNumber) {
@@ -110,10 +117,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         var aligner = Object.assign({}, this.props.visitAligner, {firstLowerAligner: alignerNumber});
         this.setState(aligner);
         
-        if(this.state.isUpperLowerAlignersLinked) 
-            this.props.updateAligners(aligner);
-        else
-            this.props.updateLowerAligners(aligner);
+        this.props.updateLowerAligners(aligner);
     }
 
     handleLastLowerInput(alignerNumber) {
@@ -147,7 +151,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
                     onLastLowerAlignerInputChange={this.handleLastLowerInput} 
                     onWearIntervalInputChange={this.handleWearIntervalInput}
                     onVisitIntervalInputChange={this.handleVisitIntervalInput} />
-                </div>
+            </div>
         );
     }
 }

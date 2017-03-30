@@ -45,16 +45,15 @@ describe("<AlignerCalculator/>", () => {
                 Component = wrapper.find(AlignerCalculator);
         });
 
-        it('should have <AlignerNumbers/>', () => {
+        it('Should have <AlignerNumbers/>', () => {
                 expect(Component.find(AlignerNumbers)).to.have.length(1);
         });
 
-        /* it('aligner numbers should update onchange', () => {
+        /* it('Should update aligner numbers onchange', () => {
                 aligners = Component.find(AlignerNumbers);
                 var callback = spy(Component.node.dispatchProps, 'updateAligners');
 
                 aligners.find('input#visitInterval').simulate('change', { value: 10} );
-                debugger;
                 
                 expect(callback.called).to.be.true;
         }); */

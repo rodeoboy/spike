@@ -46,21 +46,20 @@ describe("<AlignerNumbers/>", () => {
     });
 
     it('aligner numbers should have props', () => {
-        debugger;
         expect(Object.keys(wrapper.props())).to.have.length(10);
     });
 
     it('Should always render buttons', () => {
-        expect(wrapper.find('button')).to.have.length(3);
+        expect(wrapper.find('button')).to.have.length(4);
     });
 
     it('Should always render input', () => {
         expect(wrapper.find('input')).to.have.length(8);
     });
 
-    it('Should always render form', () => {
+    /*it('Should always render form', () => {
         expect(wrapper.find('form')).to.have.length(1);
-    });
+    });*/
     
     it('Should call onVisitIntervalInputChange on visit interval change', () => {
         expect(spies.onVisitIntervalInputChange.called).to.be.false;

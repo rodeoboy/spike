@@ -24,18 +24,8 @@ export class NavMenu extends React.Component<void, void> {
                             </Link>
                         </li>
                         <li>
-                            <Link to={ '/counter' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-education'></span> Counter
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={ '/fetchdata' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-th-list'></span> Fetch data
-                            </Link>
-                        </li>
-                        <li>
                             <Link to={ '/alignercalculator' } activeClassName='active'>
-                                <FontAwesome name='calculator' /> Aligner Calculator
+                                <FontAwesome name='calculator' /> 
                             </Link>
                         </li>
                     </ul>

@@ -14,6 +14,8 @@ export default class VisitAlignerBuilder {
             planUpperStart : 1,
             planLowerEnd : 40,
             planUpperEnd : 40,
+            previousUpper : 0,
+            previousLower : 0,
             treatmentVisitInteval : 8,
             treatmentWearInterval : 2,   
             isMidTreatment : false,    

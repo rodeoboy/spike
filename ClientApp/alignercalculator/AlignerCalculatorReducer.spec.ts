@@ -120,4 +120,26 @@ describe ('Aligner Calculator Reducer', () => {
 
         expect(newState.visitInterval).to.be.equal(56);
     });
+
+    it('Should prevent last aligner to be calculated greater than plan end value', () => {
+        const changedState = new VisitAlignerBuilder()
+                                    .WithPlanUpperEnd(10)
+                                    .WithFirstUpperAligner(8).Build();
+        const action = actions.actionCreators.updateUpperAligners(changedState);
+
+        const newState = reducer.reducer(initialState, action); 
+
+        expect(newState.lastUpperAligner).to.be.equal(10);                       
+    });
+
+    it('Should prevent last aligner to be calculated greater than plan end value', () => {
+        const changedState = new VisitAlignerBuilder()
+                                    .WithPlanLowerEnd(10)
+                                    .WithFirstLowerAligner(8).Build();
+        const action = actions.actionCreators.updateLowerAligners(changedState);
+
+        const newState = reducer.reducer(initialState, action); 
+
+        expect(newState.lastLowerAligner).to.be.equal(10);                       
+    });
 });

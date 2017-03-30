@@ -2,9 +2,10 @@ import { Reducer } from 'redux';
 import { KnownAction } from './AlignerCalculatorAction'
 import { VisitAligner } from './alignerVisitModel'
 
+// This default values can be removed when state is coming down from the server
 const visitAligner : VisitAligner  = {
-            visitInterval : 8,
-            wearInterval : 2,
+            visitInterval : 56,
+            wearInterval : 14,
             firstUpperAligner : 1,
             lastUpperAligner : 4,
             firstLowerAligner : 1,
@@ -13,6 +14,8 @@ const visitAligner : VisitAligner  = {
             planUpperStart : 1,
             planLowerEnd : 40,
             planUpperEnd : 40,
+            previousUpper : 0,
+            previousLower : 0,
             treatmentVisitInteval : 8,
             treatmentWearInterval : 2,   
             isMidTreatment : false,    
@@ -33,6 +36,8 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
         planUpperStart : 0,
         planLowerEnd : 0,
         planUpperEnd : 0,
+        previousUpper : 0,
+        previousLower : 0,
         treatmentVisitInteval : 0,
         treatmentWearInterval : 0,   
         isMidTreatment : false,    
@@ -42,39 +47,19 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
             var aligners = Object.assign({}, action.visitAligner );
             var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
 
-            if (aligners.firstUpperAligner !== 0)
-                aligners.lastUpperAligner = aligners.firstUpperAligner + alingerCount;
-
-            if (aligners.firstLowerAligner !== 0)
-                aligners.lastLowerAligner = aligners.firstLowerAligner + alingerCount;
-
-            //Set the last number on upper the same as lower for staggared starts
-            if (aligners.firstUpperAligner > aligners.firstLowerAligner &&
-                aligners.lastLowerAligner >= aligners.firstUpperAligner ) {
-                    aligners.lastUpperAligner = aligners.lastLowerAligner;
-            }
-
-            //Set the last number on upper the same as lower for staggared starts
-            if (aligners.firstLowerAligner > aligners.firstUpperAligner &&
-                aligners.lastUpperAligner >= aligners.firstLowerAligner ) {
-                    aligners.lastLowerAligner = aligners.lastUpperAligner;
-            }
+            updateAligners(aligners);
 
             return Object.assign({}, state, aligners);
         case 'UPDATE_UPPER_ALIGNERS':
             var aligners = Object.assign({}, action.visitAligner );
-            var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
 
-            if (aligners.firstUpperAligner !== 0)
-                aligners.lastUpperAligner = aligners.firstUpperAligner + alingerCount;
+            updateLastUpperAligner(aligners);
 
             return Object.assign({}, state, aligners);
         case 'UPDATE_LOWER_ALIGNERS':
             var aligners = Object.assign({}, action.visitAligner );
-            var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
-
-            if (aligners.firstLowerAligner !== 0)
-                aligners.lastLowerAligner = aligners.firstLowerAligner + alingerCount;
+            
+            updateLastLowerAligner(aligners);
 
             return Object.assign({}, state, aligners);
         case 'UPDATE_VISIT_INTERVAL':
@@ -94,6 +79,45 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;
+    }
+
+    function updateLastUpperAligner(aligners) {
+        var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
+        
+        if (aligners.firstUpperAligner !== 0)
+            aligners.lastUpperAligner = aligners.firstUpperAligner + alingerCount;
+
+        if (aligners.lastUpperAligner > aligners.planUpperEnd)
+            aligners.lastUpperAligner = aligners.planUpperEnd;
+    }
+
+    function updateLastLowerAligner(aligners) {
+        var alingerCount = Math.floor(aligners.visitInterval / aligners.wearInterval - 1);
+        
+        if (aligners.firstLowerAligner !== 0)
+            aligners.lastLowerAligner = aligners.firstLowerAligner + alingerCount;
+
+        if (aligners.lastLowerAligner > aligners.planLowerEnd)
+            aligners.lastLowerAligner = aligners.planLowerEnd;
+    }
+    
+    function updateAligners(aligners) {
+    
+        updateLastUpperAligner(aligners);
+
+        updateLastLowerAligner(aligners);
+
+        //Set the last number on upper the same as lower for staggared starts
+        if (aligners.firstUpperAligner > aligners.firstLowerAligner &&
+            aligners.lastLowerAligner >= aligners.firstUpperAligner ) {
+                aligners.lastUpperAligner = aligners.lastLowerAligner;
+        }
+
+        //Set the last number on upper the same as lower for staggared starts
+        if (aligners.firstLowerAligner > aligners.firstUpperAligner &&
+            aligners.lastUpperAligner >= aligners.firstLowerAligner ) {
+                aligners.lastLowerAligner = aligners.lastUpperAligner;
+        }
     }
 
     function getMaxAlignerCount(state) {

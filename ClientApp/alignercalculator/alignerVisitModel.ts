@@ -19,6 +19,8 @@ export interface VisitAligner {
     planUpperStart : number;
     planLowerEnd : number;
     planUpperEnd : number;
+    previousUpper : number;
+    previousLower : number;
     treatmentVisitInteval : number;
     treatmentWearInterval : number;
     isMidTreatment : boolean;
