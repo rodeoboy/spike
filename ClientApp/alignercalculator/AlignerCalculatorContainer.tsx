@@ -8,8 +8,108 @@ import AlignerNumbers from './AlignerNumbers';
 import * as actions from './AlignerCalculatorAction';
 import { VisitAligner, AlignerProps } from './alignerVisitModel';
 import { KnownAction } from './AlignerCalculatorAction';
+import ErrorPanel from './ErrorPanel';
 import { ApplicationState }  from '../store';
 import FontAwesome = require("react-fontawesome");
+import * as revalidator from 'revalidator'
+
+function validateVisitInterval(visitAligner : VisitAligner) {
+    return revalidator.validate(visitAligner, {
+        properties : {
+            visitInterval : {
+                require : true,
+                allowEmpty: false,
+                minimum : visitAligner.wearInterval,
+                maximum : 999,
+                messages : {
+                    minimum : "Visit interval can not be less than wear interval.",
+                    allowEmpty : "Visit interval is required."
+                }
+            }
+        }
+    });
+}
+
+function validateWearInterval(visitAligner : VisitAligner) {
+    return revalidator.validate(visitAligner, {
+        properties : {
+            wearInterval : {
+                require : true,
+                allowEmpty: false,
+                minimum : 1,
+                maximum : visitAligner.visitInterval,
+                messages : {
+                    maximum : "Wear interval can not be less than wear interval.",
+                    allowEmpty : "Wear interval is required."
+                }
+            }
+        }
+    });
+}
+
+function validateFirstUpper(visitAligner : VisitAligner) {
+    return revalidator.validate(visitAligner, {
+        properties : {
+            firstUpperAligner : {
+                require : true,
+                minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
+                maximum : visitAligner.planUpperEnd,
+                messages : {
+                    minimum : "First lower aligner can not be less than the plan start or last alinger given.",
+                    maximum : "First lower aligner can not be greater than the plan end"
+                }
+            }
+        }
+    });
+}
+
+function validateFirstLower(visitAligner : VisitAligner) {
+    return revalidator.validate(visitAligner, {
+        properties : {
+            firstUpperAligner : {
+                require : true,
+                minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower,
+                maximum : visitAligner.planLowerEnd,
+                messages : {
+                    minimum : "First upper aligner can not be less than the plan start or last alinger given.",
+                    maximum : "First upper aligner can not be greater than the plan end"
+                }
+            }
+        }
+    });
+}
+
+function validateLastUpper(visitAligner : VisitAligner) {
+    return revalidator.validate(visitAligner, {
+        properties : {
+            firstUpperAligner : {
+                require : true,
+                minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
+                maximum : visitAligner.planUpperEnd,
+                messages : {
+                    minimum : "Last lower aligner can not be less than the plan start or last alinger given.",
+                    maximum : "Last lower aligner can not be greater than the plan end"
+                }
+            }
+        }
+    });
+}
+
+function validateLastLower(visitAligner : VisitAligner) {
+    return revalidator.validate(visitAligner, {
+        properties : {
+            firstUpperAligner : {
+                require : true,
+                minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower,
+                maximum : visitAligner.planLowerEnd,
+                messages : {
+                    minimum : "Last upper aligner can not be less than the plan start or last alinger given.",
+                    maximum : "Last upper aligner can not be greater than the plan end"
+                }
+            }
+        }
+    });
+}
 
 class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     constructor(props, context) {
@@ -21,7 +121,10 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
             alignerLinkedStyle: "fa fa-link",
             isWearIntervalLocked: true,
             isUpperLowerAlignersLinked: true,
-            isVisitIntervalAlignersLinked: true
+            isVisitIntervalAlignersLinked: true,
+            visitIntervalValidationState: null,
+            wearIntervalValidationState: null,
+            ErrorMessages: ['test']
         };
         this.handleVisitIntervalInput = this.handleVisitIntervalInput.bind(this);
         this.handleWearIntervalInput = this.handleWearIntervalInput.bind(this);
@@ -70,22 +173,30 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         }
     }
 
-    public handleVisitIntervalInput(interval) {
-        var aligner = Object.assign({}, this.props.visitAligner, {visitInterval: interval});
+    public handleVisitIntervalInput(interval : number) {
+        var aligner = Object.assign({}, this.props.visitAligner, { visitInterval: interval });
+        let validation = validateVisitInterval(aligner);
         this.setState(aligner);
         if(this.state.isVisitIntervalAlignersLinked)
             this.props.updateAligners(aligner);
         else if(!this.state.isWearIntervalLocked)
             this.props.updateWearInterval(aligner);
+
+        this.state.visitIntervalValidationState = validation.valid ? null : "error";
+        this.state.ErrorMessages = validation.errors;
     }
 
-    handleWearIntervalInput(interval) {
-        var aligner = Object.assign({}, this.props.visitAligner, {wearInterval: interval});
+    handleWearIntervalInput(interval : number) {
+        var aligner = Object.assign({}, this.props.visitAligner, { wearInterval: interval });
+        let validation = validateWearInterval(aligner);
         this.setState(aligner);
         this.props.updateAligners(aligner);
+
+        this.state.wearIntervalValidationState = validation.valid ? null : "error";
+        this.state.ErrorMessages = validation.errors;
     }
 
-    handleFirstUpperInput(alignerNumber) {
+    handleFirstUpperInput(alignerNumber : number) {
         // Should do this on blur/enter to make sure user is complete with the update
         if(alignerNumber > this.props.visitAligner.previousLower) {
             this.state.openMidTreatment = true;
@@ -103,7 +214,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         }
     }
 
-    handleLastUpperInput(alignerNumber) {
+    handleLastUpperInput(alignerNumber : number) {
         var aligner = Object.assign({}, this.props.visitAligner, {lastUpperAligner: alignerNumber});
         this.setState(aligner);
         
@@ -113,14 +224,14 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
             this.props.updateWearInterval(aligner);
     }
 
-    handleFirstLowerInput(alignerNumber) {
+    handleFirstLowerInput(alignerNumber : number) {
         var aligner = Object.assign({}, this.props.visitAligner, {firstLowerAligner: alignerNumber});
         this.setState(aligner);
         
         this.props.updateLowerAligners(aligner);
     }
 
-    handleLastLowerInput(alignerNumber) {
+    handleLastLowerInput(alignerNumber : number) {
         var aligner = Object.assign({}, this.props.visitAligner, {lastLowerAligner: alignerNumber});
         this.setState(aligner);
         
@@ -136,6 +247,8 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
             <div className="container-fluid">
                 <div>{this.state.visitInterval} / {this.state.wearInterval}</div>
                 <AlignerNumbers visitAligner={this.props.visitAligner}
+                    visitIntervalValidationState={this.state.visitIntervalValidationState}
+                    wearIntervalValidationState={this.state.wearIntervalValidationState}
                     isUpperLowerLinked={this.state.isUpperLowerAlignersLinked} 
                     isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
                     isWearIntervalLocked={this.state.isWearIntervalLocked}
@@ -150,7 +263,8 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
                     onFirstLowerAlignerInputChange={this.handleFirstLowerInput}
                     onLastLowerAlignerInputChange={this.handleLastLowerInput} 
                     onWearIntervalInputChange={this.handleWearIntervalInput}
-                    onVisitIntervalInputChange={this.handleVisitIntervalInput} />
+                    onVisitIntervalInputChange={this.handleVisitIntervalInput}  />
+                <ErrorPanel messages={this.state.ErrorMessages} />
             </div>
         );
     }

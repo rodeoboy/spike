@@ -65,8 +65,8 @@ describe("<AlignerNumbers/>", () => {
         expect(spies.onVisitIntervalInputChange.called).to.be.false;
         wrapper.find('input#visitInterval').simulate('change', { value: 10 });
         expect(spies.onVisitIntervalInputChange.called).to.be.true;
-    }); 
-        
+    });     
+
     it('Should call onWearIntervalInputChange on wear interval change', () => {
         expect(spies.onWearIntervalInputChange.called).to.be.false;
         wrapper.find('input#wearInterval').simulate('change', { value: 10 });

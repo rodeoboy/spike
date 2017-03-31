@@ -108,4 +108,18 @@ describe("<AlignerCalculator/>", () => {
             expect(button.find('span').hasClass('fa-chain-broken')).to.be.true;
         });
     });
+
+    it('Should call onVisitIntervalInputChange on visit interval change with blank value', () => {
+        Component.handleVisitIntervalInput('');
+        expect(Component.props().ErrorMessages).to.have.length(1);
+    }); 
+    
+    it('Should call onVisitIntervalInputChange on visit interval change with negative value', () => {
+        wrapper.find('input#visitInterval').simulate('change', { value: -10 });
+        //expect(Component.props().ErrorMessages).to.have.length(1);
+    }); 
+
+    it('Should call onVisitIntervalInputChange on visit interval change with letter', () => {
+        wrapper.find('input#visitInterval').simulate('change', { value: 'l' });
+    }); 
 });

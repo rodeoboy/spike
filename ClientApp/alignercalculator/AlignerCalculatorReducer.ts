@@ -27,7 +27,7 @@ function updateWearInterval(state, visitAligner) {
     let count = getMaxAlignerCount(visitAligner);
 
     let aligners = Object.assign({}, visitAligner, { wearInterval: Math.floor(visitAligner.visitInterval / count) });
-
+    
     return Object.assign({}, state, aligners);
 }
 
