@@ -9,6 +9,10 @@ interface Props {
     visitAligner: VisitAligner;
     visitIntervalValidationState: string;
     wearIntervalValidationState: string;
+    firstUpperAlignerValidationState: string;
+    lastUpperAlignerValidationState: string;
+    firstLowerAlignerValidationState: string;
+    lastLowerAlignerValidationState: string;
     isUpperLowerLinked: boolean;
     isVisitIntervalAlignersLinked: boolean;
     isWearIntervalLocked: boolean;
@@ -47,10 +51,10 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                 <table style={{ borderSpacing : 5 }}>
                     <tbody>
                         <tr>
-                            <td>
+                            <td colSpan={2}>
                                 <ControlLabel>Next visit:</ControlLabel>
                             </td>
-                            <td colSpan={3}>
+                            <td colSpan={2}>
                                 <FormGroup validationState={this.props.visitIntervalValidationState}>
                                     <InputGroup>
                                         <InputGroup.Addon>
@@ -79,37 +83,40 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                             <td>
                                 <ControlLabel>Aligners:</ControlLabel>
                             </td>
-                            <td>
-                                
+                            <td>                                
                             </td>
                             <td>
                                 <ControlLabel>First:</ControlLabel>
-                                <FormControl id="firstUpperAligner" type="text" style={{width: 50}}
-                                    value = { this.props.visitAligner.firstUpperAligner }
-                                    onChange = { e => this.handleFirstUpperAlignerInputChange(e) }
-                                    max={ this.props.visitAligner.planUpperEnd }
-                                    min={ this.props.visitAligner.previousUpper + 1 } />
-                                <FormControl id="firstLowerAligner" type="text" style={{width: 50}}
-                                    value = { this.props.visitAligner.firstLowerAligner }
-                                    disabled = { this.props.isUpperLowerLinked}
-                                    onChange = { e => this.handleFirstLowerAlignerInputChange(e) } 
-                                    max={ this.props.visitAligner.planLowerEnd }
-                                    min={ this.props.visitAligner.previousLower + 1 } />
+                                <FormGroup validationState={this.props.firstUpperAlignerValidationState}>
+                                    <FormControl id="firstUpperAligner" type="text" style={{width: 50}}
+                                        value = { this.props.visitAligner.firstUpperAligner }
+                                        onChange = { e => this.handleFirstUpperAlignerInputChange(e) }
+                                        maxLength = '3' />
+                                </FormGroup>
+                                <FormGroup validationState={this.props.lastLowerAlignerValidationState}>
+                                    <FormControl id="firstLowerAligner" type="text" style={{width: 50}}
+                                        value = { this.props.visitAligner.firstLowerAligner }
+                                        disabled = { this.props.isUpperLowerLinked}
+                                        onChange = { e => this.handleFirstLowerAlignerInputChange(e) } 
+                                        maxLength = '3' />
+                                </FormGroup>
                             </td>
                             <td>
                                 <ControlLabel>Last:</ControlLabel>
-                                <FormControl id="lastUpperAligner" type="text" style={{width: 50}}
-                                    value = { this.props.visitAligner.lastUpperAligner }
-                                    disabled = { this.props.isUpperLowerLinked}
-                                    onChange = { e => this.handleLastUpperAlignerInputChange(e) } 
-                                    max={ this.props.visitAligner.planUpperEnd }
-                                    min={ this.props.visitAligner.previousUpper + 1 } />
-                                <FormControl id="lastLowerAligner" type="text" style={{width: 50}}
-                                    value = { this.props.visitAligner.lastLowerAligner }
-                                    disabled = { this.props.isUpperLowerLinked}
-                                    onChange = { e => this.handleLastLowerAlignerInputChange(e) } 
-                                    max={ this.props.visitAligner.planLowerEnd }
-                                    min={ this.props.visitAligner.previousLower + 1 } />
+                                <FormGroup validationState={this.props.firstLowerAlignerValidationState}>
+                                    <FormControl id="lastUpperAligner" type="text" style={{width: 50}}
+                                        value = { this.props.visitAligner.lastUpperAligner }
+                                        disabled = { this.props.isUpperLowerLinked}
+                                        onChange = { e => this.handleLastUpperAlignerInputChange(e) } 
+                                        maxLength = '3' />  
+                                </FormGroup>
+                                <FormGroup validationState={this.props.lastLowerAlignerValidationState}>
+                                    <FormControl id="lastLowerAligner" type="text" style={{width: 50}}
+                                        value = { this.props.visitAligner.lastLowerAligner }
+                                        disabled = { this.props.isUpperLowerLinked}
+                                        onChange = { e => this.handleLastLowerAlignerInputChange(e) } 
+                                        maxLength = '3' />
+                                </FormGroup>
                             </td>
                             <td>
                                 <div className="floatingButton" >
@@ -133,10 +140,10 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                                         value = { this.props.visitAligner.wearInterval }
                                         disabled = { this.props.isWearIntervalLocked}
                                         onChange = { e => this.handleWearIntervalInputChange(e) } 
-                                        max='100' min='1' />
+                                        maxLength = '3' />
                                 </FormGroup>
                             </td>
-                            <td><FormGroup><Radio name="WearIntervalUnit">Days</Radio><Radio name="WearIntervalUnit">Weeks</Radio></FormGroup></td>
+                            <td><FormGroup style={{ marginLeft : 5 }}><Radio name="WearIntervalUnit" style={{marginTop: 0}}>Days</Radio><Radio name="WearIntervalUnit">Weeks</Radio></FormGroup></td>
                         </tr>
                     </tbody>
                 </table>
