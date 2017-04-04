@@ -32,17 +32,6 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
         this.handleCalendarButtonClick = this.handleCalendarButtonClick.bind(this);
     }
 
-    getInitialState() {
-            const defaultCalendarValue = now.clone();
-            defaultCalendarValue.add(this.props.visitAligner.visitInterval, 'month');
-        return {
-        showTime: false,
-        showDateInput: false,
-        disabled: false,
-        value: defaultCalendarValue,
-        };
-    }
-
     public render() {
         const defaultCalendarValue = now.clone();
         defaultCalendarValue.add(this.props.visitAligner.visitInterval + 1, 'day');

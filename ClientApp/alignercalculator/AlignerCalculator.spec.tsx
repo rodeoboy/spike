@@ -93,19 +93,19 @@ describe("<AlignerCalculator/>", () => {
         it('Should have validation error on change with blank value', () => {
             wrapper.find('input#visitInterval').simulate('change', { target: { value: '' } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Visit interval must be a number');
+            expect(errorPanel.find('li').text()).to.equal('Visit interval must be a number');
         });
 
         it('Should have validation error on change with value less than wear interval', () => {
             wrapper.find('input#visitInterval').simulate('change', { target: { value: visitAligner.wearInterval - 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Visit interval can not be less than wear interval');
+            expect(errorPanel.find('li').text()).to.equal('Visit interval can not be less than wear interval');
         });
 
         it('Should have validation error on change with value greater than 999', () => {
             wrapper.find('input#visitInterval').simulate('change', { target: { value: 1000 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Visit interval must be less than 1000');
+            expect(errorPanel.find('li').text()).to.equal('Visit interval must be less than 1000');
         });
     });
 
@@ -113,19 +113,19 @@ describe("<AlignerCalculator/>", () => {
         it('Should have validation error on change with blank value', () => {
             wrapper.find('input#wearInterval').simulate('change', { target: { value: '' } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Wear interval must be a number');
+            expect(errorPanel.find('li').text()).to.equal('Wear interval must be a number');
         });
 
         it('Should have validation error on  change with value greater than visit interval', () => {
             wrapper.find('input#wearInterval').simulate('change', { target: { value: visitAligner.visitInterval + 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Wear interval can not be greater than visit interval');
+            expect(errorPanel.find('li').text()).to.equal('Wear interval can not be greater than visit interval');
         });
 
         it('Should have validation error on change value less than 1', () => {
             wrapper.find('input#wearInterval').simulate('change', { target: { value: 0 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Wear interval must be greater than or equal to 1');
+            expect(errorPanel.find('li').text()).to.equal('Wear interval must be greater than or equal to 1');
         });
     });
 
@@ -133,43 +133,43 @@ describe("<AlignerCalculator/>", () => {
         it('Should have validation error on change with value greater than plan end', () => {
             wrapper.find('input#firstUpperAligner').simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('First upper aligner can not be greater than the plan end');
+            expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be greater than the plan end');
         });
 
         it('Should have validation error on change with value less than plan start', () => {
             wrapper.find('input#firstUpperAligner').simulate('change', { target: { value: visitAligner.planUpperStart - 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('First upper aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be less than the plan start or last alinger given');
         });
 
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             wrapper.find('input#firstUpperAligner').simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('First upper aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be less than the plan start or last alinger given');
         });
     });
 
     describe('First lower alinger change ', () => {
         it('Should have validation error on change with value greater than plan end', () => {
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span')).to.have.length(0);
+            expect(errorPanel.find('li')).to.have.length(0);
             wrapper.find('input#firstLowerAligner').simulate('change', { target: { value: visitAligner.planLowerEnd + 1 } });
-            expect(errorPanel.find('span').text()).to.equal('First lower aligner can not be greater than the plan end');
+            expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be greater than the plan end');
         });
 
         it('Should have validation error on change with value less than plan start', () => {
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span')).to.have.length(0);
+            expect(errorPanel.find('li')).to.have.length(0);
             wrapper.find('input#firstLowerAligner').simulate('change', { target: { value: visitAligner.planLowerStart - 1 } });
-            expect(errorPanel.find('span').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
         });
 
         // should be created seperately
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span')).to.have.length(0);
+            expect(errorPanel.find('li')).to.have.length(0);
             wrapper.find('input#firstLowerAligner').simulate('change', { target: { value: visitAligner.previousLower - 1 } });
-            expect(errorPanel.find('span').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
         });
     });
 
@@ -177,43 +177,43 @@ describe("<AlignerCalculator/>", () => {
         it('Should have validation error on change with value greater than plan end', () => {
             wrapper.find('input#lastUpperAligner').simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Last upper aligner can not be greater than the plan end');
+            expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be greater than the plan end');
         });
 
         it('Should have validation error on change with value less than plan start', () => {
             wrapper.find('input#lastUpperAligner').simulate('change', { target: { value: visitAligner.planUpperStart - 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Last upper aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be less than the plan start or last alinger given');
         });
 
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             wrapper.find('input#lastUpperAligner').simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span').text()).to.equal('Last upper aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be less than the plan start or last alinger given');
         });
     });
 
     describe('Last lower alinger change ', () => {
         it('Should have validation error on change with value greater than plan end', () => {
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span')).to.have.length(0);
+            expect(errorPanel.find('li')).to.have.length(0);
             wrapper.find('input#lastLowerAligner').simulate('change', { target: { value: visitAligner.planLowerEnd + 1 } });
-            expect(errorPanel.find('span').text()).to.equal('Last lower aligner can not be greater than the plan end');
+            expect(errorPanel.find('li').text()).to.equal('Last lower aligner can not be greater than the plan end');
         });
 
         it('Should have validation error on change with value less than plan start', () => {
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span')).to.have.length(0);
+            expect(errorPanel.find('li')).to.have.length(0);
             wrapper.find('input#lastLowerAligner').simulate('change', { target: { value: visitAligner.planLowerStart - 1 } });
-            expect(errorPanel.find('span').text()).to.equal('Last lower aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('Last lower aligner can not be less than the plan start or last alinger given');
         });
 
         // should be created seperately
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             var errorPanel = wrapper.find(ErrorPanel);
-            expect(errorPanel.find('span')).to.have.length(0);
+            expect(errorPanel.find('li')).to.have.length(0);
             wrapper.find('input#lastLowerAligner').simulate('change', { target: { value: visitAligner.previousLower - 1 } });
-            expect(errorPanel.find('span').text()).to.equal('Last lower aligner can not be less than the plan start or last alinger given');
+            expect(errorPanel.find('li').text()).to.equal('Last lower aligner can not be less than the plan start or last alinger given');
         });
     });
 });
