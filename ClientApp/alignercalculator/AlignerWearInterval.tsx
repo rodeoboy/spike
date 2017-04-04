@@ -4,7 +4,7 @@ import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
 import {debounce} from 'throttle-debounce';
 
-interface Props {
+interface AlignerWearIntervalProps {
     wearInterval: number;
     wearIntervalValidationState: string;
     wearIntervalLockedStyle: string;
@@ -13,8 +13,8 @@ interface Props {
     onWearIntervalLockClick : () => void;
 }
 
-export default class AlignerWearInterval extends React.Component<Props, any> {
-    constructor(props : Props) {
+export default class AlignerWearInterval extends React.Component<AlignerWearIntervalProps, any> {
+    constructor(props : AlignerWearIntervalProps) {
         super(props);
         this.handleWearIntervalInputChange = this.handleWearIntervalInputChange.bind(this);
         this.handleWearIntervalLockClick = this.handleWearIntervalLockClick.bind(this);
@@ -22,24 +22,20 @@ export default class AlignerWearInterval extends React.Component<Props, any> {
 
     public render() {
         return (
-            <div>
-                <tr colSpan={3}>
-                    <td><ControlLabel>Wear interval: </ControlLabel>
-                        <button id="wearIntervalLock" onClick={ e => this.handleWearIntervalLockClick(e) } style={{ border:0 }} className='linkingButton'>
-                            <span className={this.props.wearIntervalLockedStyle} />
-                        </button>
-                    </td>
-                    <td>
-                        <FormGroup validationState={this.props.wearIntervalValidationState}>
-                            <FormControl id="wearInterval" type="text" style={{width: 50}}
-                                value = { this.props.wearInterval }
-                                disabled = { this.props.isWearIntervalLocked}
-                                onChange = { e => this.handleWearIntervalInputChange(e) } 
-                                maxLength = '3' />
-                        </FormGroup>
-                    </td>
-                    <td><FormGroup style={{ marginLeft : 5 }}><Radio name="WearIntervalUnit" style={{marginTop: 0}}>Days</Radio><Radio name="WearIntervalUnit">Weeks</Radio></FormGroup></td>
-                </tr>
+            <div className="form-group row">
+                <Col componentClass={ControlLabel} xs={5}>Wear interval: 
+                    <button id="wearIntervalLock" onClick={ e => this.handleWearIntervalLockClick(e) } style={{ border:0 }} className='linkingButton'>
+                        <span className={this.props.wearIntervalLockedStyle} />
+                    </button>
+                </Col>
+                <Col componentClass={FormGroup} xs={3} validationState={this.props.wearIntervalValidationState}>
+                    <FormControl id="wearInterval" type="text" style={{width: 50}}
+                        value = { this.props.wearInterval }
+                        disabled = { this.props.isWearIntervalLocked}
+                        onChange = { e => this.handleWearIntervalInputChange(e) } 
+                        maxLength = '3' />
+                </Col>
+                <Col componentClass={FormGroup} xs={2} style={{ marginLeft : 5 }}><Radio name="WearIntervalUnit" style={{marginTop: 0}}>Days</Radio><Radio name="WearIntervalUnit">Weeks</Radio></Col>
             </div>
         );
     }

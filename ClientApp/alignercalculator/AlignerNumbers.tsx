@@ -5,7 +5,7 @@ import { VisitAligner } from './alignerVisitModel';
 import * as _ from 'underscore';
 import {debounce} from 'throttle-debounce';
 
-interface Props {
+interface AlignerNumbersProps {
     visitAligner: VisitAligner;
     firstUpperAlignerValidationState: string;
     lastUpperAlignerValidationState: string;
@@ -20,8 +20,8 @@ interface Props {
     onAlignerLinkClick;
 }
 
-export default class AlignerNumbers extends React.Component<Props, any> {
-    constructor(props : Props) {
+export default class AlignerNumbers extends React.Component<AlignerNumbersProps, any> {
+    constructor(props : AlignerNumbersProps) {
         super(props);
         this.handleFirstUpperAlignerInputChange = this.handleFirstUpperAlignerInputChange.bind(this);
         this.handleLastUpperAlignerInputChange = this.handleLastUpperAlignerInputChange.bind(this);
@@ -33,55 +33,47 @@ export default class AlignerNumbers extends React.Component<Props, any> {
     public render() {
         return (
             <div>
-                        <tr>
-                            <td>
-                                <ControlLabel>Aligners:</ControlLabel>
-                            </td>
-                            <td>                                
-                            </td>
-                            <td>
-                                <ControlLabel>First:</ControlLabel>
-                                <FormGroup validationState={this.props.firstUpperAlignerValidationState}>
-                                    <FormControl id="firstUpperAligner" type="text" style={{width: 50}}
-                                        value = { this.props.visitAligner.firstUpperAligner }
-                                        onChange = { e => this.handleFirstUpperAlignerInputChange(e) }
-                                        maxLength = '3' />
-                                </FormGroup>
-                                <FormGroup validationState={this.props.lastLowerAlignerValidationState}>
-                                    <FormControl id="firstLowerAligner" type="text" style={{width: 50}}
-                                        value = { this.props.visitAligner.firstLowerAligner }
-                                        disabled = { this.props.isUpperLowerLinked}
-                                        onChange = { e => this.handleFirstLowerAlignerInputChange(e) } 
-                                        maxLength = '3' />
-                                </FormGroup>
-                            </td>
-                            <td>
-                                <ControlLabel>Last:</ControlLabel>
-                                <FormGroup validationState={this.props.firstLowerAlignerValidationState}>
-                                    <FormControl id="lastUpperAligner" type="text" style={{width: 50}}
-                                        value = { this.props.visitAligner.lastUpperAligner }
-                                        disabled = { this.props.isUpperLowerLinked}
-                                        onChange = { e => this.handleLastUpperAlignerInputChange(e) } 
-                                        maxLength = '3' />  
-                                </FormGroup>
-                                <FormGroup validationState={this.props.lastLowerAlignerValidationState}>
-                                    <FormControl id="lastLowerAligner" type="text" style={{width: 50}}
-                                        value = { this.props.visitAligner.lastLowerAligner }
-                                        disabled = { this.props.isUpperLowerLinked}
-                                        onChange = { e => this.handleLastLowerAlignerInputChange(e) } 
-                                        maxLength = '3' />
-                                </FormGroup>
-                            </td>
-                            <td>
-                                <div className="floatingButton" >
-                                    <div className="topLinkLine" />
-                                    <button id='alignerLink' onClick={ e => this.handleAlignerLinkClick(e) } style={{ border:0 }} className='linkingButton'>
-                                        <span className={this.props.alignerLinkedStyle} />
-                                    </button>
-                                    <div className="bottomLinkLine" />
-                                </div>
-                            </td>
-                        </tr>
+                <Row><Col componentClass={ControlLabel} xs={6}></Col><Col componentClass={ControlLabel} xs={2}>First:</Col><Col componentClass={ControlLabel} xs={2}>Last:</Col></Row>
+                <Row>
+                <Col componentClass={ControlLabel} xs={6}>Aligners:</Col>
+                <Col componentClass={FormGroup} xs={2} validationState={this.props.firstUpperAlignerValidationState}>
+                    <FormControl id="firstUpperAligner" type="text" style={{width: 50}}
+                        value = { this.props.visitAligner.firstUpperAligner }
+                        onChange = { e => this.handleFirstUpperAlignerInputChange(e) }
+                        maxLength = '3' />
+                </Col>
+                <Col componentClass={FormGroup} xs={2} validationState={this.props.firstLowerAlignerValidationState}>
+                    <FormControl id="lastUpperAligner" type="text" style={{width: 50}}
+                        value = { this.props.visitAligner.lastUpperAligner }
+                        disabled = { this.props.isUpperLowerLinked}
+                        onChange = { e => this.handleLastUpperAlignerInputChange(e) } 
+                        maxLength = '3' /> 
+                </Col>
+                </Row>
+                <Row>
+                <Col componentClass={ControlLabel} xs={6}></Col>
+                <Col componentClass={FormGroup} xs={2} validationState={this.props.lastLowerAlignerValidationState}>
+                    <FormControl id="firstLowerAligner" type="text" style={{width: 50}}
+                        value = { this.props.visitAligner.firstLowerAligner }
+                        disabled = { this.props.isUpperLowerLinked}
+                        onChange = { e => this.handleFirstLowerAlignerInputChange(e) } 
+                        maxLength = '3' />
+                </Col>
+                <Col componentClass={FormGroup} xs={2} validationState={this.props.lastLowerAlignerValidationState}>
+                    <FormControl id="lastLowerAligner" type="text" style={{width: 50}}
+                        value = { this.props.visitAligner.lastLowerAligner }
+                        disabled = { this.props.isUpperLowerLinked}
+                        onChange = { e => this.handleLastLowerAlignerInputChange(e) } 
+                        maxLength = '3' />
+                </Col>
+                <Col xs={2} className="floatingButton" >
+                    <div className="topLinkLine" />
+                    <button id='alignerLink' onClick={ e => this.handleAlignerLinkClick(e) } style={{ border:0 }} className='linkingButton'>
+                        <span className={this.props.alignerLinkedStyle} />
+                    </button>
+                    <div className="bottomLinkLine" />
+                </Col>
+                </Row>
             </div>
         );
     }
