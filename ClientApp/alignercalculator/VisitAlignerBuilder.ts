@@ -5,7 +5,9 @@ export default class VisitAlignerBuilder {
     constructor() {
         this.visitAligner = {
             visitInterval : 84,
+            visitIntervalInDays : true,
             wearInterval : 14,
+            wearIntervalInDays : true,
             firstUpperAligner : 1,
             lastUpperAligner : 4,
             firstLowerAligner : 1,

@@ -5,7 +5,9 @@ import { VisitAligner } from './alignerVisitModel'
 // This default values can be removed when state is coming down from the server
 const visitAligner: VisitAligner = {
     visitInterval: 56,
+    visitIntervalInDays: true,
     wearInterval: 14,
+    wearIntervalInDays: true,
     firstUpperAligner: 1,
     lastUpperAligner: 4,
     firstLowerAligner: 1,
@@ -97,6 +99,18 @@ function updateAligners(state, visitAligner) {
     return Object.assign({}, state, aligners);
 }
 
+function  updateWearIntervalUnit(state, visitAligner) {
+
+    let aligners = Object.assign({}, visitAligner, { wearIntervalInDays: visitAligner.wearIntervalInDays });
+    return Object.assign({}, state, aligners);
+}
+
+function  updateVisitIntervalUnit(state, visitAligner) {
+
+    let aligners = Object.assign({}, visitAligner, { visitIntervalInDays: visitAligner.visitIntervalInDays });
+    return Object.assign({}, state, aligners);
+}
+
 function getMaxAlignerCount(visitAligner) {
     let uppperCount = visitAligner.lastUpperAligner - visitAligner.firstUpperAligner + 1;
     let lowerCount = visitAligner.lastLowerAligner - visitAligner.firstLowerAligner + 1;
@@ -108,7 +122,9 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
 
     const unloadedState: VisitAligner = {
         visitInterval: 0,
+        visitIntervalInDays: true,
         wearInterval: 0,
+        wearIntervalInDays: true,
         firstUpperAligner: 0,
         lastUpperAligner: 0,
         firstLowerAligner: 0,
@@ -134,6 +150,10 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
             return updateVisitInterval(state, action.visitAligner);
         case 'UPDATE_WEAR_INTERVAL':
             return updateWearInterval(state, action.visitAligner);
+        case 'UPDATE_VISIT_INTERVAL_UNIT' :
+            return updateVisitIntervalUnit(state, action.visitAligner);
+        case 'UPDATE_WEAR_INTERVAL_UNIT':
+            return updateWearIntervalUnit(state, action.visitAligner);
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;

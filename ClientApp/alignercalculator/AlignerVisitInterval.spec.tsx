@@ -35,7 +35,7 @@ describe("<AlignerVisitInterval />", () => {
     });
 
     it('Should always render input', () => {
-        expect(wrapper.find('input')).to.have.length(1);
+        expect(wrapper.find('input')).to.have.length(3);
     });
     
     it('Should call onVisitIntervalInputChange on visit interval change', () => {

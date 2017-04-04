@@ -5,12 +5,13 @@ import { VisitAligner } from './alignerVisitModel';
 import {debounce} from 'throttle-debounce';
 
 interface AlignerWearIntervalProps {
-    wearInterval: number;
+    visitAligner: VisitAligner;
     wearIntervalValidationState: string;
     wearIntervalLockedStyle: string;
     isWearIntervalLocked: boolean;
     onWearIntervalInputChange: (event: any) => void;
-    onWearIntervalLockClick : () => void;
+    onWearIntervalLockClick: () => void;
+    onWearIntervalUnitChange: (isInDays: boolean) => void;
 }
 
 export default class AlignerWearInterval extends React.Component<AlignerWearIntervalProps, any> {
@@ -30,12 +31,17 @@ export default class AlignerWearInterval extends React.Component<AlignerWearInte
                 </Col>
                 <Col componentClass={FormGroup} xs={2} validationState={this.props.wearIntervalValidationState}>
                     <FormControl id="wearInterval" type="text" style={{width: 50}}
-                        value = { this.props.wearInterval }
+                        value = { this.props.visitAligner.wearInterval }
                         disabled = { this.props.isWearIntervalLocked}
                         onChange = { e => this.handleWearIntervalInputChange(e) } 
                         maxLength = '3' />
                 </Col>
-                <Col componentClass={FormGroup} xs={2} style={{ marginLeft : 5 }}><Radio name="WearIntervalUnit" style={{marginTop: 0}}>Days</Radio><Radio name="WearIntervalUnit">Weeks</Radio></Col>
+                <Col xs={2} style={{ marginLeft : 5 }}>
+                    <Radio name="WearIntervalUnit" style={{marginTop: 0}} checked={this.props.visitAligner.wearIntervalInDays} 
+                        onChange={ e => this.handleWearIntervalUnitChange(e)} value="Days">Days</Radio>
+                    <Radio name="WearIntervalUnit" checked={!this.props.visitAligner.wearIntervalInDays} 
+                        onChange={ e => this.handleWearIntervalUnitChange(e)} value="Weeks">Weeks</Radio>
+                </Col>
             </div>
         );
     }
@@ -47,6 +53,11 @@ export default class AlignerWearInterval extends React.Component<AlignerWearInte
 
     public handleWearIntervalInputChange(event: any) : void {
         handleNumber(event.target.value, this.props.onWearIntervalInputChange);
+    }
+
+    public handleWearIntervalUnitChange(event: any) :void {
+        let isInDays = event.target.value == "Days";
+        this.props.onWearIntervalUnitChange(isInDays);
     }
 }
 

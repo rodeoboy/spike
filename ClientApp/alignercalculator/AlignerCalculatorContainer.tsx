@@ -39,6 +39,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
             ErrorMessages: []
         };
         this.handleVisitIntervalInput = this.handleVisitIntervalInput.bind(this);
+        this.handleVisitIntervalUnitChange = this.handleVisitIntervalUnitChange.bind(this);
         this.handleWearIntervalInput = this.handleWearIntervalInput.bind(this);
         this.handleFirstUpperInput = this.handleFirstUpperInput.bind(this);
         this.handleLastUpperInput = this.handleLastUpperInput.bind(this);
@@ -48,6 +49,43 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         this.onVisitIntervalLinkClick = this.onVisitIntervalLinkClick.bind(this);
         this.handleVisitDateChange = this.handleVisitDateChange.bind(this);
         this.onWearIntervalLockClick = this.onWearIntervalLockClick.bind(this);
+    }
+
+    public render() {
+
+        return ( 
+            <div style={{width: 380, marginTop: 20}}>
+                <AlignerVisitInterval visitAligner={this.props.visitAligner}
+                    onVisitIntervalUnitChange={this.handleVisitIntervalUnitChange}
+                    nextVisitDate={this.state.nextVisitDate}
+                    visitIntervalValidationState={this.state.visitIntervalValidationState}
+                    onVisitIntervalInputChange={this.handleVisitIntervalInput} 
+                    isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
+                    onVisitIntervalLinkClick={this.onVisitIntervalLinkClick}
+                    onVisitDateChange={this.handleVisitDateChange}
+                    visitIntervalLinkedStyle={this.state.visitIntervalLinkedStyle}/>
+                <AlignerNumbers visitAligner={this.props.visitAligner}
+                    firstUpperAlignerValidationState={this.state.firstUpperAlignerValidationState}
+                    lastUpperAlignerValidationState={this.state.lastUpperAlignerValidationState}
+                    firstLowerAlignerValidationState={this.state.firstLowerAlignerValidationState}
+                    lastLowerAlignerValidationState={this.state.lastLowerAlignerValidationState}
+                    isUpperLowerLinked={this.state.isUpperLowerAlignersLinked} 
+                    onAlignerLinkClick={this.onUpperLowerAlignersLinkClick}
+                    alignerLinkedStyle={this.state.alignerLinkedStyle}
+                    onFirstUpperAlignerInputChange={this.handleFirstUpperInput}
+                    onLastUpperAlignerInputChange={this.handleLastUpperInput}
+                    onFirstLowerAlignerInputChange={this.handleFirstLowerInput}
+                    onLastLowerAlignerInputChange={this.handleLastLowerInput}/>
+                <AlignerWearInterval visitAligner={this.props.visitAligner}
+                    onWearIntervalUnitChange={this.handleWearIntervalUnitChange}
+                    onWearIntervalInputChange={this.handleWearIntervalInput} 
+                    wearIntervalValidationState={this.state.wearIntervalValidationState}
+                    isWearIntervalLocked={this.state.isWearIntervalLocked}
+                    onWearIntervalLockClick={this.onWearIntervalLockClick}
+                    wearIntervalLockedStyle={this.state.wearIntervalLockedStyle} />
+                <ErrorPanel messages={this.state.ErrorMessages} />
+            </div>
+        );
     }
 
     public onVisitIntervalLinkClick() : void {
@@ -99,7 +137,8 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         let currentDate = now.clone();
         let nextVisitDate = currentDate.add(interval + 1, 'day');
         this.setState(aligner);
-        this.setState({nextVisitDate: nextVisitDate})
+        this.setState({nextVisitDate: nextVisitDate});
+
         if(this.state.isVisitIntervalAlignersLinked)
             this.props.updateAligners(aligner);
         else if(!this.state.isWearIntervalLocked)
@@ -107,6 +146,12 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
 
         this.state.visitIntervalValidationState = validation.valid ? null : "error";
         this.state.ErrorMessages = validation.errors;
+    }
+
+    handleVisitIntervalUnitChange(isInDays) {
+        let aligner = Object.assign({}, this.props.visitAligner, { visitIntervalInDays: isInDays });
+        this.setState(aligner);
+        this.props.updateVisitIntervalUnit(aligner);
     }
 
     handleWearIntervalInput(interval : number) {
@@ -117,6 +162,12 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
 
         this.state.wearIntervalValidationState = validation.valid ? null : "error";
         this.state.ErrorMessages = validation.errors;
+    }
+
+    handleWearIntervalUnitChange(isInDays) {
+        let aligner = Object.assign({}, this.props.visitAligner, { wearIntervalInDays: isInDays });
+        this.setState(aligner);
+        this.props.updateWearIntervalUnit(aligner);
     }
 
     handleFirstUpperInput(alignerNumber : number) {
@@ -181,41 +232,6 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
             
         this.state.lastLowerAlignerValidationState = validation.valid ? null : "error";
         this.state.ErrorMessages = validation.errors;
-    }
-
-    public render() {
-
-        return ( 
-            <div style={{width: 380, marginTop: 20}}>
-                <AlignerVisitInterval visitAligner={this.props.visitAligner}
-                    nextVisitDate={this.state.nextVisitDate}
-                    visitIntervalValidationState={this.state.visitIntervalValidationState}
-                    onVisitIntervalInputChange={this.handleVisitIntervalInput} 
-                    isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
-                    onVisitIntervalLinkClick={this.onVisitIntervalLinkClick}
-                    onVisitDateChange={this.handleVisitDateChange}
-                    visitIntervalLinkedStyle={this.state.visitIntervalLinkedStyle}/>
-                <AlignerNumbers visitAligner={this.props.visitAligner}
-                    firstUpperAlignerValidationState={this.state.firstUpperAlignerValidationState}
-                    lastUpperAlignerValidationState={this.state.lastUpperAlignerValidationState}
-                    firstLowerAlignerValidationState={this.state.firstLowerAlignerValidationState}
-                    lastLowerAlignerValidationState={this.state.lastLowerAlignerValidationState}
-                    isUpperLowerLinked={this.state.isUpperLowerAlignersLinked} 
-                    onAlignerLinkClick={this.onUpperLowerAlignersLinkClick}
-                    alignerLinkedStyle={this.state.alignerLinkedStyle}
-                    onFirstUpperAlignerInputChange={this.handleFirstUpperInput}
-                    onLastUpperAlignerInputChange={this.handleLastUpperInput}
-                    onFirstLowerAlignerInputChange={this.handleFirstLowerInput}
-                    onLastLowerAlignerInputChange={this.handleLastLowerInput}/>
-                <AlignerWearInterval wearInterval={this.props.visitAligner.wearInterval}
-                    onWearIntervalInputChange={this.handleWearIntervalInput} 
-                    wearIntervalValidationState={this.state.wearIntervalValidationState}
-                    isWearIntervalLocked={this.state.isWearIntervalLocked}
-                    onWearIntervalLockClick={this.onWearIntervalLockClick}
-                    wearIntervalLockedStyle={this.state.wearIntervalLockedStyle} />
-                <ErrorPanel messages={this.state.ErrorMessages} />
-            </div>
-        );
     }
 }
 

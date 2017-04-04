@@ -22,6 +22,7 @@ export interface AlignerVisitIntervalProps {
     onVisitIntervalInputChange: (event: any) => void;
     onVisitDateChange: (value: Date) => void;
     onVisitIntervalLinkClick: () => void;
+    onVisitIntervalUnitChange: (isInDays: boolean) => void;
 }
 
 export default class AlignerVisitInterval extends React.Component<AlignerVisitIntervalProps, any> {
@@ -31,6 +32,7 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
         this.handleVisitIntervalInputChange = this.handleVisitIntervalInputChange.bind(this);
         this.handleVisitIntervalLinkClick = this.handleVisitIntervalLinkClick.bind(this);
         this.handleCalendarButtonClick = this.handleCalendarButtonClick.bind(this);
+        this.handleVisitIntervalUnitChange = this.handleVisitIntervalUnitChange.bind(this);
     }
 
     public render() {
@@ -48,12 +50,7 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                 <FormGroup validationState={this.props.visitIntervalValidationState}>
                     <InputGroup>
                         <InputGroup.Addon>
-                            <DatePicker placement='bottomLeft' calendar={(<Calendar
-                                locale={enUS}
-                                style={{ zIndex: 1000 }}
-                                value={this.props.nextVisitDate}
-                                showDateInput={false}
-                            />)} onChange={ value => this.handleNextVisitDateChange(value) }>
+                            <DatePicker placement='bottomLeft' calendar={calendar} onChange={ value => this.handleNextVisitDateChange(value) }>
                                 {
                                     ({ value }) => {
                                         return (
@@ -72,7 +69,12 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                     </InputGroup>
                 </FormGroup>
             </Col>
-            <Col xs={2} style={{ marginLeft : 5 }}><Radio name="VisitIntervalUnit" style={{marginTop: 0}}>Days</Radio><Radio name="VisitIntervalUnit">Weeks</Radio></Col>
+            <Col xs={2} style={{ marginLeft : 5 }}>
+                <Radio name="VisitIntervalUnit" style={{marginTop: 0}} checked={this.props.visitAligner.visitIntervalInDays} 
+                    onChange={ e => this.handleVisitIntervalUnitChange(e)} value="Days">Days</Radio>
+                <Radio name="VisitIntervalUnit" checked={!this.props.visitAligner.visitIntervalInDays} 
+                    onChange={ e => this.handleVisitIntervalUnitChange(e)} value="Weeks">Weeks</Radio>
+            </Col>
             <Col xs={2}>
                 <div  style={{ marginTop : 25, height : 20 }}>
                     <div className="topLinkLine" />
@@ -94,6 +96,11 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
     public handleVisitIntervalLinkClick(event: any) : void {
         event.preventDefault();
         this.props.onVisitIntervalLinkClick();
+    }
+
+    public handleVisitIntervalUnitChange(event: any) : void {
+        let isInDays = event.target.value == "Days";
+        this.props.onVisitIntervalUnitChange(isInDays);
     }
 
     public handleVisitIntervalInputChange(event: any) : void {
