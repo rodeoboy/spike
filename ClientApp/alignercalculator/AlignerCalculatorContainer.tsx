@@ -271,28 +271,30 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         return ( 
             <div className="container-fluid">
                 <div>{this.state.visitInterval} / {this.state.wearInterval}</div>
-                <AlignerNumbers visitAligner={this.props.visitAligner}
+                <AlignerVisitInterval visitAligner={this.props.visitAligner}
                     visitIntervalValidationState={this.state.visitIntervalValidationState}
-                    wearIntervalValidationState={this.state.wearIntervalValidationState}
+                    onVisitIntervalInputChange={this.handleVisitIntervalInput} 
+                    isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
+                    onVisitIntervalLinkClick={this.onVisitIntervalLinkClick}
+                    visitIntervalLinkedStyle={this.state.visitIntervalLinkedStyle}/>
+                <AlignerNumbers visitAligner={this.props.visitAligner}
                     firstUpperAlignerValidationState={this.state.firstUpperAlignerValidationState}
                     lastUpperAlignerValidationState={this.state.lastUpperAlignerValidationState}
                     firstLowerAlignerValidationState={this.state.firstLowerAlignerValidationState}
                     lastLowerAlignerValidationState={this.state.lastLowerAlignerValidationState}
                     isUpperLowerLinked={this.state.isUpperLowerAlignersLinked} 
-                    isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
-                    isWearIntervalLocked={this.state.isWearIntervalLocked}
                     onAlignerLinkClick={this.onUpperLowerAlignersLinkClick}
-                    onVisitIntervalLinkClick={this.onVisitIntervalLinkClick}
-                    onWearIntervalLockClick={this.onWearIntervalLockClick}
-                    wearIntervalLockedStyle={this.state.wearIntervalLockedStyle}
-                    visitIntervalLinkedStyle={this.state.visitIntervalLinkedStyle}
                     alignerLinkedStyle={this.state.alignerLinkedStyle}
                     onFirstUpperAlignerInputChange={this.handleFirstUpperInput}
                     onLastUpperAlignerInputChange={this.handleLastUpperInput}
                     onFirstLowerAlignerInputChange={this.handleFirstLowerInput}
-                    onLastLowerAlignerInputChange={this.handleLastLowerInput} 
-                    onWearIntervalInputChange={this.handleWearIntervalInput}
-                    onVisitIntervalInputChange={this.handleVisitIntervalInput}  />
+                    onLastLowerAlignerInputChange={this.handleLastLowerInput}/>
+                <AlignerWearInterval wearInterval={this.props.visitAligner.wearInterval}
+                    onWearIntervalInputChange={this.handleWearIntervalInput} 
+                    wearIntervalValidationState={this.state.wearIntervalValidationState}
+                    isWearIntervalLocked={this.state.isWearIntervalLocked}
+                    onWearIntervalLockClick={this.onWearIntervalLockClick}
+                    wearIntervalLockedStyle={this.state.wearIntervalLockedStyle} />
                 <ErrorPanel messages={this.state.ErrorMessages} />
             </div>
         );

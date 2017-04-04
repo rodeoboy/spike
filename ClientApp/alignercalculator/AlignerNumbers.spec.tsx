@@ -15,15 +15,11 @@ describe("<AlignerNumbers/>", () => {
         dispatchSpy = () => {};
         spies = {};
         spies = {
-            onWearIntervalInputChange: (spies.onWearIntervalInputChange = spy()),
             onFirstUpperAlignerInputChange: (spies.onFirstUpperAlignerInputChange = spy()),
             onLastUpperAlignerInputChange: (spies.onLastUpperAlignerInputChange = spy()),
             onFirstLowerAlignerInputChange: (spies.onFirstLowerAlignerInputChange = spy()),
             onLastLowerAlignerInputChange: (spies.onLastLowerAlignerInputChange = spy()),
-            onVisitIntervalInputChange: (spies.onVisitIntervalInputChange = spy()),
-            onAlignerLinkClick: (spies.onAlignerLinkClick = spy()),
-            onVisitIntervalLinkClick: (spies.onVisitIntervalLinkClick = spy()),
-            onWearIntervalLockClick: (spies.onWearIntervalLockClick = spy())            
+            onAlignerLinkClick: (spies.onAlignerLinkClick = spy())        
         };
         props = {visitAligner: new VisitAlignerBuilder().Build(),
 
@@ -38,11 +34,11 @@ describe("<AlignerNumbers/>", () => {
     });
 
     it('Should always render buttons', () => {
-        expect(wrapper.find('button')).to.have.length(4);
+        expect(wrapper.find('button')).to.have.length(1);
     });
 
     it('Should always render input', () => {
-        expect(wrapper.find('input')).to.have.length(8);
+        expect(wrapper.find('input')).to.have.length(4);
     });
     
     it('Should call onVisitIntervalInputChange on visit interval change', () => {
