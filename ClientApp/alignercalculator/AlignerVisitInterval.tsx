@@ -20,8 +20,8 @@ export interface AlignerVisitIntervalProps {
     isVisitIntervalAlignersLinked: boolean;
     nextVisitDate: Date;
     onVisitIntervalInputChange: (event: any) => void;
-    onVisitDateChange: (value: Date) => void;
     onVisitIntervalLinkClick: () => void;
+    onVisitDateChange: (value: Date) => void;
     onVisitIntervalUnitChange: (isInDays: boolean) => void;
 }
 
@@ -70,9 +70,11 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                 </FormGroup>
             </Col>
             <Col xs={2} style={{ marginLeft : 5 }}>
-                <Radio name="VisitIntervalUnit" style={{marginTop: 0}} checked={this.props.visitAligner.visitIntervalInDays} 
+                <Radio name="VisitIntervalUnit"  id="visitIntervalDays" style={{marginTop: 0}} 
+                    checked={this.props.visitAligner.visitIntervalInDays} 
                     onChange={ e => this.handleVisitIntervalUnitChange(e)} value="Days">Days</Radio>
-                <Radio name="VisitIntervalUnit" checked={!this.props.visitAligner.visitIntervalInDays} 
+                <Radio name="VisitIntervalUnit" id="visitIntervalWeeks"
+                    checked={!this.props.visitAligner.visitIntervalInDays} 
                     onChange={ e => this.handleVisitIntervalUnitChange(e)} value="Weeks">Weeks</Radio>
             </Col>
             <Col xs={2}>

@@ -110,6 +110,12 @@ describe("<AlignerCalculator/>", () => {
     });
 
     describe('Wear inteval change ', () => {
+        let component;
+
+        beforeEach(() => {
+            component = wrapper.find(AlignerWearInterval);
+        });
+
         it('Should have validation error on change with blank value', () => {
             wrapper.find('input#wearInterval').simulate('change', { target: { value: '' } });
             var errorPanel = wrapper.find(ErrorPanel);
@@ -126,6 +132,16 @@ describe("<AlignerCalculator/>", () => {
             wrapper.find('input#wearInterval').simulate('change', { target: { value: 0 } });
             var errorPanel = wrapper.find(ErrorPanel);
             expect(errorPanel.find('li').text()).to.equal('Wear interval must be greater than or equal to 1');
+        });
+
+        it('Should display visit interval in days on change', () => {
+            expect(component.props().visitAligner.visitIntervalInDays).to.be.true;
+        });
+
+        it('Should display visit interval in weeks on change', () => {
+            expect(component.props().visitAligner.visitIntervalInDays).to.be.true;
+            wrapper.find('input#visitIntervalWeeks').simulate('change');
+            expect(component.props().visitAligner.visitIntervalInDays).to.be.false;
         });
     });
 

@@ -16,7 +16,9 @@ describe("<AlignerVisitInterval />", () => {
         spies = {};
         spies = {
             onVisitIntervalInputChange: (spies.onVisitIntervalInputChange = spy()),
-            onVisitIntervalLinkClick: (spies.onVisitIntervalLinkClick = spy())          
+            onVisitIntervalLinkClick: (spies.onVisitIntervalLinkClick = spy()), 
+            onVisitDateChange: (spies.onVisitDateChange = spy()), 
+            onVisitIntervalUnitChange: (spies.onVisitIntervalUnitChange = spy()),     
         };
         props = {visitAligner: new VisitAlignerBuilder().Build(),
 
@@ -27,7 +29,7 @@ describe("<AlignerVisitInterval />", () => {
     });
 
     it('Should have props', () => {
-        expect(Object.keys(wrapper.props())).to.have.length(3);
+        expect(Object.keys(wrapper.props())).to.have.length(5);
     });
 
     it('Should always render buttons', () => {
@@ -61,5 +63,4 @@ describe("<AlignerVisitInterval />", () => {
         wrapper.find('button#visitIntervalLink').simulate('click');
         expect(spies.onVisitIntervalLinkClick.called).to.be.true;
     }); 
-
 });
