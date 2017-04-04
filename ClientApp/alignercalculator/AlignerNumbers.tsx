@@ -33,8 +33,6 @@ export default class AlignerNumbers extends React.Component<Props, any> {
     public render() {
         return (
             <div>
-                <table style={{ borderSpacing : 5 }}>
-                    <tbody>
                         <tr>
                             <td>
                                 <ControlLabel>Aligners:</ControlLabel>
@@ -84,8 +82,6 @@ export default class AlignerNumbers extends React.Component<Props, any> {
                                 </div>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
             </div>
         );
     }

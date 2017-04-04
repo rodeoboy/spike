@@ -44,8 +44,6 @@ export default class AlignerVisitInterval extends React.Component<IAlignerVisitI
                         </InputGroup>
                     </FormGroup>
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <div className="floatingButton" style={{ marginBottom : -40, height : 20 }}>
                         <div className="topLinkLine" />

@@ -271,6 +271,8 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         return ( 
             <div className="container-fluid">
                 <div>{this.state.visitInterval} / {this.state.wearInterval}</div>
+                <table style={{ borderSpacing : 5 }}>
+                    <tbody>
                 <AlignerVisitInterval visitAligner={this.props.visitAligner}
                     visitIntervalValidationState={this.state.visitIntervalValidationState}
                     onVisitIntervalInputChange={this.handleVisitIntervalInput} 
@@ -295,6 +297,8 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
                     isWearIntervalLocked={this.state.isWearIntervalLocked}
                     onWearIntervalLockClick={this.onWearIntervalLockClick}
                     wearIntervalLockedStyle={this.state.wearIntervalLockedStyle} />
+                    </tbody>
+                </table>
                 <ErrorPanel messages={this.state.ErrorMessages} />
             </div>
         );
