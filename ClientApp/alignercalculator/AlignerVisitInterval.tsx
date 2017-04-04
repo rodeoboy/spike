@@ -18,6 +18,7 @@ export interface AlignerVisitIntervalProps {
     visitIntervalValidationState: string;
     visitIntervalLinkedStyle: string;
     isVisitIntervalAlignersLinked: boolean;
+    nextVisitDate: Date;
     onVisitIntervalInputChange: (event: any) => void;
     onVisitDateChange: (value: Date) => void;
     onVisitIntervalLinkClick: () => void;
@@ -33,13 +34,10 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
     }
 
     public render() {
-        const defaultCalendarValue = now.clone();
-        defaultCalendarValue.add(this.props.visitAligner.visitInterval + 1, 'day');
-
         const calendar = (<Calendar
             locale={enUS}
             style={{ zIndex: 1000 }}
-            defaultValue={defaultCalendarValue}
+            value={this.props.nextVisitDate}
             showDateInput={false}
         />);
 
@@ -50,7 +48,12 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                 <FormGroup validationState={this.props.visitIntervalValidationState}>
                     <InputGroup>
                         <InputGroup.Addon>
-                            <DatePicker placement='bottomLeft' calendar={calendar} onChange={ value => this.handleNextVisitDateChange(value) }>
+                            <DatePicker placement='bottomLeft' calendar={(<Calendar
+                                locale={enUS}
+                                style={{ zIndex: 1000 }}
+                                value={this.props.nextVisitDate}
+                                showDateInput={false}
+                            />)} onChange={ value => this.handleNextVisitDateChange(value) }>
                                 {
                                     ({ value }) => {
                                         return (

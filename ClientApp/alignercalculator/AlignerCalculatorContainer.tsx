@@ -20,8 +20,10 @@ const format = 'YYYY-MM-DD';
 class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     constructor(props, context) {
         super(props, context);
+        let currentDate = now.clone();
         
         this.state = {
+            nextVisitDate: currentDate.add(this.props.visitAligner.visitInterval + 1, 'day'),
             wearIntervalLockedStyle: "fa fa-lock",
             visitIntervalLinkedStyle: "fa fa-link", 
             alignerLinkedStyle: "fa fa-link",
@@ -94,7 +96,10 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     public handleVisitIntervalInput(interval : number) {
         let aligner = Object.assign({}, this.props.visitAligner, { visitInterval: interval });
         let validation = validateVisitInterval(aligner);
+        let currentDate = now.clone();
+        let nextVisitDate = currentDate.add(interval + 1, 'day');
         this.setState(aligner);
+        this.setState({nextVisitDate: nextVisitDate})
         if(this.state.isVisitIntervalAlignersLinked)
             this.props.updateAligners(aligner);
         else if(!this.state.isWearIntervalLocked)
@@ -126,7 +131,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
             validation = validateFirstUpper(alignerLower);
             this.setState(alignerLower);
             this.props.updateAligners(alignerLower);
-            }
+        }
         else {
             let aligner = Object.assign({}, this.props.visitAligner, {firstUpperAligner: alignerNumber});
             validation = validateFirstUpper(aligner);
@@ -181,8 +186,9 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     public render() {
 
         return ( 
-            <div style={{width: 380}}>
+            <div style={{width: 380, marginTop: 20}}>
                 <AlignerVisitInterval visitAligner={this.props.visitAligner}
+                    nextVisitDate={this.state.nextVisitDate}
                     visitIntervalValidationState={this.state.visitIntervalValidationState}
                     onVisitIntervalInputChange={this.handleVisitIntervalInput} 
                     isVisitIntervalAlignersLinked={this.state.isVisitIntervalAlignersLinked} 
