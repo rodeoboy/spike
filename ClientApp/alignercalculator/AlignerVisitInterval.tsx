@@ -45,8 +45,8 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
 
         return (
         <div className="row">
-            <Col componentClass={ControlLabel} xs={4}>Next visit:</Col>
-            <Col  xs={6}>
+            <Col componentClass={ControlLabel} xs={3}>Next visit:</Col>
+            <Col  xs={4}>
                 <FormGroup validationState={this.props.visitIntervalValidationState}>
                     <InputGroup>
                         <InputGroup.Addon>
@@ -69,8 +69,9 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                     </InputGroup>
                 </FormGroup>
             </Col>
+            <Col xs={2} style={{ marginLeft : 5 }}><Radio name="VisitIntervalUnit" style={{marginTop: 0}}>Days</Radio><Radio name="VisitIntervalUnit">Weeks</Radio></Col>
             <Col xs={2}>
-                <div  style={{ marginBottom : -40, height : 20 }}>
+                <div  style={{ marginTop : 25, height : 20 }}>
                     <div className="topLinkLine" />
                     <button id='visitIntervalLink' onClick={ e => this.handleVisitIntervalLinkClick(e) } style={{ border:0 }} className='linkingButton'>
                         <span className={this.props.visitIntervalLinkedStyle} />

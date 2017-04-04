@@ -181,7 +181,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     public render() {
 
         return ( 
-            <div style={{width: 300}}>
+            <div style={{width: 380}}>
                 <AlignerVisitInterval visitAligner={this.props.visitAligner}
                     visitIntervalValidationState={this.state.visitIntervalValidationState}
                     onVisitIntervalInputChange={this.handleVisitIntervalInput} 

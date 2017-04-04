@@ -22,13 +22,13 @@ export default class AlignerWearInterval extends React.Component<AlignerWearInte
 
     public render() {
         return (
-            <div className="form-group row">
+            <div className="row">
                 <Col componentClass={ControlLabel} xs={5}>Wear interval: 
                     <button id="wearIntervalLock" onClick={ e => this.handleWearIntervalLockClick(e) } style={{ border:0 }} className='linkingButton'>
                         <span className={this.props.wearIntervalLockedStyle} />
                     </button>
                 </Col>
-                <Col componentClass={FormGroup} xs={3} validationState={this.props.wearIntervalValidationState}>
+                <Col componentClass={FormGroup} xs={2} validationState={this.props.wearIntervalValidationState}>
                     <FormControl id="wearInterval" type="text" style={{width: 50}}
                         value = { this.props.wearInterval }
                         disabled = { this.props.isWearIntervalLocked}
