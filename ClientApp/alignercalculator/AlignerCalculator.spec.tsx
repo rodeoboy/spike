@@ -38,6 +38,21 @@ describe("<AlignerCalculator/>", () => {
         expect(Component.find(AlignerNumbers)).to.have.length(1);
     });
 
+    describe('Wear interval weeks click ', () => {
+        let radioButton, input;
+
+        beforeEach(() => {
+            radioButton = wrapper.find('input#WearIntervalWeeks');
+            input = wrapper.find('input#wearInterval');
+        });
+
+        it('Should display in weeks', () => {
+            radioButton.simulate('change');
+
+            //expect(input.prop('value')).to.equal(2);
+        });
+    });
+
     describe('Wear interval lock button ', () => {
         let button;
 

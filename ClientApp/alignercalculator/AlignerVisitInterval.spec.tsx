@@ -40,27 +40,79 @@ describe("<AlignerVisitInterval />", () => {
         expect(wrapper.find('input')).to.have.length(3);
     });
     
-    it('Should call onVisitIntervalInputChange on visit interval change', () => {
-        expect(spies.onVisitIntervalInputChange.called).to.be.false;
-        wrapper.find('input#visitInterval').simulate('change',  { target: { value: 10 }});
-        expect(spies.onVisitIntervalInputChange.calledWith(10)).to.be.true;
-    }); 
-        
-    it('Should not call onVisitIntervalInputChange on change not numeric', () => {
-        expect(spies.onVisitIntervalInputChange.called).to.be.false;
-        wrapper.find('input#visitInterval').simulate('change',  { target: { value: 'l' }});
-        expect(spies.onVisitIntervalInputChange.called).to.be.false;
-    }); 
-        
-    it('Should not call onVisitIntervalInputChange on change not positive', () => {
-        expect(spies.onVisitIntervalInputChange.called).to.be.false;
-        wrapper.find('input#visitInterval').simulate('change',  { target: { value: '-' }});
-        expect(spies.onVisitIntervalInputChange.called).to.be.false;
-    }); 
-        
-    it('Should call onVisitIntervalLinkClick on visit interval link click', () => {
-        expect(spies.onVisitIntervalLinkClick.called).to.be.false;
-        wrapper.find('button#visitIntervalLink').simulate('click');
-        expect(spies.onVisitIntervalLinkClick.called).to.be.true;
-    }); 
+
+    describe('onVisitIntervalInputChange', () => {
+        let input;
+
+        beforeEach(() => {
+            input = wrapper.find('input#visitInterval');
+        });
+
+        it('Should call onVisitIntervalInputChange on visit interval change', () => {
+            expect(spies.onVisitIntervalInputChange.called).to.be.false;
+
+            input.simulate('change',  { target: { value: 10 }});
+
+            expect(spies.onVisitIntervalInputChange.calledWith(10)).to.be.true;
+        }); 
+            
+        it('Should not call onVisitIntervalInputChange on change not numeric', () => {
+            expect(spies.onVisitIntervalInputChange.called).to.be.false;
+
+            input.simulate('change',  { target: { value: 'l' }});
+
+            expect(spies.onVisitIntervalInputChange.called).to.be.false;
+        }); 
+            
+        it('Should not call onVisitIntervalInputChange on change not positive', () => {
+            expect(spies.onVisitIntervalInputChange.called).to.be.false;
+
+            input.simulate('change',  { target: { value: '-' }});
+
+            expect(spies.onVisitIntervalInputChange.called).to.be.false;
+        }); 
+            
+    });
+
+    describe('onVisitIntervalLinkClick', () => {
+        let button;
+
+        beforeEach(() => {
+            button = wrapper.find('button#visitIntervalLink');
+        });
+
+        it('Should call ', () => {
+            expect(spies.onVisitIntervalLinkClick.called).to.be.false;
+
+            button.simulate('click');
+
+            expect(spies.onVisitIntervalLinkClick.called).to.be.true;
+        }); 
+
+    });
+
+    describe('onVisitIntervalUnitChange', () => {
+        let days, weeks;
+
+        beforeEach(() => {
+            days = wrapper.find('input#visitIntervalDays');
+            weeks = wrapper.find('input#visitIntervalWeeks');
+        });
+
+        it('Should be called with false', () => {
+            expect(spies.onVisitIntervalUnitChange.calledWith(false)).to.be.false;
+
+            weeks.simulate('change');
+
+            expect(spies.onVisitIntervalUnitChange.calledWith(false)).to.be.true;
+        });
+
+        it('Should be called with true', () => {
+            expect(spies.onVisitIntervalUnitChange.calledWith(true)).to.be.false;
+
+            days.simulate('change');
+
+            expect(spies.onVisitIntervalUnitChange.calledWith(true)).to.be.true;
+        });
+    });
 });

@@ -16,7 +16,8 @@ describe("<AlignerWearInterval />", () => {
         spies = {};
         spies = {
             onWearIntervalInputChange: (spies.onWearIntervalInputChange = spy()),
-            onWearIntervalLockClick: (spies.onWearIntervalLockClick = spy())             
+            onWearIntervalLockClick: (spies.onWearIntervalLockClick = spy()),
+            onWearIntervalUnitChange: (spies.onWearIntervalUnitChange = spy())          
         };
         props = {visitAligner: new VisitAlignerBuilder().Build(),
 
@@ -27,7 +28,7 @@ describe("<AlignerWearInterval />", () => {
     });
 
     it('Should have props', () => {
-        expect(Object.keys(wrapper.props())).to.have.length(3);
+        expect(Object.keys(wrapper.props())).to.have.length(4);
     });
 
     it('Should always render buttons', () => {
@@ -38,25 +39,36 @@ describe("<AlignerWearInterval />", () => {
         expect(wrapper.find('input')).to.have.length(3);
     }); 
 
-    it('Should call onWearIntervalInputChange on wear interval change', () => {
-        expect(spies.onWearIntervalInputChange.called).to.be.false;
-        wrapper.find('input#wearInterval').simulate('change',  { target: { value: 10 }});
-        expect(spies.onWearIntervalInputChange.calledWith(10)).to.be.true;
-    }); 
-        
-    it('Should not call onWearIntervalInputChange on change not numeric', () => {
-        expect(spies.onWearIntervalInputChange.called).to.be.false;
-        wrapper.find('input#wearInterval').simulate('change',  { target: { value: 'l' }});
-        expect(spies.onWearIntervalInputChange.called).to.be.false;
-    }); 
-        
-    it('Should not call onWearIntervalInputChange on change not positive', () => {
-        expect(spies.onWearIntervalInputChange.called).to.be.false;
-        wrapper.find('input#wearInterval').simulate('change',  { target: { value: '-' }});
-        expect(spies.onWearIntervalInputChange.called).to.be.false;
-    }); 
+    describe('onWearIntervalInputChange', () => {
+        let input;
 
-    describe('Wear interval lock button ', () => {
+        beforeEach(() => {
+            input = wrapper.find('input#wearInterval');
+        });
+
+        it('Should call onWearIntervalInputChange on wear interval change', () => {
+            expect(spies.onWearIntervalInputChange.called).to.be.false;
+            input.simulate('change',  { target: { value: 10 }});
+
+            expect(spies.onWearIntervalInputChange.calledWith(10)).to.be.true;
+        }); 
+            
+        it('Should not call onWearIntervalInputChange on change not numeric', () => {
+            expect(spies.onWearIntervalInputChange.called).to.be.false;
+            input.simulate('change',  { target: { value: 'l' }});
+
+            expect(spies.onWearIntervalInputChange.called).to.be.false;
+        }); 
+            
+        it('Should not call onWearIntervalInputChange on change not positive', () => {
+            expect(spies.onWearIntervalInputChange.called).to.be.false;
+            input.simulate('change',  { target: { value: '-' }});
+
+            expect(spies.onWearIntervalInputChange.called).to.be.false;
+        }); 
+    });
+
+    describe('onWearIntervalLockClick', () => {
         let button;
 
         beforeEach(() => {
@@ -70,4 +82,28 @@ describe("<AlignerWearInterval />", () => {
         });
     });
 
+    describe('onWearIntervalUnitChange', () => {
+        let days, weeks;
+
+        beforeEach(() => {
+            days = wrapper.find('input#WearIntervalDays');
+            weeks = wrapper.find('input#WearIntervalWeeks');
+        });
+
+        it('Should be called with false', () => {
+            expect(spies.onWearIntervalUnitChange.calledWith(false)).to.be.false;
+
+            weeks.simulate('change');
+
+            expect(spies.onWearIntervalUnitChange.calledWith(false)).to.be.true;
+        });
+
+        it('Should be called with true', () => {
+            expect(spies.onWearIntervalUnitChange.calledWith(true)).to.be.false;
+
+            days.simulate('change');
+
+            expect(spies.onWearIntervalUnitChange.calledWith(true)).to.be.true;
+        });
+    });
 });

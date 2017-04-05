@@ -1,41 +1,109 @@
 import { expect, assert } from 'chai';
 import "mocha";
+import { spy } from 'sinon';
 import {handleNumber, roundIntervalToWeeks, displayIntervalInWeeks} from './intervalUtils'
 
 describe("Interval Utils", () => {
     
-    it('Should round interval to weeks', () => {
-        let initial = 70;
-        let expected = 70;
+    describe("handleNumber", () => {
+        it('Should call function with value', () => {
+            let initial = 1;
+            let func = spy();
 
-        expect(roundIntervalToWeeks(initial)).to.equal(expected);
+            handleNumber(initial, func);
+            
+            expect(func.calledWith(initial)).to.be.true;
+        });
+
+        it('Should call function with 0', () => {
+            let initial = 0;
+            let func = spy();
+
+            handleNumber(initial, func);
+            
+            expect(func.calledWith(initial)).to.be.true;
+        });
+
+        it('Should call function with blank', () => {
+            let initial = '';
+            let func = spy();
+
+            handleNumber(initial, func);
+            
+            expect(func.calledWith(initial)).to.be.true;
+        });
+
+        it('Should not call function with letter', () => {
+            let initial = 'A';
+            let func = spy();
+
+            handleNumber(initial, func);
+            
+            expect(func.called).to.be.false;
+        });
+
+        it('Should not call function with minus', () => {
+            let initial = '-';
+            let func = spy();
+
+            handleNumber(initial, func);
+            
+            expect(func.called).to.be.false;
+        });
+
+        it('Should not call function with negative number', () => {
+            let initial = -1;
+            let func = spy();
+
+            handleNumber(initial, func);
+            
+            expect(func.called).to.be.false;
+        });
     });
-    
-    it('Should round interval up to weeks', () => {
-        let initial = 68;
-        let expected = 70;
 
-        expect(roundIntervalToWeeks(initial)).to.equal(expected);
+    describe("roundIntervalToWeeks", () => {
+        it('Should round interval to weeks', () => {
+            let initial = 70;
+            let expected = 70;
+
+            expect(roundIntervalToWeeks(initial)).to.equal(expected);
+        });
+        
+        it('Should round interval up to weeks', () => {
+            let initial = 68;
+            let expected = 70;
+
+            expect(roundIntervalToWeeks(initial)).to.equal(expected);
+        });
+        
+        it('Should round interval down to weeks', () => {
+            let initial = 71;
+            let expected = 70;
+
+            expect(roundIntervalToWeeks(initial)).to.equal(expected);
+        });
     });
-    
-    it('Should round interval down to weeks', () => {
-        let initial = 71;
-        let expected = 70;
 
-        expect(roundIntervalToWeeks(initial)).to.equal(expected);
-    });
-    
-    it('Should display single day interval down as blank', () => {
-        let initial = 1;
-        let expected = '';
+    describe("displayIntervalInWeeks", () => {
+        it('Should display single day interval down as blank', () => {
+            let initial = 1;
+            let expected = '';
 
-        expect(displayIntervalInWeeks(initial)).to.equal(expected);
-    });
-    
-    it('Should display zero interval as blank', () => {
-        let initial = 0;
-        let expected = '';
+            expect(displayIntervalInWeeks(initial)).to.equal(expected);
+        });
+        
+        it('Should display zero interval as blank', () => {
+            let initial = 0;
+            let expected = '';
 
-        expect(displayIntervalInWeeks(initial)).to.equal(expected);
+            expect(displayIntervalInWeeks(initial)).to.equal(expected);
+        });
+        
+        it('Should display correct weeks', () => {
+            let initial = 56;
+            let expected = 8;
+
+            expect(displayIntervalInWeeks(initial)).to.equal(expected);
+        });
     });
 });

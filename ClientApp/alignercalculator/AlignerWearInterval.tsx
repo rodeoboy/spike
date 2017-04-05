@@ -37,11 +37,13 @@ export default class AlignerWearInterval extends React.Component<AlignerWearInte
                         maxLength = '3' />
                 </Col>
                 <Col xs={2} style={{ marginLeft : 5 }}>
-                    <Radio name="WearIntervalUnit" style={{marginTop: 0}} checked={this.props.visitAligner.wearIntervalInDays} 
+                    <Radio name="WearIntervalUnit" id="WearIntervalDays" style={{marginTop: 0}} 
+                        checked={this.props.visitAligner.wearIntervalInDays} 
                         disabled = { this.props.isWearIntervalLocked}
                         onChange={ e => this.handleWearIntervalUnitChange(e)} 
                         value="Days">Days</Radio>
-                    <Radio name="WearIntervalUnit" checked={!this.props.visitAligner.wearIntervalInDays} 
+                    <Radio name="WearIntervalUnit" id="WearIntervalWeeks"
+                        checked={!this.props.visitAligner.wearIntervalInDays} 
                         disabled = { this.props.isWearIntervalLocked}
                         onChange={ e => this.handleWearIntervalUnitChange(e)} 
                         value="Weeks">Weeks</Radio>
