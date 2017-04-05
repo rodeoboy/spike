@@ -10,16 +10,18 @@ import VisitAlignerBuilder from './VisitAlignerBuilder';
 
 describe("<AlignerVisitInterval />", () => {
     let props, spies, wrapper, dispatchSpy;
-    
+
+
     beforeEach(() => {
         dispatchSpy = () => {};
         spies = {};
         spies = {
-            onVisitIntervalInputChange: (spies.onVisitIntervalInputChange = spy()),
-            onVisitIntervalLinkClick: (spies.onVisitIntervalLinkClick = spy()), 
-            onVisitDateChange: (spies.onVisitDateChange = spy()), 
-            onVisitIntervalUnitChange: (spies.onVisitIntervalUnitChange = spy()),     
-        };
+                onVisitIntervalInputChange: (spies.onVisitIntervalInputChange = spy()),
+                onVisitIntervalLinkClick: (spies.onVisitIntervalLinkClick = spy()), 
+                onVisitDateChange: (spies.onVisitDateChange = spy()), 
+                onVisitIntervalUnitChange: (spies.onVisitIntervalUnitChange = spy()),     
+            };
+                   
         props = {visitAligner: new VisitAlignerBuilder().Build(),
 
         ...bindActionCreators(spies, dispatchSpy = spy())
@@ -70,6 +72,31 @@ describe("<AlignerVisitInterval />", () => {
             input.simulate('change',  { target: { value: '-' }});
 
             expect(spies.onVisitIntervalInputChange.called).to.be.false;
+        }); 
+            
+    });
+
+    describe('onVisitIntervalInputChange in weeks', () => {
+        let input;
+
+        beforeEach(() => {
+            props = {visitAligner: new VisitAlignerBuilder()
+                                    .WithVisitIntervalInDays(false).Build(),
+
+            ...bindActionCreators(spies, dispatchSpy = spy())
+            }
+            
+            wrapper = mount(<AlignerVisitInterval  {...props} />);
+            
+            input = wrapper.find('input#visitInterval');
+        });
+
+        it('Should call with value in days', () => {
+            expect(spies.onVisitIntervalInputChange.called).to.be.false;
+
+            input.simulate('change',  { target: { value: 10 }});
+
+            expect(spies.onVisitIntervalInputChange.calledWith(70)).to.be.true;
         }); 
             
     });

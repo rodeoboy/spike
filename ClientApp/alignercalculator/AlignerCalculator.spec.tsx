@@ -18,10 +18,10 @@ import VisitAlignerBuilder from './VisitAlignerBuilder';
 const middlewares = [thunk];
 
 describe("<AlignerCalculator/>", () => {
-    let Component, wrapper, props, spies;
-    let visitAligner = new VisitAlignerBuilder().Build();
+    let Component, wrapper, props, spies, visitAligner;
 
     beforeEach(() => {
+        visitAligner = new VisitAlignerBuilder().Build();
         const store = configureMockStore()({ visitAligner: visitAligner });
 
         spies = {};
@@ -140,7 +140,7 @@ describe("<AlignerCalculator/>", () => {
 
         it('Should have validation error on change with blank value', () => {
             wrapper.find('input#wearInterval').simulate('change', { target: { value: '' } });
-           ;
+           
             expect(errorPanel.find('li').text()).to.equal('Wear interval must be a number');
         });
 
@@ -154,6 +154,13 @@ describe("<AlignerCalculator/>", () => {
             wrapper.find('input#wearInterval').simulate('change', { target: { value: 0 } });
 
             expect(errorPanel.find('li').text()).to.equal('Wear interval must be greater than or equal to 1');
+        });
+
+        it('Should display interval in weeks on change', () => {
+            expect(component.props().visitAligner.visitIntervalInDays).to.be.true;
+            wrapper.find('input#wearIntervalWeeks').simulate('change');
+
+            expect(component.props().visitAligner.visitIntervalInDays).to.be.false;
         });
     });
 

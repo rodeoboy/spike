@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Row, Radio, InputGroup} from "react-bootstrap";
 import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
-import {handleNumber, displayIntervalInWeeks} from '../utils/intervalUtils'
+import {handleNumber, displayIntervalInWeeks, roundIntervalToWeeks} from '../utils/intervalUtils'
 
 interface AlignerWearIntervalProps {
     visitAligner: VisitAligner;

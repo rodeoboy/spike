@@ -4,7 +4,7 @@ import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
 import * as Calendar from 'rc-calendar';
 import * as DatePicker from 'rc-calendar/lib/Picker';
-import {handleNumber, displayIntervalInWeeks} from '../utils/intervalUtils'
+import {handleNumber, displayIntervalInWeeks} from '../utils/intervalUtils';
 
 import enUS from 'rc-calendar/lib/locale/en_US';
 
@@ -90,19 +90,9 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
         );
     }
 
-    public handleNextVisitDateChange(value: Date) : void {
-        event.preventDefault();
-        this.props.onVisitDateChange(value);
-    }
-
     public handleVisitIntervalLinkClick(event: any) : void {
         event.preventDefault();
         this.props.onVisitIntervalLinkClick();
-    }
-
-    public handleVisitIntervalUnitChange(event: any) : void {
-        let isInDays = event.target.value == "Days";
-        this.props.onVisitIntervalUnitChange(isInDays);
     }
 
     public handleVisitIntervalInputChange(event: any) : void {
@@ -110,9 +100,18 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
         handleNumber(event.target.value, this.props.onVisitIntervalInputChange);
     }
 
+    public handleVisitIntervalUnitChange(event: any) : void {
+        let isInDays = event.target.value == "Days";
+        this.props.onVisitIntervalUnitChange(isInDays);
+    }
+
     public handleCalendarButtonClick(event: any) : void {
         let isOpen = !this.state.calendarOpen;
         this.setState({calendarOpen : isOpen});
     }
-    
-};
+
+    public handleNextVisitDateChange(value: Date) : void {
+        event.preventDefault();
+        this.props.onVisitDateChange(value);
+    }    
+}

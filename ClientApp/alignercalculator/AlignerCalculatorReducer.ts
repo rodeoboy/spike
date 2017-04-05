@@ -1,8 +1,9 @@
 import { Reducer } from 'redux';
-import { KnownAction } from './AlignerCalculatorAction'
-import { VisitAligner } from './alignerVisitModel'
+import { KnownAction } from './AlignerCalculatorAction';
+import { VisitAligner } from './alignerVisitModel';
+import { roundIntervalToWeeks } from '../utils/intervalUtils';
 
-// This default values can be removed when state is coming down from the server
+// This default values can be removed when state rehydrated or initiated from the service
 const visitAligner: VisitAligner = {
     visitInterval: 56,
     visitIntervalInDays: true,
@@ -27,25 +28,6 @@ const INITIAL_STATE = { visitAligner: visitAligner };
 
 export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligner, action: KnownAction) => {
 
-    const unloadedState: VisitAligner = {
-        visitInterval: 0,
-        visitIntervalInDays: true,
-        wearInterval: 0,
-        wearIntervalInDays: true,
-        firstUpperAligner: 0,
-        lastUpperAligner: 0,
-        firstLowerAligner: 0,
-        lastLowerAligner: 0,
-        planLowerStart: 0,
-        planUpperStart: 0,
-        planLowerEnd: 0,
-        planUpperEnd: 0,
-        previousUpper: 0,
-        previousLower: 0,
-        treatmentVisitInteval: 0,
-        treatmentWearInterval: 0,
-        isMidTreatment: false,
-    };
     switch (action.type) {
         case 'UPDATE_ALIGNERS':
             return updateAligners(state, action.visitAligner);
@@ -64,29 +46,30 @@ export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligne
 
     // For unrecognized actions (or in cases where actions have no effect), must return the existing state
     //  (or default initial state if none was supplied)
-    return state || unloadedState;
+    return state;
 };
 
 function getAlignerCountByIntervals(visitAligner : VisitAligner) {
     return  Math.floor(visitAligner.visitInterval / visitAligner.wearInterval - 1);
 }
 
-function updateWearInterval(state, visitAligner) {
+function updateWearInterval(state, visitAligner : VisitAligner) {
     let count = getMaxAlignerCount(visitAligner);
-
-    let aligners = Object.assign({}, visitAligner, { wearInterval: Math.floor(visitAligner.visitInterval / count) });
+    let interval = Math.floor(visitAligner.visitInterval / count)
+    if (!visitAligner.wearIntervalInDays) interval = roundIntervalToWeeks(interval);
+    let aligners = Object.assign({}, visitAligner, { wearInterval: interval });
     
     return Object.assign({}, state, aligners);
 }
 
-function updateVisitInterval(state, visitAligner) {
+function updateVisitInterval(state, visitAligner : VisitAligner) {
     let count = getMaxAlignerCount(visitAligner);
     let aligners = Object.assign({}, visitAligner, { visitInterval: Math.floor(visitAligner.wearInterval * count) });
 
     return Object.assign({}, state, aligners);
 }
 
-function updateLastUpper(visitAligner) {
+function updateLastUpper(visitAligner : VisitAligner) {
     let alingerCount = getAlignerCountByIntervals(visitAligner);
     let lastUpperAligner = 0;
     let alingers;
@@ -100,13 +83,13 @@ function updateLastUpper(visitAligner) {
     return lastUpperAligner
 }
 
-function updateLastUpperAligner(state, visitAligner) {
+function updateLastUpperAligner(state, visitAligner : VisitAligner) {
     let aligners = Object.assign({}, visitAligner, { lastUpperAligner: updateLastUpper(visitAligner) });
 
     return Object.assign({}, state, aligners);
 }
 
-function updateLastLower(visitAligner) {
+function updateLastLower(visitAligner : VisitAligner) {
     let alingerCount = getAlignerCountByIntervals(visitAligner);
     let lastLowerAligner = 0;
 
@@ -119,13 +102,13 @@ function updateLastLower(visitAligner) {
     return lastLowerAligner;
 }
 
-function updateLastLowerAligner(state, visitAligner) {
+function updateLastLowerAligner(state, visitAligner : VisitAligner) {
     let aligners = Object.assign({}, visitAligner, { lastLowerAligner: updateLastLower(visitAligner) });
 
     return Object.assign({}, state, aligners);
 }
 
-function updateAligners(state, visitAligner) {
+function updateAligners(state, visitAligner : VisitAligner) {
     let lastUpper = updateLastUpper(visitAligner);
     let lastLower = updateLastLower(visitAligner);
 
@@ -145,19 +128,19 @@ function updateAligners(state, visitAligner) {
     return Object.assign({}, state, aligners);
 }
 
-function  updateWearIntervalUnit(state, visitAligner) {
+function  updateWearIntervalUnit(state, visitAligner : VisitAligner) {
 
     let aligners = Object.assign({}, visitAligner, { wearIntervalInDays: visitAligner.wearIntervalInDays });
     return Object.assign({}, state, aligners);
 }
 
-function  updateVisitIntervalUnit(state, visitAligner) {
+function  updateVisitIntervalUnit(state, visitAligner : VisitAligner) {
 
     let aligners = Object.assign({}, visitAligner, { visitIntervalInDays: visitAligner.visitIntervalInDays });
     return Object.assign({}, state, aligners);
 }
 
-function getMaxAlignerCount(visitAligner) {
+function getMaxAlignerCount(visitAligner : VisitAligner) {
     let uppperCount = visitAligner.lastUpperAligner - visitAligner.firstUpperAligner + 1;
     let lowerCount = visitAligner.lastLowerAligner - visitAligner.firstLowerAligner + 1;
 

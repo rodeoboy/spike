@@ -128,12 +128,14 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
 
     public handleVisitDateChange(value: Date) {
         let visitDate = moment(value);
-        let days = visitDate.diff(now, 'days') - 1;
+        let interval = visitDate.diff(now, 'days') - 1;
+        if (!this.props.visitAligner.visitIntervalInDays) interval = roundIntervalToWeeks(interval)/7;
 
-        this.handleVisitIntervalInput(days);
+        this.handleVisitIntervalInput(interval);
     }
 
     public handleVisitIntervalInput(interval : number) {
+        if (!this.props.visitAligner.visitIntervalInDays) interval *= 7;
         let aligner = Object.assign({}, this.props.visitAligner, { visitInterval: interval });
         let validation = validateVisitInterval(aligner);
         let currentDate = now.clone();
@@ -166,6 +168,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     handleWearIntervalInput(interval : number) {
+        if (!this.props.visitAligner.wearIntervalInDays) interval *= 7;
         let aligner = Object.assign({}, this.props.visitAligner, { wearInterval: interval });
         let validation = validateWearInterval(aligner);
         this.setState(aligner);
