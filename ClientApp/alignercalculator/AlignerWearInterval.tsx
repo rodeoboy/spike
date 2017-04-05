@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Row, Radio, InputGroup} from "react-bootstrap";
 import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
-import {debounce} from 'throttle-debounce';
+import {handleNumber, displayIntervalInWeeks} from '../utils/intervalUtils'
 
 interface AlignerWearIntervalProps {
     visitAligner: VisitAligner;
@@ -31,16 +31,20 @@ export default class AlignerWearInterval extends React.Component<AlignerWearInte
                 </Col>
                 <Col componentClass={FormGroup} xs={2} validationState={this.props.wearIntervalValidationState}>
                     <FormControl id="wearInterval" type="text" style={{width: 50}}
-                        value = { this.props.visitAligner.wearInterval }
+                        value = { this.props.visitAligner.wearIntervalInDays ? this.props.visitAligner.wearInterval : displayIntervalInWeeks(this.props.visitAligner.wearInterval) }
                         disabled = { this.props.isWearIntervalLocked}
                         onChange = { e => this.handleWearIntervalInputChange(e) } 
                         maxLength = '3' />
                 </Col>
                 <Col xs={2} style={{ marginLeft : 5 }}>
                     <Radio name="WearIntervalUnit" style={{marginTop: 0}} checked={this.props.visitAligner.wearIntervalInDays} 
-                        onChange={ e => this.handleWearIntervalUnitChange(e)} value="Days">Days</Radio>
+                        disabled = { this.props.isWearIntervalLocked}
+                        onChange={ e => this.handleWearIntervalUnitChange(e)} 
+                        value="Days">Days</Radio>
                     <Radio name="WearIntervalUnit" checked={!this.props.visitAligner.wearIntervalInDays} 
-                        onChange={ e => this.handleWearIntervalUnitChange(e)} value="Weeks">Weeks</Radio>
+                        disabled = { this.props.isWearIntervalLocked}
+                        onChange={ e => this.handleWearIntervalUnitChange(e)} 
+                        value="Weeks">Weeks</Radio>
                 </Col>
             </div>
         );
@@ -59,13 +63,4 @@ export default class AlignerWearInterval extends React.Component<AlignerWearInte
         let isInDays = event.target.value == "Days";
         this.props.onWearIntervalUnitChange(isInDays);
     }
-}
-
-function handleNumber(value, func) {
-    // Only allow numbers
-    if (!isNaN(value) && parseInt(value) >= 0)
-        debounce(500, func(parseInt(value)));
-    // Except for blanks to allow deleting a value
-    if (value == '')
-        debounce(500, func(value));
 }

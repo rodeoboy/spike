@@ -8,8 +8,9 @@ import AlignerNumbers from './AlignerNumbers';
 import * as actions from './AlignerCalculatorAction';
 import { VisitAligner, AlignerProps } from './alignerVisitModel';
 import { KnownAction } from './AlignerCalculatorAction';
-import ErrorPanel from './ErrorPanel';
+import ErrorPanel from '../shared/ErrorPanel';
 import { ApplicationState }  from '../store';
+import {roundIntervalToWeeks} from '../utils/intervalUtils'
 import FontAwesome = require("react-fontawesome");
 import * as revalidator from 'revalidator'
 import * as moment from 'moment';
@@ -41,6 +42,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
         this.handleVisitIntervalInput = this.handleVisitIntervalInput.bind(this);
         this.handleVisitIntervalUnitChange = this.handleVisitIntervalUnitChange.bind(this);
         this.handleWearIntervalInput = this.handleWearIntervalInput.bind(this);
+        this.handleWearIntervalUnitChange = this.handleWearIntervalUnitChange.bind(this);        
         this.handleFirstUpperInput = this.handleFirstUpperInput.bind(this);
         this.handleLastUpperInput = this.handleLastUpperInput.bind(this);
         this.handleFirstLowerInput = this.handleFirstLowerInput.bind(this);
@@ -149,9 +151,18 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     handleVisitIntervalUnitChange(isInDays) {
-        let aligner = Object.assign({}, this.props.visitAligner, { visitIntervalInDays: isInDays });
+        var interval = isInDays ? this.props.visitAligner.visitInterval : roundIntervalToWeeks(this.props.visitAligner.visitInterval);
+        let aligner = Object.assign({}, this.props.visitAligner, { visitIntervalInDays: isInDays, visitInterval: interval });
+        let validation = validateVisitInterval(aligner);
         this.setState(aligner);
-        this.props.updateVisitIntervalUnit(aligner);
+
+        if(this.state.isVisitIntervalAlignersLinked)
+            this.props.updateAligners(aligner);
+        else if(!this.state.isWearIntervalLocked)
+            this.props.updateWearInterval(aligner);
+
+        this.state.visitIntervalValidationState = validation.valid ? null : "error";
+        this.state.ErrorMessages = validation.errors;
     }
 
     handleWearIntervalInput(interval : number) {
@@ -165,9 +176,14 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     handleWearIntervalUnitChange(isInDays) {
-        let aligner = Object.assign({}, this.props.visitAligner, { wearIntervalInDays: isInDays });
+        var interval = isInDays ? this.props.visitAligner.wearInterval : roundIntervalToWeeks(this.props.visitAligner.wearInterval);
+        let aligner = Object.assign({}, this.props.visitAligner, { wearIntervalInDays: isInDays, wearInterval: interval });
+        let validation = validateWearInterval(aligner);
         this.setState(aligner);
-        this.props.updateWearIntervalUnit(aligner);
+        this.props.updateAligners(aligner);
+        
+        this.state.wearIntervalValidationState = validation.valid ? null : "error";
+        this.state.ErrorMessages = validation.errors;
     }
 
     handleFirstUpperInput(alignerNumber : number) {
@@ -275,12 +291,13 @@ function validateFirstUpper(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             firstUpperAligner : {
-                require : true,
+                allowEmpty : !(visitAligner.lastUpperAligner > 0),
                 minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
                 maximum : visitAligner.planUpperEnd,
                 messages : {
                     minimum : "First upper aligner can not be less than the plan start or last alinger given",
-                    maximum : "First upper aligner can not be greater than the plan end"
+                    maximum : "First upper aligner can not be greater than the plan end",
+                    allowEmpty : "First upper aligner can not be empty if last upper aligner has a value"
                 }
             }
         }
@@ -291,7 +308,6 @@ function validateFirstLower(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             firstLowerAligner : {
-                require : true,
                 minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower,
                 maximum : visitAligner.planLowerEnd,
                 messages : {
@@ -307,7 +323,6 @@ function validateLastUpper(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             lastUpperAligner : {
-                require : true,
                 minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
                 maximum : visitAligner.planUpperEnd,
                 messages : {
@@ -323,7 +338,6 @@ function validateLastLower(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             lastLowerAligner : {
-                require : true,
                 minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower,
                 maximum : visitAligner.planLowerEnd,
                 messages : {

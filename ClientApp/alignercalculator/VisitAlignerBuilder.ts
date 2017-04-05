@@ -34,6 +34,16 @@ export default class VisitAlignerBuilder {
         return this;
     }
 
+    WithVisitIntervalInDays (isInDays : boolean) {
+        this.visitAligner.visitIntervalInDays = isInDays;
+        return this;
+    }
+
+    WithWearIntervalInDays (isInDays : boolean) {
+        this.visitAligner.wearIntervalInDays = isInDays;
+        return this;
+    }
+
     WithUpperAligners (first : number, last : number) {
         this.visitAligner.firstUpperAligner = first;
         this.visitAligner.lastUpperAligner = last;

@@ -3,7 +3,7 @@ import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Row, Radio, Inp
 import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
 import * as _ from 'underscore';
-import {debounce} from 'throttle-debounce';
+import {handleNumber} from '../utils/intervalUtils'
 
 interface AlignerNumbersProps {
     visitAligner: VisitAligner;
@@ -98,13 +98,4 @@ export default class AlignerNumbers extends React.Component<AlignerNumbersProps,
     public handleLastLowerAlignerInputChange(event: any) : void {
         handleNumber(event.target.value, this.props.onLastLowerAlignerInputChange);
     }
-}
-
-function handleNumber(value, func) {
-    // Only allow numbers
-    if (!isNaN(value) && parseInt(value) >= 0)
-        debounce(500, func(parseInt(value)));
-    // Except for blanks to allow deleting a value
-    if (value == '')
-        debounce(500, func(value));
 }

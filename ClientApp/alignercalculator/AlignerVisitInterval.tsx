@@ -2,9 +2,9 @@ import * as React from 'react';
 import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Row, Radio, InputGroup} from "react-bootstrap";
 import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
-import {debounce} from 'throttle-debounce';
 import * as Calendar from 'rc-calendar';
 import * as DatePicker from 'rc-calendar/lib/Picker';
+import {handleNumber, displayIntervalInWeeks} from '../utils/intervalUtils'
 
 import enUS from 'rc-calendar/lib/locale/en_US';
 
@@ -63,7 +63,7 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                             </DatePicker>
                         </InputGroup.Addon>
                         <FormControl id="visitInterval" type="text" style={{width: 50}}
-                            value = { this.props.visitAligner.visitInterval }
+                            value = { this.props.visitAligner.visitIntervalInDays ? this.props.visitAligner.visitInterval : displayIntervalInWeeks(this.props.visitAligner.visitInterval) }
                             onChange = { e => this.handleVisitIntervalInputChange(e) } 
                             maxLength='3' />
                     </InputGroup>
@@ -116,12 +116,3 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
     }
     
 };
-
-function handleNumber(value, func) {
-    // Only allow numbers
-    if (!isNaN(value) && parseInt(value) >= 0)
-        debounce(500, func(parseInt(value)));
-    // Except for blanks to allow deleting a value
-    if (value == '')
-        debounce(500, func(value));
-}

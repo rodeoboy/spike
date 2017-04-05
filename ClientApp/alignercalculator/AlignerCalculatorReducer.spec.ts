@@ -7,6 +7,37 @@ import VisitAlignerBuilder from './VisitAlignerBuilder';
 describe ('Aligner Calculator Reducer', () => {
     const initialState = new VisitAlignerBuilder().Build();
 
+    it('Should update wear interval', () => {
+        const changedState = new VisitAlignerBuilder()
+                                    .WithUpperAligners(1,4)
+                                    .WithLowerAligners(1,4).Build();
+
+        const action = actions.actionCreators.updateWearInterval(changedState);
+
+        const newState = reducer.reducer(initialState, action);
+
+        expect(newState.wearInterval).to.be.equal(21);
+    });
+
+    it('Should update aligners with wear interval in weeks', () => {
+        const changedState = new VisitAlignerBuilder().WithWearIntervalInDays(false).WithWearInterval(25).Build();
+        const action = actions.actionCreators.updateAligners(changedState);
+
+        const newState = reducer.reducer(initialState, action);
+
+        expect(newState.lastLowerAligner).to.be.equal(3);
+        expect(newState.lastUpperAligner).to.be.equal(3);
+    });
+
+    it('Should update visit interval', () => {
+        const changedState = new VisitAlignerBuilder().Build();
+        const action = actions.actionCreators.updateVisitInterval(changedState);
+
+        const newState = reducer.reducer(initialState, action);
+
+        expect(newState.visitInterval).to.be.equal(56);
+    });
+
     it('Should update last aligners', () => {
         const changedState = new VisitAlignerBuilder().Build();
         const action = actions.actionCreators.updateAligners(changedState);
@@ -98,27 +129,6 @@ describe ('Aligner Calculator Reducer', () => {
         const newState = reducer.reducer(initialState, action);
 
         expect(newState.lastUpperAligner).to.be.equal(9);
-    });
-
-    it('Should update wear interval', () => {
-        const changedState = new VisitAlignerBuilder()
-                                    .WithUpperAligners(1,4)
-                                    .WithLowerAligners(1,4).Build();
-
-        const action = actions.actionCreators.updateWearInterval(changedState);
-
-        const newState = reducer.reducer(initialState, action);
-
-        expect(newState.wearInterval).to.be.equal(21);
-    });
-
-    it('Should update visit interval', () => {
-        const changedState = new VisitAlignerBuilder().Build();
-        const action = actions.actionCreators.updateVisitInterval(changedState);
-
-        const newState = reducer.reducer(initialState, action);
-
-        expect(newState.visitInterval).to.be.equal(56);
     });
 
     it('Should prevent last aligner to be calculated greater than plan end value', () => {
