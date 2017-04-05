@@ -76,31 +76,6 @@ describe("<AlignerVisitInterval />", () => {
             
     });
 
-    describe('onVisitIntervalInputChange in weeks', () => {
-        let input;
-
-        beforeEach(() => {
-            props = {visitAligner: new VisitAlignerBuilder()
-                                    .WithVisitIntervalInDays(false).Build(),
-
-            ...bindActionCreators(spies, dispatchSpy = spy())
-            }
-            
-            wrapper = mount(<AlignerVisitInterval  {...props} />);
-            
-            input = wrapper.find('input#visitInterval');
-        });
-
-        it('Should call with value in days', () => {
-            expect(spies.onVisitIntervalInputChange.called).to.be.false;
-
-            input.simulate('change',  { target: { value: 10 }});
-
-            expect(spies.onVisitIntervalInputChange.calledWith(70)).to.be.true;
-        }); 
-            
-    });
-
     describe('onVisitIntervalLinkClick', () => {
         let button;
 

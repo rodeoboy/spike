@@ -157,10 +157,10 @@ describe("<AlignerCalculator/>", () => {
         });
 
         it('Should display interval in weeks on change', () => {
-            expect(component.props().visitAligner.visitIntervalInDays).to.be.true;
-            wrapper.find('input#wearIntervalWeeks').simulate('change');
-
-            expect(component.props().visitAligner.visitIntervalInDays).to.be.false;
+            expect(component.props().visitAligner.wearIntervalInDays).to.be.true;
+            //wrapper.find('input#WearIntervalWeeks').simulate('change');
+            Component.handleVisitIntervalUnitChange(false);
+            expect(component.props().visitAligner.wearIntervalInDays).to.be.false;
         });
     });
 

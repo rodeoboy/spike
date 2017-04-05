@@ -68,29 +68,6 @@ describe("<AlignerWearInterval />", () => {
         }); 
     });
 
-    describe('onWearIntervalInputChange', () => {
-        let input;
-
-        beforeEach(() => {
-            props = {visitAligner: new VisitAlignerBuilder()
-                                    .WithWearIntervalInDays(false).Build(),
-
-            ...bindActionCreators(spies, dispatchSpy = spy())
-            }
-            
-            wrapper = mount(<AlignerWearInterval  {...props} />);
-
-            input = wrapper.find('input#wearInterval');
-        });
-
-        it('Should call with value in days', () => {
-            expect(spies.onWearIntervalInputChange.called).to.be.false;
-            input.simulate('change',  { target: { value: 2 }});
-
-            expect(spies.onWearIntervalInputChange.calledWith(14)).to.be.true;
-        }); 
-    });
-
     describe('onWearIntervalLockClick', () => {
         let button;
 
