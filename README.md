@@ -11,6 +11,7 @@ This README would normally document whatever steps are necessary to get your app
 ### How do I get set up? ###
 
 In the terminal run the following commands
+
 * npm install
 * dotnet run - to build the application and start the server
 * npm test - run all unit tests
