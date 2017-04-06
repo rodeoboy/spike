@@ -7,7 +7,6 @@ This README would normally document whatever steps are necessary to get your app
 * Spike using react and redux
 * Version
 * Started using a Microsoft .NET Core yeoman generator [Article](https://blogs.msdn.microsoft.com/webdev/2017/02/14/building-single-page-applications-on-asp-net-core-with-javascriptservices/)
-* Design based on [AL-603] (https://oral4d.atlassian.net/browse/AL-603)
 
 ### How do I get set up? ###
 
