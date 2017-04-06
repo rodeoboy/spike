@@ -294,13 +294,11 @@ function validateFirstUpper(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             firstUpperAligner : {
-                allowEmpty : !(visitAligner.lastUpperAligner > 0),
                 minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
                 maximum : visitAligner.planUpperEnd,
                 messages : {
                     minimum : "First upper aligner can not be less than the plan start or last alinger given",
-                    maximum : "First upper aligner can not be greater than the plan end",
-                    allowEmpty : "First upper aligner can not be empty if last upper aligner has a value"
+                    maximum : "First upper aligner can not be greater than the plan end"
                 }
             }
         }
@@ -326,11 +324,13 @@ function validateLastUpper(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             lastUpperAligner : {
+                allowEmpty : !(visitAligner.firstUpperAligner > 0),
                 minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
                 maximum : visitAligner.planUpperEnd,
                 messages : {
                     minimum : "Last upper aligner can not be less than the plan start or last alinger given",
-                    maximum : "Last upper aligner can not be greater than the plan end"
+                    maximum : "Last upper aligner can not be greater than the plan end",
+                    allowEmpty : "Last upper aligner can not be empty if first upper aligner has a value"
                 }
             }
         }
@@ -341,11 +341,13 @@ function validateLastLower(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             lastLowerAligner : {
+                allowEmpty : !(visitAligner.firstLowerAligner > 0),
                 minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower,
                 maximum : visitAligner.planLowerEnd,
                 messages : {
                     minimum : "Last lower aligner can not be less than the plan start or last alinger given",
-                    maximum : "Last lower aligner can not be greater than the plan end"
+                    maximum : "Last lower aligner can not be greater than the plan end",
+                    allowEmpty : "Last lower aligner can not be empty if first lower aligner has a value"
                 }
             }
         }

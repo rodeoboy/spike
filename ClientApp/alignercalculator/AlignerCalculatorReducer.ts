@@ -74,7 +74,7 @@ function updateLastUpper(visitAligner : VisitAligner) {
     let lastUpperAligner = 0;
     let alingers;
 
-    if (visitAligner.firstUpperAligner !== 0)
+    if (visitAligner.firstUpperAligner !== 0 && visitAligner.firstUpperAligner.toString() !== '')
         lastUpperAligner = visitAligner.firstUpperAligner + alingerCount;
 
     if (lastUpperAligner > visitAligner.planUpperEnd)
@@ -93,7 +93,7 @@ function updateLastLower(visitAligner : VisitAligner) {
     let alingerCount = getAlignerCountByIntervals(visitAligner);
     let lastLowerAligner = 0;
 
-    if (visitAligner.firstLowerAligner !== 0)
+    if (visitAligner.firstLowerAligner !== 0 && visitAligner.firstLowerAligner.toString() !== '')
         lastLowerAligner = visitAligner.firstLowerAligner + alingerCount;
 
     if (lastLowerAligner > visitAligner.planLowerEnd)

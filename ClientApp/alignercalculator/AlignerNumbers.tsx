@@ -42,9 +42,9 @@ export default class AlignerNumbers extends React.Component<AlignerNumbersProps,
                             onChange = { e => this.handleFirstUpperAlignerInputChange(e) }
                             maxLength = '3' />
                     </Col>
-                    <Col componentClass={FormGroup} xs={2} validationState={this.props.firstLowerAlignerValidationState}>
+                    <Col componentClass={FormGroup} xs={2} validationState={this.props.lastUpperAlignerValidationState}>
                         <FormControl id="lastUpperAligner" type="text" style={{width: 50}}
-                            value = { this.props.visitAligner.lastUpperAligner }
+                            value = { this.props.visitAligner.lastUpperAligner === 0 ? '' : this.props.visitAligner.lastUpperAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleLastUpperAlignerInputChange(e) } 
                             maxLength = '3' /> 
@@ -52,7 +52,7 @@ export default class AlignerNumbers extends React.Component<AlignerNumbersProps,
                     </Row>
                 <Row>
                     <Col componentClass={ControlLabel} xs={5}></Col>
-                    <Col componentClass={FormGroup} xs={2} validationState={this.props.lastLowerAlignerValidationState}>
+                    <Col componentClass={FormGroup} xs={2} validationState={this.props.firstLowerAlignerValidationState}>
                         <FormControl id="firstLowerAligner" type="text" style={{width: 50}}
                             value = { this.props.visitAligner.firstLowerAligner }
                             disabled = { this.props.isUpperLowerLinked}
@@ -61,7 +61,7 @@ export default class AlignerNumbers extends React.Component<AlignerNumbersProps,
                     </Col>
                     <Col componentClass={FormGroup} xs={2} validationState={this.props.lastLowerAlignerValidationState}>
                         <FormControl id="lastLowerAligner" type="text" style={{width: 50}}
-                            value = { this.props.visitAligner.lastLowerAligner }
+                            value = { this.props.visitAligner.lastLowerAligner === 0 ? '' : this.props.visitAligner.lastLowerAligner }
                             disabled = { this.props.isUpperLowerLinked}
                             onChange = { e => this.handleLastLowerAlignerInputChange(e) } 
                             maxLength = '3' />
