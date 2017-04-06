@@ -10,7 +10,7 @@ import { VisitAligner, AlignerProps } from './alignerVisitModel';
 import { KnownAction } from './AlignerCalculatorAction';
 import ErrorPanel from '../shared/ErrorPanel';
 import { ApplicationState }  from '../store';
-import {roundIntervalToWeeks} from '../utils/intervalUtils'
+import {roundDaysToNearestWeek} from '../utils/intervalUtils'
 import FontAwesome = require("react-fontawesome");
 import * as revalidator from 'revalidator'
 import * as moment from 'moment';
@@ -18,7 +18,7 @@ import * as moment from 'moment';
 const now = moment();
 const format = 'YYYY-MM-DD';
 
-class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
+export class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     constructor(props, context) {
         super(props, context);
         let currentDate = now.clone();
@@ -129,7 +129,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     public handleVisitDateChange(value: Date) {
         let visitDate = moment(value);
         let interval = visitDate.diff(now, 'days') - 1;
-        if (!this.props.visitAligner.visitIntervalInDays) interval = roundIntervalToWeeks(interval)/7;
+        if (!this.props.visitAligner.visitIntervalInDays) interval = roundDaysToNearestWeek(interval)/7;
 
         this.handleVisitIntervalInput(interval);
     }
@@ -153,11 +153,11 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     handleVisitIntervalUnitChange(isInDays) {
-        var interval = isInDays ? this.props.visitAligner.visitInterval : roundIntervalToWeeks(this.props.visitAligner.visitInterval);
+        var interval = isInDays ? this.props.visitAligner.visitInterval : roundDaysToNearestWeek(this.props.visitAligner.visitInterval);
         let aligner = Object.assign({}, this.props.visitAligner, { visitIntervalInDays: isInDays, visitInterval: interval });
         let validation = validateVisitInterval(aligner);
         this.setState(aligner);
-
+        
         if(this.state.isVisitIntervalAlignersLinked)
             this.props.updateAligners(aligner);
         else if(!this.state.isWearIntervalLocked)
@@ -179,7 +179,7 @@ class AlignerCalculatorContainer extends React.Component<AlignerProps, any> {
     }
 
     handleWearIntervalUnitChange(isInDays) {
-        var interval = isInDays ? this.props.visitAligner.wearInterval : roundIntervalToWeeks(this.props.visitAligner.wearInterval);
+        var interval = isInDays ? this.props.visitAligner.wearInterval : roundDaysToNearestWeek(this.props.visitAligner.wearInterval);
         let aligner = Object.assign({}, this.props.visitAligner, { wearIntervalInDays: isInDays, wearInterval: interval });
         let validation = validateWearInterval(aligner);
         this.setState(aligner);

@@ -3,7 +3,7 @@ import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Row, Radio, Inp
 import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
 import * as Calendar from 'rc-calendar';
-import * as DatePicker from 'rc-calendar/lib/Picker';
+import * as Picker from 'rc-calendar/lib/Picker';
 import {handleNumber, displayIntervalInWeeks} from '../utils/intervalUtils';
 
 import enUS from 'rc-calendar/lib/locale/en_US';
@@ -41,6 +41,7 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
             style={{ zIndex: 1000 }}
             value={this.props.nextVisitDate}
             showDateInput={false}
+            showToday={false}
         />);
 
         return (
@@ -50,7 +51,7 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                 <FormGroup validationState={this.props.visitIntervalValidationState}>
                     <InputGroup>
                         <InputGroup.Addon>
-                            <DatePicker placement='bottomLeft' calendar={calendar} onChange={ value => this.handleNextVisitDateChange(value) }>
+                            <Picker placement='bottomLeft' calendar={calendar} onChange={ value => this.handleNextVisitDateChange(value) }>
                                 {
                                     ({ value }) => {
                                         return (
@@ -60,7 +61,7 @@ export default class AlignerVisitInterval extends React.Component<AlignerVisitIn
                                         );
                                     }
                                 }
-                            </DatePicker>
+                            </Picker>
                         </InputGroup.Addon>
                         <FormControl id="visitInterval" type="text" style={{width: 50}}
                             value = { this.props.visitAligner.visitIntervalInDays ? this.props.visitAligner.visitInterval : displayIntervalInWeeks(this.props.visitAligner.visitInterval) }

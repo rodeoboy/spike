@@ -3,31 +3,54 @@ import { expect, assert } from 'chai';
 import "mocha";
 import * as React from 'react';
 import { Provider } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import AlignerVisitInterval from './AlignerVisitInterval';
 import AlignerCalculator from './AlignerCalculatorContainer'
 import AlignerWearInterval from './AlignerWearInterval';
 import AlignerNumbers from './AlignerNumbers';
 import ErrorPanel from '../shared/ErrorPanel';
-import * as actions from './AlignerCalculatorAction';
+import * as ActionCreators from './AlignerCalculatorAction';
 import VisitAlignerBuilder from './VisitAlignerBuilder';
 
 const middlewares = [thunk];
 
-describe("<AlignerCalculator/>", () => {
-    let Component, wrapper, props, spies, visitAligner;
+describe("<AlignerCalculator/> Days", () => {
+    let Component, wrapper, props, spies, dispatchSpy, visitAligner;
 
     beforeEach(() => {
-        visitAligner = new VisitAlignerBuilder().Build();
-        const store = configureMockStore()({ visitAligner: visitAligner });
-
+        dispatchSpy = () => {};
         spies = {};
+        spies = {
+            updateAligners: (spies.updateAligners = spy()),
+            updateUpperAligners: (spies.updateUpperAligners = spy()),
+            updateVisitInterval: (spies.updateVisitInterval = spy()),
+            onLastLowerAlignerInputChange: (spies.onLastLowerAlignerInputChange = spy()),
+            updateWearIntervalUnit: (spies.updateWearIntervalUnit = spy()),
+            updateLowerAligners: (spies.updateLowerAligners = spy()),
+            updateVisitIntervalUnit: (spies.updateVisitIntervalUnit = spy()),
+            updateWearInterval: (spies.updateWearInterval = spy())        
+        };
+        visitAligner = new VisitAlignerBuilder().Build();
+    
+        const store = configureMockStore(middlewares)({ visitAligner: visitAligner });
+        props = { visitAligner: visitAligner,
+            updateAligners: (spies.updateAligners = spy()),
+            updateUpperAligners: (spies.updateUpperAligners = spy()),
+            updateVisitInterval: (spies.updateVisitInterval = spy()),
+            onLastLowerAlignerInputChange: (spies.onLastLowerAlignerInputChange = spy()),
+            updateWearIntervalUnit: (spies.updateWearIntervalUnit = stub()),
+            updateLowerAligners: (spies.updateLowerAligners = spy()),
+            updateVisitIntervalUnit: (spies.updateVisitIntervalUnit = spy()),
+            updateWearInterval: (spies.updateWearInterval = spy())   
+        }
+        
         wrapper = mount(
             <Provider store={store} >
-                <AlignerCalculator />
+                <AlignerCalculator {...props} />
             </Provider>
         );
 
@@ -36,21 +59,6 @@ describe("<AlignerCalculator/>", () => {
 
     it('Should have <AlignerNumbers/>', () => {
         expect(Component.find(AlignerNumbers)).to.have.length(1);
-    });
-
-    describe('Wear interval weeks click ', () => {
-        let radioButton, input;
-
-        beforeEach(() => {
-            radioButton = wrapper.find('input#WearIntervalWeeks');
-            input = wrapper.find('input#wearInterval');
-        });
-
-        it('Should display in weeks', () => {
-            radioButton.simulate('change');
-
-            //expect(input.prop('value')).to.equal(2);
-        });
     });
 
     describe('Wear interval lock button ', () => {
@@ -105,26 +113,27 @@ describe("<AlignerCalculator/>", () => {
     });
 
     describe('Visit inteval change ', () => {
-        let errorPanel;
+        let errorPanel, component;
 
         beforeEach(() => {
             errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#visitInterval');
         });
 
         it('Should have validation error on change with blank value', () => {
-            wrapper.find('input#visitInterval').simulate('change', { target: { value: '' } });
+            component.simulate('change', { target: { value: '' } });
       
             expect(errorPanel.find('li').text()).to.equal('Visit interval must be a number');
         });
 
         it('Should have validation error on change with value less than wear interval', () => {
-            wrapper.find('input#visitInterval').simulate('change', { target: { value: visitAligner.wearInterval - 1 } });
+            component.simulate('change', { target: { value: visitAligner.wearInterval - 1 } });
      
             expect(errorPanel.find('li').text()).to.equal('Visit interval can not be less than wear interval');
         });
 
         it('Should have validation error on change with value greater than 999', () => {
-            wrapper.find('input#visitInterval').simulate('change', { target: { value: 1000 } });
+            component.simulate('change', { target: { value: 1000 } });
          
             expect(errorPanel.find('li').text()).to.equal('Visit interval must be less than 1000');
         });
@@ -134,79 +143,74 @@ describe("<AlignerCalculator/>", () => {
         let component, errorPanel;
 
         beforeEach(() => {
-            component = wrapper.find(AlignerWearInterval);
+            component = wrapper.find('input#wearInterval');
             errorPanel = wrapper.find(ErrorPanel);
         });
 
         it('Should have validation error on change with blank value', () => {
-            wrapper.find('input#wearInterval').simulate('change', { target: { value: '' } });
+            component.simulate('change', { target: { value: '' } });
            
             expect(errorPanel.find('li').text()).to.equal('Wear interval must be a number');
         });
 
         it('Should have validation error on  change with value greater than visit interval', () => {
-            wrapper.find('input#wearInterval').simulate('change', { target: { value: visitAligner.visitInterval + 1 } });
+            component.simulate('change', { target: { value: visitAligner.visitInterval + 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('Wear interval can not be greater than visit interval');
         });
 
         it('Should have validation error on change value less than 1', () => {
-            wrapper.find('input#wearInterval').simulate('change', { target: { value: 0 } });
+            component.simulate('change', { target: { value: 0 } });
 
             expect(errorPanel.find('li').text()).to.equal('Wear interval must be greater than or equal to 1');
-        });
-
-        it('Should display interval in weeks on change', () => {
-            expect(component.props().visitAligner.wearIntervalInDays).to.be.true;
-            //wrapper.find('input#WearIntervalWeeks').simulate('change');
-            Component.handleVisitIntervalUnitChange(false);
-            expect(component.props().visitAligner.wearIntervalInDays).to.be.false;
         });
     });
 
     describe('First upper alinger change ', () => {
-        let errorPanel;
+        let errorPanel, component;
 
         beforeEach(() => {
             errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#firstUpperAligner');
         });
 
         it('Should have validation error on change with value greater than plan end', () => {
-            wrapper.find('input#firstUpperAligner').simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
+            component.simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be greater than the plan end');
         });
 
         it('Should have validation error on change with value less than plan start', () => {
-            wrapper.find('input#firstUpperAligner').simulate('change', { target: { value: visitAligner.planUpperStart - 1 } });
+            component.simulate('change', { target: { value: visitAligner.planUpperStart - 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be less than the plan start or last alinger given');
         });
 
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
-            wrapper.find('input#firstUpperAligner').simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
+            component.simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be less than the plan start or last alinger given');
         });
     });
 
     describe('First lower alinger change ', () => {
-        let errorPanel;
+        let errorPanel, component;
 
         beforeEach(() => {
             errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#firstLowerAligner');
         });
 
         it('Should have validation error on change with value greater than plan end', () => {
             expect(errorPanel.find('li')).to.have.length(0);
-            wrapper.find('input#firstLowerAligner').simulate('change', { target: { value: visitAligner.planLowerEnd + 1 } });
+            component.simulate('change', { target: { value: visitAligner.planLowerEnd + 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be greater than the plan end');
         });
 
         it('Should have validation error on change with value less than plan start', () => {
             expect(errorPanel.find('li')).to.have.length(0);
-            wrapper.find('input#firstLowerAligner').simulate('change', { target: { value: visitAligner.planLowerStart - 1 } });
+            component.simulate('change', { target: { value: visitAligner.planLowerStart - 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
         });
@@ -214,49 +218,51 @@ describe("<AlignerCalculator/>", () => {
         // should be created seperately
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             expect(errorPanel.find('li')).to.have.length(0);
-            wrapper.find('input#firstLowerAligner').simulate('change', { target: { value: visitAligner.previousLower - 1 } });
+            component.simulate('change', { target: { value: visitAligner.previousLower - 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
         });
     });
 
     describe('Last upper alinger change ', () => {
-        let errorPanel;
+        let errorPanel, component;
 
         beforeEach(() => {
             errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#lastUpperAligner');
         });
 
         it('Should have validation error on change with value greater than plan end', () => {
-            wrapper.find('input#lastUpperAligner').simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
+            component.simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be greater than the plan end');
         });
 
         it('Should have validation error on change with value less than plan start', () => {
-            wrapper.find('input#lastUpperAligner').simulate('change', { target: { value: visitAligner.planUpperStart - 1 } });
+            component.simulate('change', { target: { value: visitAligner.planUpperStart - 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be less than the plan start or last alinger given');
         });
 
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
-            wrapper.find('input#lastUpperAligner').simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
+            component.simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be less than the plan start or last alinger given');
         });
     });
 
     describe('Last lower alinger change ', () => {
-        let errorPanel;
+        let errorPanel, component;
 
         beforeEach(() => {
             errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#lastLowerAligner');
         });
 
         it('Should have validation error on change with value greater than plan end', () => {
             expect(errorPanel.find('li')).to.have.length(0);
 
-            wrapper.find('input#lastLowerAligner').simulate('change', { target: { value: visitAligner.planLowerEnd + 1 } });
+            component.simulate('change', { target: { value: visitAligner.planLowerEnd + 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('Last lower aligner can not be greater than the plan end');
         });
@@ -264,7 +270,7 @@ describe("<AlignerCalculator/>", () => {
         it('Should have validation error on change with value less than plan start', () => {
             expect(errorPanel.find('li')).to.have.length(0);
 
-            wrapper.find('input#lastLowerAligner').simulate('change', { target: { value: visitAligner.planLowerStart - 1 } });
+            component.simulate('change', { target: { value: visitAligner.planLowerStart - 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('Last lower aligner can not be less than the plan start or last alinger given');
         });
@@ -273,9 +279,79 @@ describe("<AlignerCalculator/>", () => {
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             expect(errorPanel.find('li')).to.have.length(0);
 
-            wrapper.find('input#lastLowerAligner').simulate('change', { target: { value: visitAligner.previousLower - 1 } });
+            component.simulate('change', { target: { value: visitAligner.previousLower - 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('Last lower aligner can not be less than the plan start or last alinger given');
+        });
+    });
+});
+
+describe("<AlignerCalculator/> Weeks", () => {
+    let Component, wrapper, props, spies, dispatchSpy, visitAligner;
+
+    beforeEach(() => {
+        visitAligner = new VisitAlignerBuilder()
+                        .WithVisitIntervalInDays(false)
+                        .WithWearIntervalInDays(false).Build();
+        const store = configureMockStore()({ visitAligner: visitAligner });
+        spies = {};
+        const props = {
+            ...bindActionCreators(spies, dispatchSpy = spy())
+        };
+        wrapper = mount(
+            <Provider store={store} >
+                <AlignerCalculator {...props} />
+            </Provider>
+        );
+
+        Component = wrapper.find(AlignerCalculator);
+    });   
+
+    describe('Visit inteval change ', () => {
+        let errorPanel, component;
+
+        beforeEach(() => {
+            errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#visitInterval');
+        });
+
+        it('Should have validation error on change with blank value', () => {
+            component.simulate('change', { target: { value: '' } });
+      
+            expect(errorPanel.find('li').text()).to.equal('Visit interval can not be less than wear interval');
+        });
+
+        it('Should have validation error on change with value less than wear interval', () => {
+            component.simulate('change', { target: { value: 1 } });
+
+            expect(errorPanel.find('li').text()).to.equal('Visit interval can not be less than wear interval');
+        });
+
+        it('Should have validation error on change with value greater than 999', () => {
+            component.simulate('change', { target: { value: 1000 } });
+         
+            expect(errorPanel.find('li').text()).to.equal('Visit interval must be less than 1000');
+        });
+    });
+
+    describe('Wear interval change ', () => {
+        let component, errorPanel;
+
+        beforeEach(() => {
+            component = wrapper.find('input#wearInterval');
+            errorPanel = wrapper.find(ErrorPanel);
+        });
+
+        it('Should have validation error on  change with value greater than visit interval', () => {
+            component.simulate('change', { target: { value: visitAligner.visitInterval + 1 } });
+
+            expect(errorPanel.find('li').text()).to.equal('Wear interval can not be greater than visit interval');
+        });
+
+        it('Should have validation error on change value less than 1', () => {
+            component.simulate('change', { target: { value: 0 } });
+
+            expect(errorPanel.find('li').text()).to.equal('Wear interval must be greater than or equal to 1');
         });
     });
 });

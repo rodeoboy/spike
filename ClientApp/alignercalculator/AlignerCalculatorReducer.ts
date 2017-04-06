@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { KnownAction } from './AlignerCalculatorAction';
 import { VisitAligner } from './alignerVisitModel';
-import { roundIntervalToWeeks } from '../utils/intervalUtils';
+import { roundDaysToNearestWeek } from '../utils/intervalUtils';
 
 // This default values can be removed when state rehydrated or initiated from the service
 const visitAligner: VisitAligner = {
@@ -56,7 +56,7 @@ function getAlignerCountByIntervals(visitAligner : VisitAligner) {
 function updateWearInterval(state, visitAligner : VisitAligner) {
     let count = getMaxAlignerCount(visitAligner);
     let interval = Math.floor(visitAligner.visitInterval / count)
-    if (!visitAligner.wearIntervalInDays) interval = roundIntervalToWeeks(interval);
+    if (!visitAligner.wearIntervalInDays) interval = roundDaysToNearestWeek(interval);
     let aligners = Object.assign({}, visitAligner, { wearInterval: interval });
     
     return Object.assign({}, state, aligners);

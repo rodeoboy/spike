@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Row, Radio, InputGroup} from "react-bootstrap";
 import FontAwesome = require("react-fontawesome");
 import { VisitAligner } from './alignerVisitModel';
-import {handleNumber, displayIntervalInWeeks, roundIntervalToWeeks} from '../utils/intervalUtils'
+import {handleNumber, displayIntervalInWeeks, roundDaysToNearestWeek} from '../utils/intervalUtils'
 
 interface AlignerWearIntervalProps {
     visitAligner: VisitAligner;
@@ -62,6 +62,7 @@ export default class AlignerWearInterval extends React.Component<AlignerWearInte
     }
 
     public handleWearIntervalUnitChange(event: any) :void {
+        debugger;
         let isInDays = event.target.value == "Days";
         this.props.onWearIntervalUnitChange(isInDays);
     }

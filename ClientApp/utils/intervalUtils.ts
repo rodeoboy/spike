@@ -9,18 +9,22 @@ export function handleNumber(value, func) {
         debounce(500, func(value));
 }
 
-export function roundIntervalToWeeks(interval : number) {
+export function roundDaysToNearestWeek(interval : number) {
     let weeks = Math.floor(interval / 7);
-    
-    if (interval % 7 >= 2)
+    const weeksRoundUpValue = 2;
+
+    if (interval % 7 >= weeksRoundUpValue)
         weeks += 1;
     return weeks * 7;
 }
 
+// takes an interval value in days rounded to the nearest week
 export function displayIntervalInWeeks(interval : number) {
-    let weeks = Math.floor(interval / 7);
+    let weeks = interval / 7;
 
-    if(weeks === 0)
+    // if the number of weeks is zero then send a blanc to the control
+    // Stops inserting zero when the user blanks the field
+    if(interval === 0)
         return '';
     
     return weeks;
