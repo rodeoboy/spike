@@ -120,6 +120,9 @@ export class AlignerCalculatorContainer extends React.Component<AlignerProps, an
 
         if(this.state.isWearIntervalLocked) {
             this.setState({ wearIntervalLockedStyle: "fa fa-lock" });
+            //if wear interval is locked then visit interval and alingers should be link
+            //to ensure that updates fires a calculation
+            if(!this.state.isVisitIntervalAlignersLinked) this.onVisitIntervalLinkClick();
         }
         else {
             this.setState({ wearIntervalLockedStyle: "fa fa-unlock" });

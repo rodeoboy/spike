@@ -62,36 +62,45 @@ describe("<AlignerCalculator/> Days", () => {
     });
 
     describe('Wear interval lock button ', () => {
-        let button;
+        let lock, link;
 
         beforeEach(() => {
-            button = wrapper.find('button#wearIntervalLock');
-        });
-
-        it('Should show lock icon on wear interval lock button by default', () => {
-            expect(button.find('span').hasClass('fa-lock')).to.be.true;
+            lock = wrapper.find('button#wearIntervalLock');
+            link = wrapper.find('button#visitIntervalLink');
         });
 
         it('Should change to unlock icon on wear interval lock click', () => {
-            button.simulate('click');
-            expect(button.find('span').hasClass('fa-unlock')).to.be.true;
+            expect(lock.find('span').hasClass('fa-lock')).to.be.true;
+            lock.simulate('click');
+            expect(lock.find('span').hasClass('fa-unlock')).to.be.true;
+        });
+
+        it('Should link visit interval and aligners when locked', () => {
+            link.simulate('click');
+            expect(link.find('span').hasClass('fa-chain-broken')).to.be.true;
+            lock.simulate('click');
+            expect(link.find('span').hasClass('fa-link')).to.be.true;
         });
     });
 
     describe('Visit interval link button ', () => {
-        let button;
+        let link, lock;
 
         beforeEach(() => {
-            button = wrapper.find('button#visitIntervalLink');
-        });
-
-        it('Should show lock icon on visit interval link button by default', () => {
-            expect(button.find('span').hasClass('fa-link')).to.be.true;
+            link = wrapper.find('button#visitIntervalLink');
+            lock =  wrapper.find('button#wearIntervalLock');
         });
 
         it('Should change to unlock icon on visit interval to unlink', () => {
-            button.simulate('click');
-            expect(button.find('span').hasClass('fa-chain-broken')).to.be.true;
+            expect(link.find('span').hasClass('fa-link')).to.be.true;
+            link.simulate('click');
+            expect(link.find('span').hasClass('fa-chain-broken')).to.be.true;
+        });
+
+        it('Should unlock wear interval when unlinked', () => {
+            expect(lock.find('span').hasClass('fa-lock')).to.be.true;
+            link.simulate('click');
+            expect(lock.find('span').hasClass('fa-unlock')).to.be.true;
         });
     });
 

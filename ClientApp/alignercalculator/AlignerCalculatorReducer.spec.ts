@@ -26,6 +26,18 @@ describe ('Aligner Calculator Reducer', () => {
             expect(newState.lastUpperAligner).to.be.equal(3);
         });
 
+        it('Should update with visit interval in weeks', () => {
+            const changedState = new VisitAlignerBuilder()
+                                .WithVisitIntervalInDays(false)
+                                .WithVisitInterval(42).Build();
+            const action = actions.actionCreators.updateAligners(changedState);
+
+            const newState = reducer.reducer(initialState, action);
+
+            expect(newState.lastLowerAligner).to.be.equal(3);
+            expect(newState.lastUpperAligner).to.be.equal(3);
+        });
+
         it('Should update', () => {
             const changedState = new VisitAlignerBuilder().Build();
 
@@ -90,7 +102,7 @@ describe ('Aligner Calculator Reducer', () => {
     describe('updateUpperAligners', () => {
         const action = actions.actionCreators.updateUpperAligners;
 
-        it('Should update ', () => {
+        it('Should update with first aligner ', () => {
             const changedState = new VisitAlignerBuilder()
                                         .WithFirstUpperAligner(4).Build();
 
@@ -113,7 +125,7 @@ describe ('Aligner Calculator Reducer', () => {
     describe('updateLowerAligners', () => {
         const action = actions.actionCreators.updateLowerAligners;
 
-        it('Should update ', () => {
+        it('Should update with first aligner', () => {
             const changedState = new VisitAlignerBuilder()
                                         .WithFirstLowerAligner(4).Build();
 
