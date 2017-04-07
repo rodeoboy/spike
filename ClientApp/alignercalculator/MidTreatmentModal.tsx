@@ -25,7 +25,7 @@ export class MidTreatmentModal extends React.Component<MidTreatmentModalProps, a
   public render() {
 
     return (<div className="static-modal">
-      <Modal show={this.props.showModal} onHide={this.close}>
+      <Modal id="midTreatmentModal" show={this.props.showModal} onHide={this.close}>
         <Modal.Header>
           <Modal.Title>Mid-Treatment Patient</Modal.Title>
         </Modal.Header>

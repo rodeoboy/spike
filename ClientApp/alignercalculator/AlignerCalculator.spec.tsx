@@ -13,12 +13,13 @@ import AlignerCalculator from './AlignerCalculatorContainer'
 import AlignerWearInterval from './AlignerWearInterval';
 import AlignerNumbers from './AlignerNumbers';
 import ErrorPanel from '../shared/ErrorPanel';
+import { MidTreatmentModal } from './MidTreatmentModal';
 import * as ActionCreators from './AlignerCalculatorAction';
 import VisitAlignerBuilder from './VisitAlignerBuilder';
 
 const middlewares = [thunk];
 
-describe("<AlignerCalculator/> Days", () => {
+describe("<AlignerCalculator/> First Visit in Days", () => {
     let Component, wrapper, props, spies, dispatchSpy, visitAligner;
 
     beforeEach(() => {
@@ -176,14 +177,17 @@ describe("<AlignerCalculator/> Days", () => {
     });
 
     describe('First upper alinger change ', () => {
-        let errorPanel, component;
+        let errorPanel, component, modal;
 
         beforeEach(() => {
             errorPanel = wrapper.find(ErrorPanel);
             component = wrapper.find('input#firstUpperAligner');
+            modal = wrapper.find(MidTreatmentModal);
         });
 
         it('Should have validation error on change with value greater than plan end', () => {
+            expect(errorPanel.find('li')).to.have.length(0);
+
             component.simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be greater than the plan end');
@@ -196,22 +200,32 @@ describe("<AlignerCalculator/> Days", () => {
         });
 
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
-            component.simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
+            component.simulate('change', { target: { value: 0 } });
             
             expect(errorPanel.find('li').text()).to.equal('First upper aligner can not be less than the plan start or last alinger given');
+        });
+
+        it('Should prompt for mid-treatment patient', () => {
+            expect(modal.props().showModal).to.be.false;
+
+            component.simulate('change', { target: { value: visitAligner.planUpperStart + 1 } });            
+
+            expect(modal.props().showModal).to.be.true;
         });
     });
 
     describe('First lower alinger change ', () => {
-        let errorPanel, component;
+        let errorPanel, component, modal;
 
         beforeEach(() => {
             errorPanel = wrapper.find(ErrorPanel);
             component = wrapper.find('input#firstLowerAligner');
+            modal = wrapper.find(MidTreatmentModal);
         });
 
         it('Should have validation error on change with value greater than plan end', () => {
             expect(errorPanel.find('li')).to.have.length(0);
+
             component.simulate('change', { target: { value: visitAligner.planLowerEnd + 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be greater than the plan end');
@@ -219,6 +233,7 @@ describe("<AlignerCalculator/> Days", () => {
 
         it('Should have validation error on change with value less than plan start', () => {
             expect(errorPanel.find('li')).to.have.length(0);
+
             component.simulate('change', { target: { value: visitAligner.planLowerStart - 1 } });
 
             expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
@@ -227,9 +242,18 @@ describe("<AlignerCalculator/> Days", () => {
         // should be created seperately
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             expect(errorPanel.find('li')).to.have.length(0);
-            component.simulate('change', { target: { value: visitAligner.previousLower - 1 } });
+
+            component.simulate('change', { target: { value: 0 } });
 
             expect(errorPanel.find('li').text()).to.equal('First lower aligner can not be less than the plan start or last alinger given');
+        });
+
+        it('Should prompt for mid-treatment patient', () => {
+            expect(modal.props().showModal).to.be.false;
+
+            component.simulate('change', { target: { value: visitAligner.planLowerStart + 1 } });            
+
+            expect(modal.props().showModal).to.be.true;
         });
     });
 
@@ -242,6 +266,8 @@ describe("<AlignerCalculator/> Days", () => {
         });
 
         it('Should have validation error on change with value greater than plan end', () => {
+            expect(errorPanel.find('li')).to.have.length(0);
+
             component.simulate('change', { target: { value: visitAligner.planUpperEnd + 1 } });
             
             expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be greater than the plan end');
@@ -254,7 +280,7 @@ describe("<AlignerCalculator/> Days", () => {
         });
 
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
-            component.simulate('change', { target: { value: visitAligner.previousUpper - 1 } });
+            component.simulate('change', { target: { value: 0 } });
             
             expect(errorPanel.find('li').text()).to.equal('Last upper aligner can not be less than the plan start or last alinger given');
         });
@@ -288,14 +314,14 @@ describe("<AlignerCalculator/> Days", () => {
         it('Should have validation error on  change with value less than last aligner from previous visit', () => {
             expect(errorPanel.find('li')).to.have.length(0);
 
-            component.simulate('change', { target: { value: visitAligner.previousLower - 1 } });
+            component.simulate('change', { target: { value: 0 } });
 
             expect(errorPanel.find('li').text()).to.equal('Last lower aligner can not be less than the plan start or last alinger given');
         });
     });
 });
 
-describe("<AlignerCalculator/> Weeks", () => {
+describe("<AlignerCalculator/> First Visit in Weeks", () => {
     let Component, wrapper, props, spies, dispatchSpy, visitAligner;
 
     beforeEach(() => {
@@ -361,6 +387,87 @@ describe("<AlignerCalculator/> Weeks", () => {
             component.simulate('change', { target: { value: 0 } });
 
             expect(errorPanel.find('li').text()).to.equal('Wear interval must be greater than or equal to 1');
+        });
+    });
+});
+
+describe("<AlignerCalculator/> Next Visit", () => {
+    let Component, wrapper, props, spies, dispatchSpy, visitAligner;
+
+    beforeEach(() => {
+        dispatchSpy = () => {};
+        spies = {};
+        spies = {
+            updateAligners: (spies.updateAligners = spy()),
+            updateUpperAligners: (spies.updateUpperAligners = spy()),
+            updateVisitInterval: (spies.updateVisitInterval = spy()),
+            onLastLowerAlignerInputChange: (spies.onLastLowerAlignerInputChange = spy()),
+            updateWearIntervalUnit: (spies.updateWearIntervalUnit = spy()),
+            updateLowerAligners: (spies.updateLowerAligners = spy()),
+            updateVisitIntervalUnit: (spies.updateVisitIntervalUnit = spy()),
+            updateWearInterval: (spies.updateWearInterval = spy())        
+        };
+        visitAligner = new VisitAlignerBuilder().WithPreviousLower(4).WithUpperAligners(5, 8)
+                                                .WithPreviousUpper(4).WithLowerAligners(5, 8).Build();
+    
+        const store = configureMockStore(middlewares)({ visitAligner: visitAligner });
+        props = { visitAligner: visitAligner  
+        }
+        
+        wrapper = mount(
+            <Provider store={store} >
+                <AlignerCalculator {...props} />
+            </Provider>
+        );
+
+        Component = wrapper.find(AlignerCalculator);
+    });
+
+    describe('First upper alinger change ', () => {
+        let errorPanel, component, modal;
+
+        beforeEach(() => {
+            errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#firstUpperAligner');
+            modal = wrapper.find(MidTreatmentModal);
+        });
+
+        it('Should have validation error on change with aligners out of order', () => {
+            component.simulate('change', { target: { value: visitAligner.firstUpperAligner + 1 } });
+            
+            expect(errorPanel.find('li').text()).to.equal('Can not apply aligners out of order');
+        });
+
+        it('Should not prompt for mid-treatment patient', () => {
+            expect(modal.props().showModal).to.be.false;
+
+            component.simulate('change', { target: { value: visitAligner.planUpperStart + 1 } });            
+
+            expect(modal.props().showModal).to.be.false;
+        });
+    });
+
+    describe('First lower alinger change ', () => {
+        let errorPanel, component, modal;
+
+        beforeEach(() => {
+            errorPanel = wrapper.find(ErrorPanel);
+            component = wrapper.find('input#firstLowerAligner');
+            modal = wrapper.find(MidTreatmentModal);
+        });
+
+        it('Should have validation error on change with aligners out of order', () => {
+            component.simulate('change', { target: { value: visitAligner.firstLowerAligner + 1 } });
+            
+            expect(errorPanel.find('li').text()).to.equal('Can not apply aligners out of order');
+        });
+
+        it('Should not prompt for mid-treatment patient', () => {
+            expect(modal.props().showModal).to.be.false;
+
+            component.simulate('change', { target: { value: visitAligner.planLowerStart + 1 } });            
+
+            expect(modal.props().showModal).to.be.false;
         });
     });
 });

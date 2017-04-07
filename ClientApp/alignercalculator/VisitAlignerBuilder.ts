@@ -16,11 +16,21 @@ export default class VisitAlignerBuilder {
             planUpperStart : 1,
             planLowerEnd : 40,
             planUpperEnd : 40,
-            previousUpper : 4,
-            previousLower : 4,
-            treatmentVisitInteval : 8,
-            treatmentWearInterval : 2,  
+            previousUpper : 0,
+            previousLower : 0,
+            treatmentVisitInteval : 56,
+            treatmentWearInterval : 14,  
         };
+    }
+
+    WithPreviousUpper (value: number) {
+        this.visitAligner.previousUpper= value;
+        return this;
+    }
+
+    WithPreviousLower (value: number) {
+        this.visitAligner.previousLower= value;
+        return this;
     }
 
     WithVisitInterval (interval : number) {

@@ -44,7 +44,7 @@ const nextVisitAligner: VisitAligner = {
     treatmentWearInterval: 14,
 };
 
-export const reducer: Reducer<VisitAligner> = (state: VisitAligner = nextVisitAligner, action: KnownAction) => {
+export const reducer: Reducer<VisitAligner> = (state: VisitAligner = firstVisitAligner, action: KnownAction) => {
 
     switch (action.type) {
         case 'UPDATE_ALIGNERS':

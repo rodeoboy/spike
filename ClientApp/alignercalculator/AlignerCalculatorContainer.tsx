@@ -320,6 +320,7 @@ function validateWearInterval(visitAligner : VisitAligner) {
     });
 }
 
+// Uses the previous aligner value to determine if this is the first visit or not for maximum value validation
 function validateFirstUpper(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
@@ -328,13 +329,14 @@ function validateFirstUpper(visitAligner : VisitAligner) {
                 maximum : visitAligner.previousUpper == 0? visitAligner.planUpperEnd : visitAligner.previousUpper + 1,
                 messages : {
                     minimum : "First upper aligner can not be less than the plan start or last alinger given",
-                    maximum : "First upper aligner can not be greater than the plan end"
+                    maximum : visitAligner.previousLower == 0? "First upper aligner can not be greater than the plan end" : "Can not apply aligners out of order"
                 }
             }
         }
     });
 }
 
+// Uses the previous aligner value to determine if this is the first visit or not for maximum value validation
 function validateFirstLower(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
@@ -343,7 +345,7 @@ function validateFirstLower(visitAligner : VisitAligner) {
                 maximum : visitAligner.previousLower == 0? visitAligner.planLowerEnd : visitAligner.previousLower + 1,
                 messages : {
                     minimum : "First lower aligner can not be less than the plan start or last alinger given",
-                    maximum : "First lower aligner can not be greater than the plan end"
+                    maximum : visitAligner.previousUpper == 0? "First lower aligner can not be greater than the plan end" : "Can not apply aligners out of order"
                 }
             }
         }
