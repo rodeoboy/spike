@@ -3,30 +3,29 @@ import { Modal, Button } from "react-bootstrap";
 
 export interface MidTreatmentModalProps {
   showModal: boolean;
+  onClose: () => void;
+  onContinue: () => void;
 }
 
 export class MidTreatmentModal extends React.Component<MidTreatmentModalProps, any> {
   constructor(props, context) {
     super(props, context);
-    this.state = { showModal: this.props.showModal };
+    this.close = this.close.bind(this);
+    this.continue = this.continue.bind(this);
   }
 
   close() {
-    this.setState({ showModal: false });
+    this.props.onClose();
   }
 
   continue() {
-    this.setState({ showModal: false });
-  }
-
-  open() {
-    this.setState({ showModal: true });
+    this.props.onContinue();
   }
 
   public render() {
 
     return (<div className="static-modal">
-      <Modal show={this.state.showModal} onHide={this.close}>
+      <Modal show={this.props.showModal} onHide={this.close}>
         <Modal.Header>
           <Modal.Title>Mid-Treatment Patient</Modal.Title>
         </Modal.Header>

@@ -8,9 +8,10 @@ import AlignerNumbers from './AlignerNumbers';
 import * as actions from './AlignerCalculatorAction';
 import { VisitAligner, AlignerProps } from './alignerVisitModel';
 import { KnownAction } from './AlignerCalculatorAction';
+import { MidTreatmentModal } from './MidTreatmentModal';
 import ErrorPanel from '../shared/ErrorPanel';
 import { ApplicationState }  from '../store';
-import {roundDaysToNearestWeek} from '../utils/intervalUtils'
+import { roundDaysToNearestWeek } from '../utils/intervalUtils'
 import FontAwesome = require("react-fontawesome");
 import * as revalidator from 'revalidator'
 import * as moment from 'moment';
@@ -37,6 +38,8 @@ export class AlignerCalculatorContainer extends React.Component<AlignerProps, an
             lastUpperAlignerValidationState: null,
             firstLowerAlignerValidationState: null,
             lastLowerAlignerValidationState: null,
+            openMidTreatment: false,
+            isMidTreatment: false,
             ErrorMessages: []
         };
         this.handleVisitIntervalInput = this.handleVisitIntervalInput.bind(this);
@@ -51,6 +54,8 @@ export class AlignerCalculatorContainer extends React.Component<AlignerProps, an
         this.onVisitIntervalLinkClick = this.onVisitIntervalLinkClick.bind(this);
         this.handleVisitDateChange = this.handleVisitDateChange.bind(this);
         this.onWearIntervalLockClick = this.onWearIntervalLockClick.bind(this);
+        this.handleMidTreatmentClose = this.handleMidTreatmentClose.bind(this);
+        this.handleMidTreatmentContinue = this.handleMidTreatmentContinue.bind(this);
     }
 
     public render() {
@@ -86,8 +91,23 @@ export class AlignerCalculatorContainer extends React.Component<AlignerProps, an
                     onWearIntervalLockClick={this.onWearIntervalLockClick}
                     wearIntervalLockedStyle={this.state.wearIntervalLockedStyle} />
                 <ErrorPanel messages={this.state.ErrorMessages} />
+                <MidTreatmentModal showModal={this.state.openMidTreatment } onClose={this.handleMidTreatmentClose} onContinue={this.handleMidTreatmentContinue}/>
             </div>
         );
+    }
+
+    public handleMidTreatmentClose() : void {
+        let aligners = Object.assign({}, this.props.visitAligner, {firstUpperAligner: this.props.visitAligner.previousUpper + 1, firstLowerAligner: this.props.visitAligner.previousLower + 1});
+    
+        this.setState(aligners);
+        this.props.updateAligners(aligners);
+        this.setState({ openMidTreatment: !this.state.openMidTreatment });
+        this.setState({ isMidTreatment: false});
+    }
+
+    public handleMidTreatmentContinue() : void {
+        this.setState({ openMidTreatment: !this.state.openMidTreatment });
+        this.setState({ isMidTreatment: true});
     }
 
     public onVisitIntervalLinkClick() : void {
@@ -138,6 +158,7 @@ export class AlignerCalculatorContainer extends React.Component<AlignerProps, an
     }
 
     public handleVisitIntervalInput(interval : number) {
+        // If the interval is displayed in weeks convert value back to days for calcuations
         if (!this.props.visitAligner.visitIntervalInDays) interval *= 7;
         let aligner = Object.assign({}, this.props.visitAligner, { visitInterval: interval });
         let validation = validateVisitInterval(aligner);
@@ -194,9 +215,10 @@ export class AlignerCalculatorContainer extends React.Component<AlignerProps, an
 
     handleFirstUpperInput(alignerNumber : number) {
         let validation;
-        // Should do this on blur/enter to make sure user is complete with the update
-        if(alignerNumber > this.props.visitAligner.previousLower) {
-            this.state.openMidTreatment = true;
+        // If this is the first visit verify if mid treatment patient
+        if(alignerNumber > this.props.visitAligner.planUpperStart && !this.state.isMidTreatment &&
+            this.props.visitAligner.planUpperStart === this.props.visitAligner.previousUpper + 1 ) {            
+            this.setState({openMidTreatment : true});
         }
 
         if(this.state.isUpperLowerAlignersLinked) {
@@ -232,6 +254,11 @@ export class AlignerCalculatorContainer extends React.Component<AlignerProps, an
     }
 
     handleFirstLowerInput(alignerNumber : number) {
+        // If this is the first visit verify if mid treatment patient
+        if(alignerNumber > this.props.visitAligner.planLowerStart && !this.state.isMidTreatment &&
+            this.props.visitAligner.planLowerStart === this.props.visitAligner.previousLower + 1 ) {            
+            this.setState({openMidTreatment : true});
+        }
         let aligner = Object.assign({}, this.props.visitAligner, {firstLowerAligner: alignerNumber});
         let validation = validateFirstLower(aligner);
         this.setState(aligner);
@@ -297,8 +324,8 @@ function validateFirstUpper(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             firstUpperAligner : {
-                minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
-                maximum : visitAligner.planUpperEnd,
+                minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper + 1,
+                maximum : visitAligner.previousUpper == 0? visitAligner.planUpperEnd : visitAligner.previousUpper + 1,
                 messages : {
                     minimum : "First upper aligner can not be less than the plan start or last alinger given",
                     maximum : "First upper aligner can not be greater than the plan end"
@@ -312,8 +339,8 @@ function validateFirstLower(visitAligner : VisitAligner) {
     return revalidator.validate(visitAligner, {
         properties : {
             firstLowerAligner : {
-                minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower,
-                maximum : visitAligner.planLowerEnd,
+                minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower + 1,
+                maximum : visitAligner.previousLower == 0? visitAligner.planLowerEnd : visitAligner.previousLower + 1,
                 messages : {
                     minimum : "First lower aligner can not be less than the plan start or last alinger given",
                     maximum : "First lower aligner can not be greater than the plan end"
@@ -328,7 +355,7 @@ function validateLastUpper(visitAligner : VisitAligner) {
         properties : {
             lastUpperAligner : {
                 allowEmpty : !(visitAligner.firstUpperAligner > 0),
-                minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper,
+                minimum : visitAligner.previousUpper == 0? visitAligner.planUpperStart : visitAligner.previousUpper + 1,
                 maximum : visitAligner.planUpperEnd,
                 messages : {
                     minimum : "Last upper aligner can not be less than the plan start or last alinger given",
@@ -345,7 +372,7 @@ function validateLastLower(visitAligner : VisitAligner) {
         properties : {
             lastLowerAligner : {
                 allowEmpty : !(visitAligner.firstLowerAligner > 0),
-                minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower,
+                minimum : visitAligner.previousLower == 0? visitAligner.planLowerStart : visitAligner.previousLower + 1,
                 maximum : visitAligner.planLowerEnd,
                 messages : {
                     minimum : "Last lower aligner can not be less than the plan start or last alinger given",

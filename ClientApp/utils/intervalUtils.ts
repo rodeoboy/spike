@@ -9,6 +9,7 @@ export function handleNumber(value, func) {
         debounce(500, func(value));
 }
 
+//takes a interval in days and returns value in days rounded to nearest week
 export function roundDaysToNearestWeek(interval : number) {
     let weeks = Math.floor(interval / 7);
     const weeksRoundUpValue = 2;

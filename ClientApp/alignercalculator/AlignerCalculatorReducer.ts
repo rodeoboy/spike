@@ -4,7 +4,8 @@ import { VisitAligner } from './alignerVisitModel';
 import { roundDaysToNearestWeek } from '../utils/intervalUtils';
 
 // This default values can be removed when state rehydrated or initiated from the service
-const visitAligner: VisitAligner = {
+// firstVisitAligner represents state of a first visit (can start mid treatment patient)
+const firstVisitAligner: VisitAligner = {
     visitInterval: 56,
     visitIntervalInDays: true,
     wearInterval: 14,
@@ -19,14 +20,31 @@ const visitAligner: VisitAligner = {
     planUpperEnd: 40,
     previousUpper: 0,
     previousLower: 0,
-    treatmentVisitInteval: 8,
-    treatmentWearInterval: 2,
-    isMidTreatment: false,
+    treatmentVisitInteval: 56,
+    treatmentWearInterval: 14,
 };
 
-const INITIAL_STATE = { visitAligner: visitAligner };
+// nextVisitAligner represents state when past the first visit (can not start mid treatment patient)
+const nextVisitAligner: VisitAligner = {
+    visitInterval: 56,
+    visitIntervalInDays: true,
+    wearInterval: 14,
+    wearIntervalInDays: true,
+    firstUpperAligner: 5,
+    lastUpperAligner: 8,
+    firstLowerAligner: 5,
+    lastLowerAligner: 8,
+    planLowerStart: 1,
+    planUpperStart: 1,
+    planLowerEnd: 40,
+    planUpperEnd: 40,
+    previousUpper: 4,
+    previousLower: 4,
+    treatmentVisitInteval: 56,
+    treatmentWearInterval: 14,
+};
 
-export const reducer: Reducer<VisitAligner> = (state: VisitAligner = visitAligner, action: KnownAction) => {
+export const reducer: Reducer<VisitAligner> = (state: VisitAligner = nextVisitAligner, action: KnownAction) => {
 
     switch (action.type) {
         case 'UPDATE_ALIGNERS':

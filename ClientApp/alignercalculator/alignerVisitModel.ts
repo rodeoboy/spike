@@ -27,5 +27,4 @@ export interface VisitAligner {
     previousLower : number;
     treatmentVisitInteval : number;
     treatmentWearInterval : number;
-    isMidTreatment : boolean;
 }
